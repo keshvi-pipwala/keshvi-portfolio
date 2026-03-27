@@ -3,11 +3,11 @@ export const PROFILE = {
   tagline: 'AI/Data Product Manager · Software Engineer · Data Scientist',
   bio: 'Impact-driven Product Manager and Data Scientist building scalable, AI-powered platforms across NASA, academic labs, and enterprise systems. Expert in Python, SQL, ML, and LLMs. Passionate about leveraging data to drive product innovation and deliver measurable value.',
   location: 'Tempe, Arizona, USA · She/Her',
-  email: 'kpipwala@asu.edu',
+  email: 'keshvipipwalan@gmail.com',
   phone: '+1 (602) 516-3404',
   linkedin: 'https://www.linkedin.com/in/keshvi-pipwala-5a7bb0247/',
   previousPortfolio: 'https://vo-personal-portfolio-keshvipipwala.vercel.app/',
-  photo: null, // Replace with '/me.jpg' after adding your photo to public/
+  photo: '/keshvi.jpeg',
 }
 
 export const EXPERIENCE = [
@@ -215,10 +215,10 @@ RESPONSE STYLE:
 - For availability details, direct to kpipwala@asu.edu`
 
 export const CHAT_SUGGESTIONS = [
-  'Is Keshvi a fit for a PM role? Show evidence.',
-  'Summarize her top achievements with metrics.',
-  'What technical skills has she used in production?',
-  'Generate a 4-line recruiter summary with experience level.',
-  'What are 5 interview questions to validate her depth?',
-  'What roles fit her best?',
+  'Why should I hire her over 1,000 other candidates?',
+  'Is she ready for a senior role at Google or Meta?',
+  'Give me 5 metrics that prove her impact.',
+  'What can she do that most engineers cannot?',
+  'Summarize her in 3 sentences for my hiring manager.',
+  'What are her actual weaknesses?',
 ]
