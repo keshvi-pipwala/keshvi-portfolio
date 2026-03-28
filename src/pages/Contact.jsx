@@ -19,7 +19,7 @@ export default function Contact() {
 
       <div style={{ marginBottom:'32px' }}>
         <p style={{ fontSize:'11px', letterSpacing:'.3em', textTransform:'uppercase', color:'rgba(167,143,255,.8)', marginBottom:'8px', fontWeight:600 }}>GET IN TOUCH</p>
-        <h1 style={{ fontSize:'clamp(28px,4vw,44px)', fontWeight:800, letterSpacing:'-.025em', lineHeight:1.1, marginBottom:'10px' }}>Let's Talk</h1>
+        <h1 style={{ fontSize:'clamp(28px,4vw,44px)', fontWeight:800, letterSpacing:'-.025em', lineHeight:1.1, marginBottom:'10px' }}>{"Let's Talk"}</h1>
         <p style={{ fontSize:'14px', color:'rgba(255,255,255,.45)', lineHeight:1.7 }}>Open to SWE, PM, and data roles. I respond to clear, specific messages.</p>
       </div>
 
