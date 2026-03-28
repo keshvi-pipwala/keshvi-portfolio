@@ -41,3 +41,5 @@ body{background:#05050a;color:#fff;font-family:'Inter',-apple-system,sans-serif;
 .mob-link.active{color:rgba(167,143,255,.95);}
 .mob-link-icon{font-size:18px;}
 @media(max-width:768px){.sidebar{display:none;}.mob-nav{display:block;}.page-area{left:0;bottom:62px;}.hide-mobile{display:none!important;}.page-pad{padding-left:20px!important;padding-right:20px!important;}.scan-line{left:0;}.chat-fab{bottom:80px;right:16px;padding:11px 16px;}.chat-fab-text{display:none;}}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
