@@ -6,7 +6,7 @@ import Experience from './pages/Experience'
 import Projects   from './pages/Projects'
 import Education  from './pages/Education'
 import Contact    from './pages/Contact'
-import RecruiterChat from './components/RecruiterChat'
+
 
 const NAV = [
   { to:'/',           label:'Home',       icon:'⬡' },
@@ -46,7 +46,7 @@ export default function App() {
   const location=useLocation()
   const [scanKey,setScanKey]=useState(0)
   const [pageKey,setPageKey]=useState(0)
-  const [chatOpen,setChatOpen]=useState(false)
+ 
   useEffect(()=>{setScanKey(k=>k+1);setPageKey(k=>k+1);const el=document.querySelector('.page-area');if(el)el.scrollTop=0},[location.pathname])
   return (
     <>
@@ -75,11 +75,7 @@ export default function App() {
           {NAV.map(n=><NavLink key={n.to} to={n.to} end={n.to==='/'} className={({isActive})=>'mob-link'+(isActive?' active':'')}><span className="mob-link-icon">{n.icon}</span><span>{n.label}</span></NavLink>)}
         </div>
       </nav>
-      <button className="chat-fab" onClick={()=>setChatOpen(true)}>
-        <span className="chat-fab-icon">💬</span>
-        <span className="chat-fab-text">Ask about Keshvi</span>
-      </button>
-      <RecruiterChat isOpen={chatOpen} onClose={()=>setChatOpen(false)}/>
+    
     </>
   )
 }
