@@ -1,43 +1,40 @@
 export default async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
+  const { messages, system } = req.body
+  const key = process.env.GEMINI_API_KEY
+
+  if (!key) return res.status(500).json({ error: 'API key not configured' })
+
   try {
-    const { messages, system } = req.body
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'messages array required' })
-    }
+    const history = messages.slice(0, -1).map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }))
+    const lastMsg = messages[messages.length - 1].content
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: system || '',
-        messages,
-      }),
-    })
-
-    if (!response.ok) {
-      const err = await response.text()
-      return res.status(response.status).json({ error: err })
-    }
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: system }] },
+          contents: [...history, { role:'user', parts:[{ text: lastMsg }] }],
+          generationConfig: { maxOutputTokens: 800, temperature: 0.7 }
+        })
+      }
+    )
 
     const data = await response.json()
-    const reply = data.content?.map(b => b.text || '').join('') || ''
-    return res.status(200).json({ reply })
-
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.'
+    res.status(200).json({ text })
   } catch (err) {
-    console.error('Chat API error:', err)
-    return res.status(500).json({ error: 'Internal server error' })
+    res.status(500).json({ error: 'Failed to get response' })
   }
 }
