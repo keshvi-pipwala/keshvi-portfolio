@@ -23,8 +23,8 @@ export default async function handler(req, res) {
       }))
     ]
 
-    // Use v1beta with gemini-1.5-flash-002 which works with AI Studio keys
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/ggemini-1.5-flash-002:generateContent?key=' + key
+    const model = 'gemini-1.5-flash-latest'
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + key
 
     const response = await fetch(url, {
       method: 'POST',
