@@ -29,11 +29,14 @@ export default function Education() {
       <h2 style={{fontSize:'20px',fontWeight:700,marginBottom:'16px'}}>Certifications</h2>
       <div style={{display:'flex',flexWrap:'wrap',gap:'14px'}}>
         {certs.map((c,i) => (
-          <div key={i} style={{borderRadius:'16px',border:'1px solid '+(c.border||'rgba(255,255,255,.2)'),background:c.color||'rgba(255,255,255,.05)',padding:'16px 20px',minWidth:'240px',flex:1}}>
+          <a key={i} href={c.url||'#'} target="_blank" rel="noreferrer" style={{borderRadius:'16px',border:'1px solid '+(c.border||'rgba(255,255,255,.2)'),background:c.color||'rgba(255,255,255,.05)',padding:'16px 20px',minWidth:'240px',flex:1,textDecoration:'none',display:'block',transition:'transform .18s,box-shadow .18s',cursor:'pointer'}} onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow='0 8px 24px rgba(0,0,0,.3)'}} onMouseLeave={e=>{e.currentTarget.style.transform='translateY(0)';e.currentTarget.style.boxShadow='none'}}>
             <div style={{fontSize:'10px',fontWeight:700,letterSpacing:'.12em',textTransform:'uppercase',color:c.border||'rgba(255,255,255,.7)',marginBottom:'5px'}}>{c.issuer}</div>
             <div style={{fontSize:'13px',color:'rgba(255,255,255,.84)',fontWeight:600,marginBottom:'4px'}}>{c.name}</div>
-            <div style={{fontSize:'11px',color:'rgba(255,255,255,.38)'}}>Issued {c.date}</div>
-          </div>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+              <div style={{fontSize:'11px',color:'rgba(255,255,255,.38)'}}>Issued {c.date}</div>
+              <div style={{fontSize:'11px',color:c.border||'rgba(255,255,255,.5)',fontWeight:600}}>View ↗</div>
+            </div>
+          </a>
         ))}
       </div>
     </div>
