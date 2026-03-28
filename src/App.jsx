@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
-import Home       from './pages/Home'
-import About      from './pages/About'
+import Home from './pages/Home'
+import About from './pages/About'
 import Experience from './pages/Experience'
-import Projects   from './pages/Projects'
-import Education  from './pages/Education'
-import Contact    from './pages/Contact'
-
+import Projects from './pages/Projects'
+import Education from './pages/Education'
+import Contact from './pages/Contact'
 
 const NAV = [
-  { to:'/',           label:'Home',       icon:'⬡' },
-  { to:'/about',      label:'About',      icon:'◈' },
+  { to:'/', label:'Home', icon:'⬡' },
+  { to:'/about', label:'About', icon:'◈' },
   { to:'/experience', label:'Experience', icon:'◎' },
-  { to:'/projects',   label:'Projects',   icon:'◆' },
-  { to:'/education',  label:'Education',  icon:'◉' },
-  { to:'/contact',    label:'Contact',    icon:'◇' },
+  { to:'/projects', label:'Projects', icon:'◆' },
+  { to:'/education', label:'Education', icon:'◉' },
+  { to:'/contact', label:'Contact', icon:'◇' },
 ]
 
 function Particles() {
@@ -46,7 +45,6 @@ export default function App() {
   const location=useLocation()
   const [scanKey,setScanKey]=useState(0)
   const [pageKey,setPageKey]=useState(0)
- 
   useEffect(()=>{setScanKey(k=>k+1);setPageKey(k=>k+1);const el=document.querySelector('.page-area');if(el)el.scrollTop=0},[location.pathname])
   return (
     <>
@@ -75,7 +73,10 @@ export default function App() {
           {NAV.map(n=><NavLink key={n.to} to={n.to} end={n.to==='/'} className={({isActive})=>'mob-link'+(isActive?' active':'')}><span className="mob-link-icon">{n.icon}</span><span>{n.label}</span></NavLink>)}
         </div>
       </nav>
-    
+      <a href="mailto:keshvipipwalan@gmail.com" style={{position:'fixed',bottom:'28px',right:'28px',zIndex:200,display:'flex',alignItems:'center',gap:'10px',background:'linear-gradient(135deg,rgba(124,122,207,.88),rgba(64,202,255,.65))',border:'1px solid rgba(124,122,207,.65)',borderRadius:'50px',padding:'13px 22px',cursor:'pointer',backdropFilter:'blur(12px)',textDecoration:'none',color:'#fff',animation:'fabPulse 3s ease-in-out infinite'}}>
+        <span style={{fontSize:'18px'}}>💬</span>
+        <span style={{fontSize:'13px',fontWeight:700,letterSpacing:'.02em'}}>Ask about Keshvi</span>
+      </a>
     </>
   )
 }
