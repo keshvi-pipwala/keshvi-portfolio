@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       { role: 'model', parts: [{ text: 'Understood.' }] }
     ]
     const contents = [...systemTurn, ...messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }))]
-    const model = 'gemini-1.5-flash-latest'
+    const model = 'gemini-2.5-flash'
     const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + key
     const response = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ contents, generationConfig:{ maxOutputTokens:800, temperature:0.7 } }) })
     const data = await response.json()
