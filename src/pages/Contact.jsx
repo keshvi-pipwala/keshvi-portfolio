@@ -19,10 +19,23 @@ export default function Contact() {
   const [form, setForm] = useState({ name:'', email:'', message:'' })
   const [sent, setSent] = useState(false)
 
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault()
-    window.location.href = 'mailto:' + PROFILE.email + '?subject=Reaching out — ' + encodeURIComponent(form.name) + '&body=' + encodeURIComponent(form.message)
-    setSent(true)
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, email: form.email, message: form.message })
+      })
+      const data = await res.json()
+      if (data.ok) {
+        setSent(true)
+      } else {
+        alert('Could not send message. Please email keshvipipwalan@gmail.com directly.')
+      }
+    } catch {
+      alert('Could not send message. Please email keshvipipwalan@gmail.com directly.')
+    }
   }
 
   return (
