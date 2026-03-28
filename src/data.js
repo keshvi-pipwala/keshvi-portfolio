@@ -21,9 +21,9 @@ export const EDUCATION = [
   { school:'Gujarat Technology University', degree:'B.E. Computer Engineering', meta:'Aug 2021 – Jun 2024 · Surat, India', gpa:'3.8 / 4.0', star:false, note:'Founded Kaleidoscope — a student tech community that ran workshops, events, and hackathons from scratch.' },
 ]
 export const CERTIFICATIONS = [
-  { issuer:'Amazon Web Services', name:'AWS Academy — Data Engineering', date:'Sep 2025', color:'rgba(255,153,0,0.1)', border:'rgba(255,153,0,0.35)' },
-  { issuer:'Amazon Web Services', name:'AWS Academy — ML Foundations', date:'Nov 2025', color:'rgba(255,153,0,0.1)', border:'rgba(255,153,0,0.35)' },
-  { issuer:'Kaggle', name:'Python Coder Badge', date:'Apr 2025', color:'rgba(32,178,170,0.1)', border:'rgba(32,178,170,0.35)' },
+  { issuer:'Amazon Web Services', name:'AWS Academy — Data Engineering', date:'Sep 2025', color:'rgba(255,153,0,0.1)', border:'rgba(255,153,0,0.35)', url:'https://www.credly.com/badges/4c16233e-6f16-4c34-ba88-d2bdf5d21fbf' },
+  { issuer:'Amazon Web Services', name:'AWS Academy — ML Foundations', date:'Nov 2025', color:'rgba(255,153,0,0.1)', border:'rgba(255,153,0,0.35)', url:'https://www.credly.com/badges/4c16233e-6f16-4c34-ba88-d2bdf5d21fbf/public_url' },
+  { issuer:'Kaggle', name:'Python Coder Badge', date:'Apr 2025', color:'rgba(32,178,170,0.1)', border:'rgba(32,178,170,0.35)', url:'https://www.kaggle.com/certification/badges/keshvipipwala/30' },
 ]
 export const SKILLS = {
   'Languages & Core':['Python','SQL','JavaScript','TypeScript','Bash','C++'],
