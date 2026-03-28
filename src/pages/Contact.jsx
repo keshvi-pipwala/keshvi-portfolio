@@ -47,9 +47,7 @@ export default function Contact() {
           ))}
 
           <div style={{ marginTop:'8px', padding:'20px', borderRadius:'16px', border:'1px solid rgba(167,143,255,.2)', background:'linear-gradient(135deg,rgba(124,122,207,.08),rgba(64,202,255,.04))' }}>
-            <div style={{ fontSize:'12px', color:'rgba(255,255,255,.4)', lineHeight:1.75 }}>
-              Currently in <strong style={{ color:'rgba(167,143,255,.85)' }}>Tempe, AZ</strong> — open to remote, hybrid, or relocation for the right opportunity. Graduating <strong style={{ color:'rgba(167,143,255,.85)' }}>May 2026</strong>.
-            </div>
+            
           </div>
         </div>
 
