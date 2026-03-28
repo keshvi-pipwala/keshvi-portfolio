@@ -64,7 +64,7 @@ export default function Projects() {
             <div style={{ padding:'20px 22px', flex:1, display:'flex', flexDirection:'column' }}>
               <div style={{ fontWeight:700, fontSize:'15.5px', letterSpacing:'-.015em', marginBottom:'2px' }}>{proj.title}</div>
               <div style={{ fontSize:'11.5px', color:'rgba(255,255,255,.42)', marginBottom:'10px' }}>{proj.subtitle}</div>
-              <p style={{ fontSize:'13px', color:'rgba(64,202,255,.85)', fontWeight:600, marginBottom:'10px', fontStyle:'italic', lineHeight:1.55 }}>"{proj.tagline}"</p>
+              <p style={{ fontSize:'13px', color:'rgba(64,202,255,.85)', fontWeight:600, marginBottom:'10px', fontStyle:'italic', lineHeight:1.55 }}>{proj.tagline}</p>
               <div style={{ background:'rgba(0,0,0,.25)', border:'1px solid rgba(255,255,255,.07)', borderRadius:'11px', padding:'10px 13px', fontSize:'12px', color:'rgba(255,255,255,.7)', marginBottom:'12px', lineHeight:1.65 }}>
                 <span style={{ color:'rgba(255,255,255,.38)', fontSize:'10.5px', textTransform:'uppercase', letterSpacing:'.08em', fontWeight:700 }}>Impact · </span>
                 {bold(proj.impact)}
