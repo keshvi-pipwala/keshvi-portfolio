@@ -9,32 +9,41 @@ export default async function handler(req, res) {
   const { messages, system } = req.body
   const key = process.env.GEMINI_API_KEY
 
-  if (!key) return res.status(500).json({ error: 'API key not configured' })
+  if (!key) return res.status(500).json({ text: 'API key not configured on server.' })
 
   try {
-    const history = messages.slice(0, -1).map(m => ({
+    const contents = messages.map(m => ({
       role: m.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: m.content }]
     }))
-    const lastMsg = messages[messages.length - 1].content
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: system }] },
-          contents: [...history, { role:'user', parts:[{ text: lastMsg }] }],
-          generationConfig: { maxOutputTokens: 800, temperature: 0.7 }
-        })
-      }
-    )
+    const body = {
+      system_instruction: { parts: [{ text: system }] },
+      contents,
+      generationConfig: { maxOutputTokens: 800, temperature: 0.7 }
+    }
+
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + key
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    })
 
     const data = await response.json()
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.'
+
+    if (!response.ok) {
+      return res.status(200).json({ text: 'API error: ' + (data.error?.message || response.status) })
+    }
+
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text
+    if (!text) {
+      return res.status(200).json({ text: 'No response from Gemini. Raw: ' + JSON.stringify(data).slice(0,200) })
+    }
+
     res.status(200).json({ text })
   } catch (err) {
-    res.status(500).json({ error: 'Failed to get response' })
+    res.status(200).json({ text: 'Server error: ' + err.message })
   }
 }
