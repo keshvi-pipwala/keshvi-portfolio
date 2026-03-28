@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { PROFILE } from '../data'
 
-const INP = { width:'100%', background:'rgba(0,0,0,.22)', border:'1px solid rgba(255,255,255,.1)', borderRadius:'12px', padding:'11px 14px', color:'#fff', fontSize:'13px', fontFamily:'inherit', outline:'none', resize:'vertical' }
-const LBL = { fontSize:'11px', color:'rgba(255,255,255,.52)', marginBottom:'5px', display:'block', fontWeight:600, letterSpacing:'.06em', textTransform:'uppercase' }
+const LBL = { fontSize:'11px', color:'rgba(255,255,255,.45)', marginBottom:'6px', display:'block', fontWeight:600, letterSpacing:'.08em', textTransform:'uppercase' }
+const INP = { width:'100%', background:'rgba(255,255,255,.04)', border:'1px solid rgba(255,255,255,.1)', borderRadius:'12px', padding:'12px 16px', color:'#fff', fontSize:'14px', fontFamily:'inherit', outline:'none', boxSizing:'border-box' }
 
 export default function Contact() {
   const [form, setForm] = useState({ name:'', email:'', message:'' })
@@ -10,57 +10,75 @@ export default function Contact() {
 
   function submit(e) {
     e.preventDefault()
-    window.location.href = 'mailto:'+PROFILE.email+'?subject=Portfolio Inquiry from '+encodeURIComponent(form.name)+'&body='+encodeURIComponent(form.message)
+    window.location.href = 'mailto:'+PROFILE.email+'?subject=Reaching out from your portfolio — '+encodeURIComponent(form.name)+'&body='+encodeURIComponent(form.message)
     setSent(true)
   }
 
   return (
-    <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'44px 28px 60px', maxWidth:'800px', margin:'0 auto' }} className="page-pad">
-      <div style={{ marginBottom:'32px' }}>
-        <p style={{ fontSize:'11px', letterSpacing:'.3em', textTransform:'uppercase', color:'rgba(167,143,255,.8)', marginBottom:'8px', fontWeight:600 }}>GET IN TOUCH</p>
-        <h1 style={{ fontSize:'clamp(28px,4vw,44px)', fontWeight:800, letterSpacing:'-.025em', lineHeight:1.1, marginBottom:'10px' }}>{"Let's Talk"}</h1>
-        <p style={{ fontSize:'14px', color:'rgba(255,255,255,.45)', lineHeight:1.7 }}>Open to SWE, PM, and data roles.</p>
+    <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'60px 40px', maxWidth:'900px', margin:'0 auto' }} className="page-pad">
+
+      <div style={{ marginBottom:'48px' }}>
+        <p style={{ fontSize:'11px', letterSpacing:'.3em', textTransform:'uppercase', color:'rgba(167,143,255,.7)', marginBottom:'10px', fontWeight:600 }}>CONTACT</p>
+        <h1 style={{ fontSize:'clamp(32px,5vw,56px)', fontWeight:900, letterSpacing:'-.03em', lineHeight:1.05, marginBottom:'16px' }}>
+          {"Let's build"}<br/>
+          <span style={{ background:'linear-gradient(135deg,#a78fff,#40caff)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>something great.</span>
+        </h1>
+        <p style={{ fontSize:'15px', color:'rgba(255,255,255,.45)', lineHeight:1.75, maxWidth:'480px' }}>
+          Open to SWE, AI/PM, and data engineering roles. I respond to every message that tells me what you are building and why it matters.
+        </p>
       </div>
-      <div style={{ display:'flex', gap:'10px', flexWrap:'wrap', marginBottom:'36px' }}>
-        {[
-          { label:'Email', value:PROFILE.email, href:'mailto:'+PROFILE.email, icon:'✉️' },
-          { label:'LinkedIn', value:'linkedin.com/in/keshvi-pipwala', href:PROFILE.linkedin, icon:'💼' },
-          { label:'GitHub', value:'github.com/keshvi-pipwala', href:PROFILE.github, icon:'⚡' },
-        ].map(c => (
-          <a key={c.label} href={c.href} target="_blank" rel="noreferrer"
-            style={{ display:'inline-flex', alignItems:'center', gap:'8px', border:'1px solid rgba(255,255,255,.1)', background:'rgba(255,255,255,.05)', borderRadius:'12px', padding:'10px 16px', color:'rgba(255,255,255,.8)', textDecoration:'none', fontSize:'13px' }}>
-            <span>{c.icon}</span>
-            <span style={{ fontWeight:600 }}>{c.label}</span>
-            <span style={{ color:'rgba(255,255,255,.4)', fontSize:'12px' }}>{c.value}</span>
-          </a>
-        ))}
-      </div>
-      {sent ? (
-        <div style={{ borderRadius:'20px', border:'1px solid rgba(100,220,100,.35)', background:'rgba(100,220,100,.08)', padding:'32px', textAlign:'center' }}>
-          <div style={{ fontSize:'40px', marginBottom:'12px' }}>✅</div>
-          <div style={{ fontWeight:700, fontSize:'18px', marginBottom:'8px' }}>Email client opened!</div>
+
+      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'48px', alignItems:'start' }}>
+
+        <div style={{ display:'flex', flexDirection:'column', gap:'16px' }}>
+          {[
+            { icon:'✉️', label:'Email', value:PROFILE.email, href:'mailto:'+PROFILE.email },
+            { icon:'💼', label:'LinkedIn', value:'keshvi-pipwala', href:PROFILE.linkedin },
+            { icon:'⚡', label:'GitHub', value:'keshvi-pipwala', href:PROFILE.github },
+          ].map(c => (
+            <a key={c.label} href={c.href} target="_blank" rel="noreferrer"
+              style={{ display:'flex', alignItems:'center', gap:'16px', padding:'16px 20px', borderRadius:'16px', border:'1px solid rgba(255,255,255,.08)', background:'rgba(255,255,255,.03)', textDecoration:'none', transition:'border-color .2s' }}>
+              <span style={{ fontSize:'22px', width:'40px', height:'40px', borderRadius:'12px', background:'rgba(124,122,207,.15)', border:'1px solid rgba(124,122,207,.3)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>{c.icon}</span>
+              <div>
+                <div style={{ fontSize:'11px', color:'rgba(255,255,255,.35)', fontWeight:600, letterSpacing:'.06em', textTransform:'uppercase', marginBottom:'2px' }}>{c.label}</div>
+                <div style={{ fontSize:'14px', color:'rgba(255,255,255,.85)', fontWeight:500 }}>{c.value}</div>
+              </div>
+            </a>
+          ))}
+
+          <div style={{ marginTop:'8px', padding:'20px', borderRadius:'16px', border:'1px solid rgba(167,143,255,.2)', background:'linear-gradient(135deg,rgba(124,122,207,.08),rgba(64,202,255,.04))' }}>
+            <div style={{ fontSize:'12px', color:'rgba(255,255,255,.4)', lineHeight:1.75 }}>
+              Currently in <strong style={{ color:'rgba(167,143,255,.85)' }}>Tempe, AZ</strong> — open to remote, hybrid, or relocation for the right opportunity. Graduating <strong style={{ color:'rgba(167,143,255,.85)' }}>May 2026</strong>.
+            </div>
+          </div>
         </div>
-      ) : (
-        <form onSubmit={submit} style={{ display:'flex', flexDirection:'column', gap:'14px' }}>
-          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'14px' }}>
+
+        {sent ? (
+          <div style={{ borderRadius:'20px', border:'1px solid rgba(100,220,100,.3)', background:'rgba(100,220,100,.06)', padding:'40px', textAlign:'center' }}>
+            <div style={{ fontSize:'48px', marginBottom:'16px' }}>🎉</div>
+            <div style={{ fontWeight:700, fontSize:'20px', marginBottom:'8px' }}>Email client opened!</div>
+            <div style={{ color:'rgba(255,255,255,.45)', fontSize:'14px' }}>Looking forward to speaking with you.</div>
+          </div>
+        ) : (
+          <form onSubmit={submit} style={{ display:'flex', flexDirection:'column', gap:'18px' }}>
             <div>
-              <label style={LBL}>NAME</label>
-              <input style={INP} required value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} placeholder="Your name" />
+              <label style={LBL}>Your Name</label>
+              <input style={INP} required value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} placeholder="First and last name" />
             </div>
             <div>
-              <label style={LBL}>EMAIL</label>
-              <input style={INP} required type="email" value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))} placeholder="your@email.com" />
+              <label style={LBL}>Email Address</label>
+              <input style={INP} required type="email" value={form.email} onChange={e=>setForm(f=>({...f,email:e.target.value}))} placeholder="you@company.com" />
             </div>
-          </div>
-          <div>
-            <label style={LBL}>MESSAGE</label>
-            <textarea style={INP} required rows={5} value={form.message} onChange={e=>setForm(f=>({...f,message:e.target.value}))} placeholder="Tell me about the role..." />
-          </div>
-          <button type="submit" style={{ alignSelf:'flex-start', padding:'13px 32px', borderRadius:'14px', background:'linear-gradient(135deg,rgba(124,122,207,.35),rgba(64,202,255,.22))', border:'1px solid rgba(124,122,207,.5)', color:'#fff', fontSize:'14px', fontWeight:700, cursor:'pointer', fontFamily:'inherit' }}>
-            Send Message
-          </button>
-        </form>
-      )}
+            <div>
+              <label style={LBL}>What are you building?</label>
+              <textarea style={{...INP, resize:'vertical'}} required rows={5} value={form.message} onChange={e=>setForm(f=>({...f,message:e.target.value}))} placeholder="Tell me about the role, the team, and what problem you are solving. The more specific you are, the better my response." />
+            </div>
+            <button type="submit" style={{ padding:'14px 36px', borderRadius:'14px', background:'linear-gradient(135deg,rgba(124,122,207,.5),rgba(64,202,255,.35))', border:'1px solid rgba(124,122,207,.6)', color:'#fff', fontSize:'14px', fontWeight:700, cursor:'pointer', fontFamily:'inherit', letterSpacing:'.02em' }}>
+              Send Message →
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   )
 }
