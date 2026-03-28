@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { CHAT_SYSTEM_PROMPT, CHAT_SUGGESTIONS } from '../data'
+import { CHAT_SYSTEM_PROMPT = '', CHAT_SUGGESTIONS = [] } from '../data'
 
 function formatAI(text) {
   return text.split(/\*\*([^*]+)\*\*/g).map((p, i) =>
