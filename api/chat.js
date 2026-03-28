@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const { messages, system } = req.body
   const key = process.env.GEMINI_API_KEY
 
-  if (!key) return res.status(500).json({ text: 'API key not configured on server.' })
+  if (!key) return res.status(200).json({ text: 'API key not configured.' })
 
   try {
     const contents = messages.map(m => ({
@@ -17,18 +17,16 @@ export default async function handler(req, res) {
       parts: [{ text: m.content }]
     }))
 
-    const body = {
-      system_instruction: { parts: [{ text: system }] },
-      contents,
-      generationConfig: { maxOutputTokens: 800, temperature: 0.7 }
-    }
-
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + key
+    const url = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=' + key
 
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: system }] },
+        contents,
+        generationConfig: { maxOutputTokens: 800, temperature: 0.7 }
+      })
     })
 
     const data = await response.json()
@@ -38,11 +36,7 @@ export default async function handler(req, res) {
     }
 
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text
-    if (!text) {
-      return res.status(200).json({ text: 'No response from Gemini. Raw: ' + JSON.stringify(data).slice(0,200) })
-    }
-
-    res.status(200).json({ text })
+    res.status(200).json({ text: text || 'No response generated.' })
   } catch (err) {
     res.status(200).json({ text: 'Server error: ' + err.message })
   }
