@@ -10,10 +10,9 @@ export default async function handler(req, res) {
   if (!key) return res.status(200).json({ text: 'API key not configured.' })
 
   try {
-    // Inject system prompt as first user/model exchange
     const systemTurn = [
-      { role: 'user', parts: [{ text: 'You are an AI assistant. Here are your instructions: ' + system }] },
-      { role: 'model', parts: [{ text: 'Understood. I will follow these instructions.' }] }
+      { role: 'user', parts: [{ text: 'Instructions: ' + system }] },
+      { role: 'model', parts: [{ text: 'Understood. I will follow these instructions precisely.' }] }
     ]
 
     const contents = [
@@ -24,7 +23,8 @@ export default async function handler(req, res) {
       }))
     ]
 
-    const url = 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=' + key
+    // Use v1beta with gemini-2.0-flash-exp which works with AI Studio keys
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=' + key
 
     const response = await fetch(url, {
       method: 'POST',
