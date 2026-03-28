@@ -59,6 +59,7 @@ function Inner() {
   )
 }
 
+// v2
 export default function App() {
   return (
     <ErrorBoundary>
