@@ -65,9 +65,10 @@ export const EXPERIENCE = [
     type: 'Internship',
     summary: 'Translated complex business requirements into data-driven insights and automated reporting solutions, directly influencing product adoption decisions.',
     bullets: [
-      'Engineered automated data collection pipelines across **2 sequential product launches**, surfacing behavioral adoption insights that drove a **+15% lift in user uptake** within the first 60 days post-launch.',
-      'Designed and deployed self-serve SQL reporting dashboards, eliminating a manual weekly aggregation process and saving the analytics team **3+ hours per week** while democratizing data access across the organization.',
-      'Collaborated with product and engineering stakeholders to translate business requirements into technical specifications, bridging the gap between strategy and execution across both product launches.',
+      'Engineered automated data collection pipelines in **Python and SQL** across 2 sequential product launches, surfacing behavioral adoption insights that drove a **+15% lift in user uptake** within 60 days.',
+      'Built **Tableau and Power BI dashboards** to replace manual Excel-based weekly reporting — saving the analytics team **3+ hours per week** and enabling self-serve data access across business stakeholders.',
+      'Conducted exploratory data analysis using **Python (Pandas, NumPy)** and **Google Sheets** to identify adoption trends, segmenting user behavior across cohorts to inform product strategy decisions.',
+      'Partnered with product and engineering stakeholders to translate business requirements into technical specifications, bridging strategy and execution across both product launches.',
     ],
     stack: ['Python', 'SQL', 'Tableau', 'Power BI', 'Excel', 'Google Sheets', 'Product Analytics', 'Dashboard Design', 'Business Requirements', 'Stakeholder Communication'],
   },
