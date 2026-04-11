@@ -45,13 +45,19 @@ function Inner(){
           obs.unobserve(e.target)
         }
       })
-    }, { threshold: 0.08, rootMargin:'0px 0px -30px 0px' })
+    }, { threshold: 0.05, rootMargin:'0px 0px 0px 0px' })
 
-    const attach = () => document.querySelectorAll(selectors).forEach(el => obs.observe(el))
-    attach()
-    const t1 = setTimeout(attach, 150)
-    const t2 = setTimeout(attach, 500)
-    return () => { obs.disconnect(); clearTimeout(t1); clearTimeout(t2) }
+    const attach = () => {
+      document.querySelectorAll(selectors).forEach(el => {
+        el.classList.remove('visible')
+        obs.observe(el)
+      })
+    }
+    // Fire immediately, then again after paint
+    const t0 = setTimeout(attach, 50)
+    const t1 = setTimeout(attach, 200)
+    const t2 = setTimeout(attach, 600)
+    return () => { obs.disconnect(); clearTimeout(t0); clearTimeout(t1); clearTimeout(t2) }
   }, [location.pathname])
 
   // Real 3D mouse-tracking tilt on .tilt-card
