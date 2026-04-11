@@ -106,274 +106,146 @@ body{background:#05050a;color:#fff;font-family:'Inter',-apple-system,sans-serif;
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
 
-/* ============================================
-   3D EFFECTS & SECTION TRANSITIONS
-   ============================================ */
 
-/* --- Page entry animation --- */
-@keyframes pageEnter {
-  from { opacity: 0; transform: perspective(1200px) translateY(32px) rotateX(4deg); }
-  to   { opacity: 1; transform: perspective(1200px) translateY(0) rotateX(0deg); }
-}
-.page-pad {
-  animation: pageEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+/* ================================================
+   REAL 3D + SMOOTH TRANSITIONS — CLEAN REBUILD
+   ================================================ */
 
-/* --- 3D tilt card --- */
-.card-3d {
-  transform-style: preserve-3d;
-  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
-  will-change: transform;
-}
-.card-3d:hover {
-  transform: perspective(900px) rotateX(3deg) rotateY(-3deg) translateY(-6px) scale(1.015);
-  box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 0 40px rgba(124,122,207,0.15);
-}
-
-/* --- Floating glow on cards --- */
-.card-glow {
-  position: relative;
-  overflow: hidden;
-}
-.card-glow::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, rgba(124,122,207,0.0), rgba(64,202,255,0.0));
-  border-radius: inherit;
-  transition: background 0.4s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-.card-glow:hover::before {
-  background: linear-gradient(135deg, rgba(124,122,207,0.18), rgba(64,202,255,0.12));
-}
-
-
-
-
-
-/* --- Stat counter float --- */
-.stat-float {
-  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
-}
-.stat-float:hover {
-  transform: translateY(-8px) scale(1.04);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(124,122,207,0.2);
-}
-
-/* --- Skill tag bounce --- */
-.skill-tag {
-  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background 0.2s, border-color 0.2s;
-}
-.skill-tag:hover {
-  transform: scale(1.12) translateY(-2px);
-  background: rgba(124,122,207,0.2) !important;
-  border-color: rgba(124,122,207,0.6) !important;
-}
-
-/* --- Nav link underline slide --- */
-.nav-link-active {
-  position: relative;
-}
-.nav-link-active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #a78fff, #40caff);
-  border-radius: 2px;
-  animation: slideIn 0.3s ease both;
-}
-@keyframes slideIn {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
-
-/* --- Shimmer on button hover --- */
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-.btn-shimmer {
-  background-size: 200% auto;
-  transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.btn-shimmer:hover {
-  background-image: linear-gradient(90deg, rgba(124,122,207,0.5) 0%, rgba(64,202,255,0.5) 50%, rgba(124,122,207,0.5) 100%);
-  animation: shimmer 1.2s linear infinite;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(124,122,207,0.35);
-}
-
-/* --- Section divider fade --- */
-.section-fade-in {
-  opacity: 0;
-  animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.1s both;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Floating badge pulse --- */
-@keyframes badgePulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124,122,207,0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(124,122,207,0); }
-}
-.badge-pulse {
-  animation: badgePulse 2.5s ease-in-out infinite;
-}
-
-/* --- Experience timeline connector --- */
-.timeline-line {
-  position: relative;
-}
-.timeline-line::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 48px;
-  bottom: -24px;
-  width: 2px;
-  background: linear-gradient(180deg, rgba(124,122,207,0.6), rgba(64,202,255,0.2), transparent);
-  border-radius: 2px;
-}
-
-/* --- Glass card shimmer edge --- */
-@keyframes borderGlow {
-  0%, 100% { border-color: rgba(124,122,207,0.2); }
-  50%       { border-color: rgba(64,202,255,0.4); }
-}
-.card-border-glow {
-  animation: borderGlow 3s ease-in-out infinite;
-}
-
-/* --- Magnetic button feel --- */
-.magnetic {
-  transition: transform 0.15s cubic-bezier(0.22,1,0.36,1);
-}
-
-
-/* ============================================
-   WORKING 3D + ANIMATION SYSTEM
-   ============================================ */
-
-/* Page entry — runs automatically, no JS needed */
+/* Page enter */
 @keyframes pageEnter {
   from { opacity:0; transform:translateY(28px); }
   to   { opacity:1; transform:translateY(0); }
 }
-.page-pad { animation: pageEnter 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.page-pad { animation: pageEnter 0.5s cubic-bezier(0.22,1,0.36,1) both; }
 
-/* Cards fade in sequence — pure CSS, no observer needed */
-@keyframes cardIn {
-  from { opacity:0; transform:translateY(32px) scale(0.97); }
-  to   { opacity:1; transform:translateY(0) scale(1); }
+/* Scroll reveal — START hidden */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
 }
-.anim-card { animation: cardIn 0.55s cubic-bezier(0.22,1,0.36,1) both; }
-.anim-card:nth-child(1) { animation-delay:0.05s }
-.anim-card:nth-child(2) { animation-delay:0.13s }
-.anim-card:nth-child(3) { animation-delay:0.21s }
-.anim-card:nth-child(4) { animation-delay:0.29s }
-.anim-card:nth-child(5) { animation-delay:0.37s }
-.anim-card:nth-child(6) { animation-delay:0.45s }
+.reveal.visible { opacity:1; transform:translateY(0); }
 
-/* Fade in from left */
-@keyframes fadeLeft {
-  from { opacity:0; transform:translateX(-32px); }
-  to   { opacity:1; transform:translateX(0); }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
 }
-.anim-left { animation: fadeLeft 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.reveal-left.visible { opacity:1; transform:translateX(0); }
 
-/* Fade in from right */
-@keyframes fadeRight {
-  from { opacity:0; transform:translateX(32px); }
-  to   { opacity:1; transform:translateX(0); }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
 }
-.anim-right { animation: fadeRight 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+.reveal-right.visible { opacity:1; transform:translateX(0); }
 
-/* Scale pop */
-@keyframes scalePop {
-  from { opacity:0; transform:scale(0.88); }
-  to   { opacity:1; transform:scale(1); }
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+              transform 0.6s cubic-bezier(0.22,1,0.36,1);
 }
-.anim-pop { animation: scalePop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
-.anim-pop:nth-child(1) { animation-delay:0.1s }
-.anim-pop:nth-child(2) { animation-delay:0.18s }
-.anim-pop:nth-child(3) { animation-delay:0.26s }
-.anim-pop:nth-child(4) { animation-delay:0.34s }
-.anim-pop:nth-child(5) { animation-delay:0.42s }
+.reveal-scale.visible { opacity:1; transform:scale(1); }
 
-/* Stat float up */
-@keyframes floatUp {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.anim-stat { animation: floatUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
-.anim-stat:nth-child(1) { animation-delay:0.35s }
-.anim-stat:nth-child(2) { animation-delay:0.43s }
-.anim-stat:nth-child(3) { animation-delay:0.51s }
-.anim-stat:nth-child(4) { animation-delay:0.59s }
+/* Stagger delays */
+.d1 { transition-delay: 0.05s; }
+.d2 { transition-delay: 0.12s; }
+.d3 { transition-delay: 0.20s; }
+.d4 { transition-delay: 0.28s; }
+.d5 { transition-delay: 0.36s; }
 
-/* ---- 3D HOVER EFFECTS ---- */
-.card-3d {
-  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease;
+/* 3D card — perspective set on wrapper */
+.tilt-card {
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.25s ease;
   transform-style: preserve-3d;
   will-change: transform;
 }
-.card-3d:hover {
-  transform: perspective(800px) rotateX(3deg) rotateY(-2deg) translateY(-8px) scale(1.02);
-  box-shadow: 0 28px 70px rgba(0,0,0,0.5), 0 0 40px rgba(124,122,207,0.15);
+.tilt-card:hover {
+  box-shadow: 0 28px 70px rgba(0,0,0,0.55),
+              0 0 0 1px rgba(124,122,207,0.25),
+              0 0 60px rgba(124,122,207,0.12);
 }
 
-/* Glow border on hover */
-.card-glow {
-  border: 1px solid rgba(255,255,255,0.07) !important;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+/* Hover lift for stat cards */
+.hover-lift {
+  transition: transform 0.22s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.22s ease;
 }
-.card-glow:hover {
-  border-color: rgba(124,122,207,0.45) !important;
-  box-shadow: 0 0 0 1px rgba(124,122,207,0.15), 0 24px 60px rgba(0,0,0,0.45);
-}
-
-/* Stat card hover */
-.stat-float {
-  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease, border-color 0.25s;
-}
-.stat-float:hover {
-  transform: translateY(-8px) scale(1.06);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(124,122,207,0.2);
-  border-color: rgba(124,122,207,0.4) !important;
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45),
+              0 0 30px rgba(124,122,207,0.18);
 }
 
-/* Skill tag */
+/* Skill tag pop */
 .skill-tag {
-  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), background 0.18s, border-color 0.18s, color 0.18s;
+  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1),
+              background 0.18s, border-color 0.18s;
   cursor: default;
 }
 .skill-tag:hover {
   transform: scale(1.14) translateY(-2px);
   background: rgba(124,122,207,0.22) !important;
-  border-color: rgba(124,122,207,0.55) !important;
-  color: #fff !important;
+  border-color: rgba(124,122,207,0.65) !important;
 }
 
-/* Cert card */
-.cert-card {
-  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+/* Glow border pulse on featured cards */
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(124,122,207,0.0), inset 0 0 0 1px rgba(124,122,207,0.2); }
+  50%      { box-shadow: 0 0 40px 4px rgba(124,122,207,0.15), inset 0 0 0 1px rgba(124,122,207,0.4); }
 }
-.cert-card:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+.glow-card { animation: glowPulse 4s ease-in-out infinite; }
+
+/* Top accent gradient bar */
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg,
+    rgba(124,122,207,0.9) 0%,
+    rgba(64,202,255,0.6) 50%,
+    transparent 100%);
+  border-radius: 3px 3px 0 0;
 }
 
-/* Button magnetic */
-.btn-hover {
-  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), box-shadow 0.2s ease;
+/* Badge pulse dot */
+@keyframes dotPulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.5; transform:scale(1.4); }
 }
-.btn-hover:hover {
+.pulse-dot { animation: dotPulse 2s ease-in-out infinite; }
+
+/* Button shimmer */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: rgba(255,255,255,0.12);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+.btn-primary:hover::after { left: 130%; }
+.btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(124,122,207,0.35);
+  box-shadow: 0 12px 32px rgba(124,122,207,0.4);
+}
+
+/* Section divider line */
+.section-line {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(124,122,207,0.4) 30%,
+    rgba(64,202,255,0.3) 70%,
+    transparent 100%);
+  margin: 0 0 48px 0;
 }
