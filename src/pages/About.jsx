@@ -1,4 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+
+function useReveal() {
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.1 }
+    )
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
+}
 import { SKILLS } from '../data'
 
 const CAT_COLORS = {
