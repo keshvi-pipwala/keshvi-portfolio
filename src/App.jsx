@@ -35,8 +35,9 @@ function Inner(){
     return () => window.removeEventListener('mousemove', move)
   }, [])
 
-  // IntersectionObserver — scroll reveal for .reveal, .reveal-left, .reveal-right, .reveal-scale
+  // Scroll reveal — IntersectionObserver
   useEffect(() => {
+    const selectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale'
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -44,45 +45,46 @@ function Inner(){
           obs.unobserve(e.target)
         }
       })
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+    }, { threshold: 0.08, rootMargin:'0px 0px -30px 0px' })
 
-    const run = () => {
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
-        .forEach(el => obs.observe(el))
-    }
-    run()
-    // Re-run after route change gives DOM time to paint
-    const t1 = setTimeout(run, 100)
-    const t2 = setTimeout(run, 400)
+    const attach = () => document.querySelectorAll(selectors).forEach(el => obs.observe(el))
+    attach()
+    const t1 = setTimeout(attach, 150)
+    const t2 = setTimeout(attach, 500)
     return () => { obs.disconnect(); clearTimeout(t1); clearTimeout(t2) }
   }, [location.pathname])
 
-  // 3D mouse tilt on .card-3d elements
+  // Real 3D mouse-tracking tilt on .tilt-card
   useEffect(() => {
-    const handleMove = (e) => {
+    const onMove = (e) => {
       const card = e.currentTarget
-      const rect = card.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      const cx = rect.width / 2
-      const cy = rect.height / 2
-      const rotX = ((y - cy) / cy) * -6
-      const rotY = ((x - cx) / cx) * 6
-      card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px) scale(1.015)`
+      const r = card.getBoundingClientRect()
+      const x = ((e.clientX - r.left) / r.width  - 0.5) * 2   // -1 to 1
+      const y = ((e.clientY - r.top)  / r.height - 0.5) * 2   // -1 to 1
+      const rotY =  x * 10  // max 10deg
+      const rotX = -y * 7   // max 7deg
+      const glowX = (x + 1) * 50   // 0-100%
+      const glowY = (y + 1) * 50
+      card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`
+      // Move inner glow
+      const glow = card.querySelector('.card-inner-glow')
+      if (glow) { glow.style.background = `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(124,122,207,0.22) 0%, transparent 65%)` }
     }
-    const handleLeave = (e) => {
+    const onLeave = (e) => {
       e.currentTarget.style.transform = ''
+      const glow = e.currentTarget.querySelector('.card-inner-glow')
+      if (glow) glow.style.background = ''
     }
     const attach = () => {
-      document.querySelectorAll('.card-3d').forEach(card => {
-        card.removeEventListener('mousemove', handleMove)
-        card.removeEventListener('mouseleave', handleLeave)
-        card.addEventListener('mousemove', handleMove)
-        card.addEventListener('mouseleave', handleLeave)
+      document.querySelectorAll('.tilt-card').forEach(c => {
+        c.removeEventListener('mousemove', onMove)
+        c.removeEventListener('mouseleave', onLeave)
+        c.addEventListener('mousemove', onMove)
+        c.addEventListener('mouseleave', onLeave)
       })
     }
     attach()
-    const t = setTimeout(attach, 500)
+    const t = setTimeout(attach, 400)
     return () => clearTimeout(t)
   }, [location.pathname])
 
@@ -123,7 +125,7 @@ function Inner(){
       </main>
 
       {/* Chat FAB */}
-      <button className="chat-fab" onClick={()=>setChatOpen(true)} style={{position:'fixed',bottom:'28px',right:'28px',zIndex:200,display:'flex',alignItems:'center',gap:'10px',padding:'14px 22px',borderRadius:'9999px',background:'linear-gradient(135deg,rgba(124,122,207,0.75),rgba(64,202,255,0.55))',border:'1px solid rgba(124,122,207,0.6)',color:'#fff',fontSize:'14px',fontWeight:700,cursor:'pointer',fontFamily:'inherit',backdropFilter:'blur(16px)',boxShadow:'0 8px 32px rgba(124,122,207,0.35)',transition:'transform 0.2s, box-shadow 0.2s'}} onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.05) translateY(-2px)';e.currentTarget.style.boxShadow='0 16px 48px rgba(124,122,207,0.5)'}} onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 8px 32px rgba(124,122,207,0.35)'}}>
+      <button className="chat-fab" onClick={()=>setChatOpen(true)} style={{position:'fixed',bottom:'28px',right:'28px',zIndex:200,display:'flex',alignItems:'center',gap:'10px',padding:'14px 22px',borderRadius:'9999px',background:'linear-gradient(135deg,rgba(124,122,207,0.75),rgba(64,202,255,0.55))',border:'1px solid rgba(124,122,207,0.6)',color:'#fff',fontSize:'14px',fontWeight:700,cursor:'pointer',fontFamily:'inherit',backdropFilter:'blur(16px)',boxShadow:'0 8px 32px rgba(124,122,207,0.35)',transition:'transform 0.2s, box-shadow 0.2s'}} onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.06) translateY(-2px)';e.currentTarget.style.boxShadow='0 16px 48px rgba(124,122,207,0.5)'}} onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 8px 32px rgba(124,122,207,0.35)'}}>
         <span style={{fontSize:'18px'}}>💬</span> Ask about Keshvi
       </button>
 
@@ -132,6 +134,4 @@ function Inner(){
   )
 }
 
-export default function App(){
-  return <Inner/>
-}
+export default function App(){ return <Inner/> }
