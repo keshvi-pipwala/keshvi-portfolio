@@ -16,58 +16,119 @@ function Particles(){
   return <>{items.map(p=><div key={p.id} className="particle" style={{left:p.left+'%',bottom:'-10px',width:p.size+'px',height:p.size+'px',background:p.color+p.op+')',animationDuration:p.dur+'s',animationDelay:p.delay+'s'}}/>)}</>
 }
 
-function Cursor(){
-  const dot=useRef(null),ring=useRef(null),rx=useRef(0),ry=useRef(0),raf=useRef(null)
-  useEffect(()=>{
-    const move=e=>{
-      const x=e.clientX,y=e.clientY
-      if(dot.current){dot.current.style.left=x+'px';dot.current.style.top=y+'px'}
-      const go=()=>{rx.current+=(x-rx.current)*0.13;ry.current+=(y-ry.current)*0.13;if(ring.current){ring.current.style.left=rx.current+'px';ring.current.style.top=ry.current+'px'}raf.current=requestAnimationFrame(go)}
-      if(raf.current)cancelAnimationFrame(raf.current);go()
-    }
-    window.addEventListener('mousemove',move)
-    return()=>{window.removeEventListener('mousemove',move);if(raf.current)cancelAnimationFrame(raf.current)}
-  },[])
-  return <><div ref={dot} className="cursor-dot hide-mobile"/><div ref={ring} className="cursor-ring hide-mobile"/></>
-}
-
 function Inner(){
-  const location=useLocation()
-  const [chatOpen,setChatOpen]=useState(false)
-  const [key,setKey]=useState(0)
-  useEffect(()=>{setKey(k=>k+1);const el=document.querySelector('.page-area');if(el)el.scrollTop=0},[location.pathname])
-  return(
-    <>
-      <Cursor/>
-      <Particles/>
-      <div className="aurora"><div className="aurora-blob"/><div className="aurora-blob"/><div className="aurora-blob"/></div>
-      <div className="grid-overlay"/>
-      <nav className="sidebar">
-        {NAV.map(n=><NavLink key={n.to} to={n.to} end={n.to==='/'} className={({isActive})=>'nav-icon'+(isActive?' active':'')}><span>{n.icon}</span><span className="nav-tooltip">{n.label}</span></NavLink>)}
-      </nav>
-      <div className="page-area">
-        <div key={key} className="page-enter">
-          <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/about" element={<About/>}/>
-            <Route path="/experience" element={<Experience/>}/>
-            <Route path="/projects" element={<Projects/>}/>
-            <Route path="/education" element={<Education/>}/>
-            <Route path="/contact" element={<Contact/>}/>
-          </Routes>
-        </div>
+  const location = useLocation()
+  const [chatOpen, setChatOpen] = useState(false)
+  const cursorRef = useRef(null)
+  const cursorDotRef = useRef(null)
+
+  // Scroll to top on route change
+  useEffect(() => { window.scrollTo(0,0) }, [location.pathname])
+
+  // Custom cursor
+  useEffect(() => {
+    const move = e => {
+      if(cursorRef.current) { cursorRef.current.style.left=e.clientX+'px'; cursorRef.current.style.top=e.clientY+'px' }
+      if(cursorDotRef.current) { cursorDotRef.current.style.left=e.clientX+'px'; cursorDotRef.current.style.top=e.clientY+'px' }
+    }
+    window.addEventListener('mousemove', move)
+    return () => window.removeEventListener('mousemove', move)
+  }, [])
+
+  // IntersectionObserver — scroll reveal for .reveal, .reveal-left, .reveal-right, .reveal-scale
+  useEffect(() => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible')
+          obs.unobserve(e.target)
+        }
+      })
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+
+    const run = () => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
+        .forEach(el => obs.observe(el))
+    }
+    run()
+    // Re-run after route change gives DOM time to paint
+    const t1 = setTimeout(run, 100)
+    const t2 = setTimeout(run, 400)
+    return () => { obs.disconnect(); clearTimeout(t1); clearTimeout(t2) }
+  }, [location.pathname])
+
+  // 3D mouse tilt on .card-3d elements
+  useEffect(() => {
+    const handleMove = (e) => {
+      const card = e.currentTarget
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      const cx = rect.width / 2
+      const cy = rect.height / 2
+      const rotX = ((y - cy) / cy) * -6
+      const rotY = ((x - cx) / cx) * 6
+      card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px) scale(1.015)`
+    }
+    const handleLeave = (e) => {
+      e.currentTarget.style.transform = ''
+    }
+    const attach = () => {
+      document.querySelectorAll('.card-3d').forEach(card => {
+        card.removeEventListener('mousemove', handleMove)
+        card.removeEventListener('mouseleave', handleLeave)
+        card.addEventListener('mousemove', handleMove)
+        card.addEventListener('mouseleave', handleLeave)
+      })
+    }
+    attach()
+    const t = setTimeout(attach, 500)
+    return () => clearTimeout(t)
+  }, [location.pathname])
+
+  return (
+    <div style={{minHeight:'100vh',background:'#06060f',color:'#fff',fontFamily:"'Inter','Segoe UI',sans-serif",position:'relative',overflow:'hidden'}}>
+      {/* Aurora */}
+      <div style={{position:'fixed',inset:0,pointerEvents:'none',zIndex:0,overflow:'hidden'}}>
+        <div style={{position:'absolute',top:'-15%',left:'-10%',width:'60vw',height:'60vw',borderRadius:'50%',background:'radial-gradient(circle,rgba(120,80,255,0.45) 0%,transparent 70%)',filter:'blur(80px)',animation:'auroraA 18s ease-in-out infinite'}}/>
+        <div style={{position:'absolute',bottom:'-20%',right:'-10%',width:'55vw',height:'55vw',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,180,255,0.3) 0%,transparent 70%)',filter:'blur(90px)',animation:'auroraB 22s ease-in-out infinite'}}/>
+        <div style={{position:'absolute',top:'40%',left:'30%',width:'40vw',height:'40vw',borderRadius:'50%',background:'radial-gradient(circle,rgba(255,100,180,0.15) 0%,transparent 70%)',filter:'blur(100px)',animation:'auroraC 26s ease-in-out infinite'}}/>
       </div>
-      <nav className="mob-nav">
-        <div className="mob-nav-inner">
-          {NAV.map(n=><NavLink key={n.to} to={n.to} end={n.to==='/'} className={({isActive})=>'mob-link'+(isActive?' active':'')}><span className="mob-link-icon">{n.icon}</span><span>{n.label}</span></NavLink>)}
-        </div>
+      <Particles/>
+
+      {/* Cursor */}
+      <div ref={cursorRef} style={{position:'fixed',width:'32px',height:'32px',border:'1.5px solid rgba(167,143,255,0.6)',borderRadius:'50%',pointerEvents:'none',zIndex:9999,transform:'translate(-50%,-50%)',transition:'left 0.12s ease,top 0.12s ease',mixBlendMode:'difference'}}/>
+      <div ref={cursorDotRef} style={{position:'fixed',width:'5px',height:'5px',background:'rgba(167,143,255,0.9)',borderRadius:'50%',pointerEvents:'none',zIndex:9999,transform:'translate(-50%,-50%)',transition:'left 0.04s ease,top 0.04s ease'}}/>
+
+      {/* Nav */}
+      <nav style={{position:'fixed',left:0,top:0,bottom:0,width:'72px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'8px',zIndex:100,borderRight:'1px solid rgba(255,255,255,0.06)',background:'rgba(6,6,15,0.7)',backdropFilter:'blur(20px)'}}>
+        {NAV.map(n=>(
+          <NavLink key={n.to} to={n.to} end={n.to==='/'} style={({isActive})=>({display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',padding:'10px 6px',borderRadius:'12px',textDecoration:'none',color:isActive?'#a78fff':'rgba(255,255,255,0.4)',background:isActive?'rgba(124,122,207,0.15)':'transparent',border:isActive?'1px solid rgba(124,122,207,0.3)':'1px solid transparent',transition:'all 0.2s',width:'56px'})}>
+            <span style={{fontSize:'14px'}}>{n.icon}</span>
+            <span style={{fontSize:'9px',fontWeight:600,letterSpacing:'0.05em',textTransform:'uppercase'}}>{n.label}</span>
+          </NavLink>
+        ))}
       </nav>
-      <button className="chat-fab" onClick={()=>setChatOpen(true)}>
-        <span style={{fontSize:'18px'}}>💬</span>
-        <span style={{fontSize:'13px',fontWeight:700}}>Ask about Keshvi</span>
+
+      {/* Main */}
+      <main style={{marginLeft:'72px',minHeight:'100vh',position:'relative',zIndex:1}}>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/about" element={<About/>}/>
+          <Route path="/experience" element={<Experience/>}/>
+          <Route path="/projects" element={<Projects/>}/>
+          <Route path="/education" element={<Education/>}/>
+          <Route path="/contact" element={<Contact/>}/>
+        </Routes>
+      </main>
+
+      {/* Chat FAB */}
+      <button className="chat-fab" onClick={()=>setChatOpen(true)} style={{position:'fixed',bottom:'28px',right:'28px',zIndex:200,display:'flex',alignItems:'center',gap:'10px',padding:'14px 22px',borderRadius:'9999px',background:'linear-gradient(135deg,rgba(124,122,207,0.75),rgba(64,202,255,0.55))',border:'1px solid rgba(124,122,207,0.6)',color:'#fff',fontSize:'14px',fontWeight:700,cursor:'pointer',fontFamily:'inherit',backdropFilter:'blur(16px)',boxShadow:'0 8px 32px rgba(124,122,207,0.35)',transition:'transform 0.2s, box-shadow 0.2s'}} onMouseEnter={e=>{e.currentTarget.style.transform='scale(1.05) translateY(-2px)';e.currentTarget.style.boxShadow='0 16px 48px rgba(124,122,207,0.5)'}} onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 8px 32px rgba(124,122,207,0.35)'}}>
+        <span style={{fontSize:'18px'}}>💬</span> Ask about Keshvi
       </button>
+
       <RecruiterChat isOpen={chatOpen} onClose={()=>setChatOpen(false)}/>
-    </>
+    </div>
   )
 }
 
