@@ -69,7 +69,7 @@ export const EXPERIENCE = [
       'Designed and deployed self-serve SQL reporting dashboards, eliminating a manual weekly aggregation process and saving the analytics team **3+ hours per week** while democratizing data access across the organization.',
       'Collaborated with product and engineering stakeholders to translate business requirements into technical specifications, bridging the gap between strategy and execution across both product launches.',
     ],
-    stack: ['Python', 'SQL', 'Product Analytics', 'Dashboard Design', 'Business Requirements', 'Stakeholder Communication'],
+    stack: ['Python', 'SQL', 'Tableau', 'Power BI', 'Excel', 'Google Sheets', 'Product Analytics', 'Dashboard Design', 'Business Requirements', 'Stakeholder Communication'],
   },
 ]
 export const PROJECTS = [
