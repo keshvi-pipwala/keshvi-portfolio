@@ -7,9 +7,97 @@ export const PROFILE = {
   photo: '/keshvi.jpeg',
 }
 export const EXPERIENCE = [
-  { icon:'🚀', role:'Software Engineer', company:"NASA L'SPACE Program", location:'Tempe, AZ', time:'Apr 2025 – Present', type:'Full-time', summary:'Writing production data infrastructure for NASA mission research — where a silent data bug is not a recoverable situation.', bullets:['Designed and deployed **ETL validation pipelines** for NASA research datasets — cut data anomalies by **95%** with zero integrity failures across every pipeline run since launch.','Eliminated manual weekly reporting for **3 active research teams** by building automated SQL dashboards — real-time data replaced spreadsheets sent by email.','Raised test coverage from near-zero to **80%+** using pytest and GitHub Actions CI — every deployment is now auditable and safe to roll back.'], stack:['Python','SQL','ETL','PostgreSQL','pytest','GitHub Actions'] },
-  { icon:'🧠', role:'AI / Data Product Manager', company:'ASU — School of Social & Behavioral Sciences', location:'Tempe, AZ', time:'Jun 2025 – Present', type:'Full-time', summary:'Leading product and data for an AI platform that helps ASU identify at-risk students before they drop out.', bullets:['Took the platform from **0 to 5,000+ active users** — owned the roadmap, wrote the specs, and worked through every sprint with engineering to ship it.','Collaborated directly on the ML early-warning pipeline — improvements drove an **18% increase in student retention** across cohorts using the platform.','Ran structured **A/B tests on 4 core features** — drove +22% engagement by cutting what did not work and compounding on what did.'], stack:['Product Strategy','OKRs','A/B Testing','Python','SQL','Agile'] },
-  { icon:'📊', role:'Technical Business Analyst', company:'Grey Enterprise', location:'Ahmedabad, India', time:'Jan 2024 – May 2024', type:'Internship', summary:'First role where I connected data directly to product decisions — and saw the measurable difference it makes.', bullets:['Built automated data collection across **2 product launches** — the adoption insights surfaced drove a **+15% lift** in user uptake within 60 days.','Replaced a manual weekly reporting process with self-serve SQL dashboards, saving the team **3+ hours every week** and removing the analyst bottleneck.'], stack:['Python','SQL','Product Analytics','Dashboard Design'] },
+  {
+    icon: '🚀',
+    role: 'Software Engineer',
+    company: "NASA L'SPACE Program",
+    location: 'Tempe, AZ',
+    time: 'Apr 2025 – Present',
+    type: 'Full-time',
+    summary: 'Engineering production-grade data infrastructure for NASA mission research — where data integrity is non-negotiable.',
+    bullets: [
+      'Architected and deployed **ETL validation pipelines** processing multi-source scientific research datasets, achieving **95% anomaly detection accuracy** with zero data integrity failures across all pipeline runs since launch.',
+      'Eliminated manual reporting workflows for **3 active research teams** by engineering automated SQL dashboards, reducing reporting latency from weekly cycles to real-time data availability.',
+      'Established engineering excellence standards by raising test coverage from near-zero to **80%+** using pytest and implementing GitHub Actions CI/CD, enabling auditable and safe production deployments.',
+    ],
+    stack: ['Python', 'SQL', 'ETL', 'PostgreSQL', 'pytest', 'GitHub Actions'],
+  },
+  {
+    icon: '🧠',
+    role: 'AI / Data Product Manager',
+    company: 'ASU — School of Social & Behavioral Sciences',
+    location: 'Tempe, AZ',
+    time: 'Jun 2025 – Present',
+    type: 'Full-time',
+    summary: 'Driving 0-to-1 product development of an AI-powered student analytics platform — defining strategy, roadmap, and success metrics for a platform now serving thousands of users.',
+    bullets: [
+      'Owned full product lifecycle from discovery to launch, scaling platform from **0 to 5,000+ active users** — defined OKRs, authored PRDs, led sprint planning, and partnered with engineering through every milestone.',
+      'Applied ML-driven early-warning signals to student retention workflows, directly contributing to an **18% improvement in student retention** across active cohorts through data-informed product iterations.',
+      'Drove **+22% engagement lift** through structured A/B testing on 4 core product features, establishing a data-driven experimentation culture across the product team.',
+    ],
+    stack: ['Product Strategy', 'OKRs', 'A/B Testing', 'Python', 'SQL', 'Agile', 'Jira'],
+  },
+  {
+    icon: '📋',
+    role: 'Lead Technical Project Manager',
+    company: 'Arizona State University',
+    location: 'Tempe, AZ · Hybrid',
+    time: 'Mar 2025 – Jun 2025',
+    type: 'Part-time',
+    summary: 'Led end-to-end program delivery for campus-wide technical initiatives, managing cross-functional teams across IT, faculty, and external vendors.',
+    bullets: [
+      'Directed cross-functional delivery of **campus-wide technical programs**, coordinating across student leaders, faculty, IT teams, and external vendors to ensure on-time, on-budget execution.',
+      'Built and maintained comprehensive project plans, timelines, and milestones using Smartsheet and Asana, improving program visibility and accountability across **5+ concurrent initiatives**.',
+      'Identified and mitigated delivery risks in real time during high-attendance events, reducing incident escalations by proactively developing mitigation playbooks and contingency protocols.',
+    ],
+    stack: ['Program Management', 'Smartsheet', 'Asana', 'Jira', 'Stakeholder Management', 'Risk Mitigation'],
+  },
+  {
+    icon: '🗂️',
+    role: 'Technical Project Manager',
+    company: 'Arizona State University',
+    location: 'Tempe, AZ',
+    time: 'Nov 2024 – Mar 2025',
+    type: 'Part-time',
+    summary: 'Managed logistics, digital platforms, and technical requirements for hybrid and virtual campus programs, driving process improvements across the organization.',
+    bullets: [
+      'Implemented structured project management workflows using Smartsheet, Trello, and Excel/Google Sheets, improving program delivery accountability and cross-team visibility across all active projects.',
+      'Managed vendor contracts, financial resources, and budget deliverables, aligning spending with project priorities and maintaining financial accountability throughout program execution.',
+      'Collected and analyzed program data — attendance, engagement, and cost metrics — to generate leadership insights that directly informed strategic planning for future programs.',
+      'Mentored junior coordinators and student assistants, establishing delegation frameworks that improved team throughput while maintaining alignment with organizational objectives.',
+    ],
+    stack: ['Project Management', 'Budget Management', 'Smartsheet', 'Trello', 'Data Analysis', 'Team Leadership'],
+  },
+  {
+    icon: '🤝',
+    role: 'Assistant Project Coordinator',
+    company: 'Arizona State University',
+    location: 'Tempe, AZ',
+    time: 'Sep 2024 – Nov 2024',
+    type: 'Part-time',
+    summary: 'Supported end-to-end coordination of student programs and events, partnering with faculty and external organizations to deliver high-impact campus initiatives.',
+    bullets: [
+      'Coordinated planning and execution of student programs and events, managing seamless logistics, scheduling, and vendor communication across multiple concurrent initiatives.',
+      'Supported budget management and event documentation — contracts, expense tracking, and post-event reports — ensuring financial accuracy and compliance throughout the program lifecycle.',
+      'Partnered with student leaders, faculty, and external organizations to deliver diverse, inclusive, and high-impact activities for the ASU campus community.',
+    ],
+    stack: ['Event Coordination', 'Budget Tracking', 'Vendor Management', 'Cross-functional Collaboration'],
+  },
+  {
+    icon: '📊',
+    role: 'Technical Business Analyst',
+    company: 'Grey Enterprise',
+    location: 'Ahmedabad, India',
+    time: 'Jan 2024 – May 2024',
+    type: 'Internship',
+    summary: 'Translated complex business requirements into data-driven insights and automated reporting solutions, directly influencing product adoption decisions.',
+    bullets: [
+      'Engineered automated data collection pipelines across **2 sequential product launches**, surfacing behavioral adoption insights that drove a **+15% lift in user uptake** within the first 60 days post-launch.',
+      'Designed and deployed self-serve SQL reporting dashboards, eliminating a manual weekly aggregation process and saving the analytics team **3+ hours per week** while democratizing data access.',
+      'Collaborated with product and engineering stakeholders to translate business requirements into technical specifications, bridging the gap between strategy and execution across both product launches.',
+    ],
+    stack: ['Python', 'SQL', 'Product Analytics', 'Dashboard Design', 'Business Requirements', 'Stakeholder Communication'],
+  },
 ]
 export const PROJECTS = [
   { id:'gitsense', emoji:'🔬', title:'GitSense', subtitle:'Autonomous AI Agent · Python · Claude API · FastAPI · Docker', tagline:'Your codebase has a 24/7 engineer who never misses a breaking change.', live:null, github:'https://github.com/keshvi-pipwala/gitsense', impact:'Engineers lose **23-42% of dev time** to technical debt. GitSense monitors continuously so they do not have to.', bullets:['Architected a **7-step autonomous pipeline**: GitHub webhook to diff parsing to ChromaDB retrieval to Claude reasoning to risk scoring to Slack alert.','Built for **stateless horizontal scale** — Redis task queue with Celery workers means scaling is adding containers, not rewriting architecture.','Production-hardened from day one: HMAC webhook auth, structured JSON logging, health check endpoints, graceful failure handling.'], stack:['Python','Claude API','Celery','Redis','ChromaDB','FastAPI','Docker'] },
@@ -31,12 +119,12 @@ export const SKILLS = {
   'Data Engineering':['ETL Pipelines','Airflow','dbt','Kafka','Spark','Snowflake','Pandas','Tableau','Power BI'],
   'Distributed Systems':['Celery','Redis','Microservices','WebSockets','Docker','Kubernetes','CI/CD'],
   'Cloud & Backend':['AWS','GCP','FastAPI','PostgreSQL','Terraform','Docker Compose'],
-  'Product & Management':['Product Roadmapping','OKRs','A/B Testing','Agile','Jira','Figma'],
+  'Product & Management':['Product Roadmapping','OKRs','A/B Testing','Agile','Jira','Smartsheet','Stakeholder Management','Risk Mitigation'],
 }
-export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically. She is simultaneously a Software Engineer at NASA and an AI/Data PM at ASU — both full-time — while maintaining a 4.0 GPA. Key facts: 95% anomaly detection accuracy at NASA, 5000+ users and 18% retention lift at ASU, built GitSense (autonomous AI agent), InsightIQ (RAG analytics), ResilienceOS (chaos engineering). Email: keshvipipwalan@gmail.com`
+export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically. She is simultaneously a Software Engineer at NASA and an AI/Data PM at ASU — both full-time — while maintaining a 4.0 GPA. She has 3+ years of combined experience across software engineering, product management, and technical project management. Key facts: 95% anomaly detection accuracy at NASA, 5000+ users and 18% retention lift at ASU, led 5+ concurrent campus programs at Arizona State University as Lead Technical PM, built GitSense (autonomous AI agent), InsightIQ (RAG analytics), ResilienceOS (chaos engineering). Email: keshvipipwalan@gmail.com`
 export const CHAT_SUGGESTIONS = [
-  "What makes her stand out from other SWE candidates?",
-  "Can she handle a senior engineering role?",
+  "What makes her stand out from other PM candidates?",
+  "Can she handle a senior engineering or PM role?",
   "Walk me through her most impressive technical project.",
   "Why is she the right hire right now?",
 ]
