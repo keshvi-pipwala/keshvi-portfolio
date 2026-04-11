@@ -18,7 +18,7 @@ export const EXPERIENCE = [
     bullets: [
       'Architected and deployed **ETL validation pipelines** processing multi-source scientific research datasets, achieving **95% anomaly detection accuracy** with zero data integrity failures across all pipeline runs since launch.',
       'Eliminated manual reporting workflows for **3 active research teams** by engineering automated SQL dashboards, reducing reporting latency from weekly cycles to real-time data availability.',
-      'Established engineering excellence standards by raising test coverage from near-zero to **80%+** using pytest and implementing GitHub Actions CI/CD, enabling auditable and safe production deployments.',
+      'Established engineering excellence by raising test coverage from near-zero to **80%+** using pytest and implementing GitHub Actions CI/CD, enabling safe and auditable production deployments.',
     ],
     stack: ['Python', 'SQL', 'ETL', 'PostgreSQL', 'pytest', 'GitHub Actions'],
   },
@@ -39,49 +39,22 @@ export const EXPERIENCE = [
   },
   {
     icon: '📋',
-    role: 'Lead Technical Project Manager',
+    role: 'Technical Project Manager → Lead TPM',
     company: 'Arizona State University',
     location: 'Tempe, AZ · Hybrid',
-    time: 'Mar 2025 – Jun 2025',
-    type: 'Part-time',
-    summary: 'Led end-to-end program delivery for campus-wide technical initiatives, managing cross-functional teams across IT, faculty, and external vendors.',
+    time: 'Sep 2024 – Jun 2025',
+    type: 'Part-time · Promoted twice',
+    summary: 'Joined as Assistant Project Coordinator and earned two promotions in 9 months — to Technical Project Manager, then Lead TPM — by consistently owning delivery outcomes and expanding scope across campus-wide programs.',
     bullets: [
-      'Directed cross-functional delivery of **campus-wide technical programs**, coordinating across student leaders, faculty, IT teams, and external vendors to ensure on-time, on-budget execution.',
-      'Built and maintained comprehensive project plans, timelines, and milestones using Smartsheet and Asana, improving program visibility and accountability across **5+ concurrent initiatives**.',
-      'Identified and mitigated delivery risks in real time during high-attendance events, reducing incident escalations by proactively developing mitigation playbooks and contingency protocols.',
-    ],
-    stack: ['Program Management', 'Smartsheet', 'Asana', 'Jira', 'Stakeholder Management', 'Risk Mitigation'],
-  },
-  {
-    icon: '🗂️',
-    role: 'Technical Project Manager',
-    company: 'Arizona State University',
-    location: 'Tempe, AZ',
-    time: 'Nov 2024 – Mar 2025',
-    type: 'Part-time',
-    summary: 'Managed logistics, digital platforms, and technical requirements for hybrid and virtual campus programs, driving process improvements across the organization.',
-    bullets: [
-      'Implemented structured project management workflows using Smartsheet, Trello, and Excel/Google Sheets, improving program delivery accountability and cross-team visibility across all active projects.',
-      'Managed vendor contracts, financial resources, and budget deliverables, aligning spending with project priorities and maintaining financial accountability throughout program execution.',
-      'Collected and analyzed program data — attendance, engagement, and cost metrics — to generate leadership insights that directly informed strategic planning for future programs.',
+      'Progressed from **Assistant Coordinator → TPM → Lead TPM** in 9 months by taking increasing ownership of program delivery, budget accountability, and cross-functional stakeholder alignment across ASU initiatives.',
+      'As Lead TPM, directed end-to-end delivery of **campus-wide technical programs**, coordinating across student leaders, faculty, IT teams, and external vendors — managing **5+ concurrent initiatives** with zero missed milestones.',
+      'Implemented structured project management workflows using Smartsheet, Asana, and Jira, improving program visibility, accountability, and on-time delivery rates across all active projects.',
+      'Managed vendor contracts, financial resources, and budget deliverables, ensuring alignment with project priorities and maintaining full financial accountability throughout the program lifecycle.',
+      'Collected and analyzed program performance data — attendance, engagement, and cost metrics — generating leadership insights that directly informed strategic planning and improved future program outcomes.',
+      'Identified and mitigated delivery risks in real time during high-attendance events, developing mitigation playbooks and contingency protocols that reduced incident escalations significantly.',
       'Mentored junior coordinators and student assistants, establishing delegation frameworks that improved team throughput while maintaining alignment with organizational objectives.',
     ],
-    stack: ['Project Management', 'Budget Management', 'Smartsheet', 'Trello', 'Data Analysis', 'Team Leadership'],
-  },
-  {
-    icon: '🤝',
-    role: 'Assistant Project Coordinator',
-    company: 'Arizona State University',
-    location: 'Tempe, AZ',
-    time: 'Sep 2024 – Nov 2024',
-    type: 'Part-time',
-    summary: 'Supported end-to-end coordination of student programs and events, partnering with faculty and external organizations to deliver high-impact campus initiatives.',
-    bullets: [
-      'Coordinated planning and execution of student programs and events, managing seamless logistics, scheduling, and vendor communication across multiple concurrent initiatives.',
-      'Supported budget management and event documentation — contracts, expense tracking, and post-event reports — ensuring financial accuracy and compliance throughout the program lifecycle.',
-      'Partnered with student leaders, faculty, and external organizations to deliver diverse, inclusive, and high-impact activities for the ASU campus community.',
-    ],
-    stack: ['Event Coordination', 'Budget Tracking', 'Vendor Management', 'Cross-functional Collaboration'],
+    stack: ['Program Management', 'Smartsheet', 'Asana', 'Jira', 'Budget Management', 'Stakeholder Management', 'Risk Mitigation', 'Data Analysis'],
   },
   {
     icon: '📊',
@@ -93,7 +66,7 @@ export const EXPERIENCE = [
     summary: 'Translated complex business requirements into data-driven insights and automated reporting solutions, directly influencing product adoption decisions.',
     bullets: [
       'Engineered automated data collection pipelines across **2 sequential product launches**, surfacing behavioral adoption insights that drove a **+15% lift in user uptake** within the first 60 days post-launch.',
-      'Designed and deployed self-serve SQL reporting dashboards, eliminating a manual weekly aggregation process and saving the analytics team **3+ hours per week** while democratizing data access.',
+      'Designed and deployed self-serve SQL reporting dashboards, eliminating a manual weekly aggregation process and saving the analytics team **3+ hours per week** while democratizing data access across the organization.',
       'Collaborated with product and engineering stakeholders to translate business requirements into technical specifications, bridging the gap between strategy and execution across both product launches.',
     ],
     stack: ['Python', 'SQL', 'Product Analytics', 'Dashboard Design', 'Business Requirements', 'Stakeholder Communication'],
@@ -121,7 +94,7 @@ export const SKILLS = {
   'Cloud & Backend':['AWS','GCP','FastAPI','PostgreSQL','Terraform','Docker Compose'],
   'Product & Management':['Product Roadmapping','OKRs','A/B Testing','Agile','Jira','Smartsheet','Stakeholder Management','Risk Mitigation'],
 }
-export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically. She is simultaneously a Software Engineer at NASA and an AI/Data PM at ASU — both full-time — while maintaining a 4.0 GPA. She has 3+ years of combined experience across software engineering, product management, and technical project management. Key facts: 95% anomaly detection accuracy at NASA, 5000+ users and 18% retention lift at ASU, led 5+ concurrent campus programs at Arizona State University as Lead Technical PM, built GitSense (autonomous AI agent), InsightIQ (RAG analytics), ResilienceOS (chaos engineering). Email: keshvipipwalan@gmail.com`
+export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically. She is simultaneously a Software Engineer at NASA and an AI/Data PM at ASU — both full-time — while maintaining a 4.0 GPA. She has progressive experience across software engineering, product management, and technical project management including two promotions at ASU in 9 months. Key facts: 95% anomaly detection accuracy at NASA, 5000+ users and 18% retention lift at ASU, led 5+ concurrent campus programs at Arizona State University, built GitSense (autonomous AI agent), InsightIQ (RAG analytics), ResilienceOS (chaos engineering). Email: keshvipipwalan@gmail.com`
 export const CHAT_SUGGESTIONS = [
   "What makes her stand out from other PM candidates?",
   "Can she handle a senior engineering or PM role?",
