@@ -1,102 +1,115 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PROFILE } from '../data'
 
-const WORDS = [
-  'Software Engineer @ NASA',
-  'AI Product Manager @ ASU',
-  'Data Engineer',
-  'Distributed Systems Builder',
-  'Graduating May 2026',
+const ROLES = ['Software Engineer', 'AI Product Manager', 'Data PM', 'ML Engineer', 'Platform PM']
+const STATS = [
+  { value:'5,000+', label:'Users on platforms I built', color:'#a78fff' },
+  { value:'95%', label:'Data accuracy at NASA', color:'#40caff' },
+  { value:'4.0', label:'GPA while working full-time', color:'#ffd166' },
+  { value:'+18%', label:'Retention lift I shipped', color:'#ff80c0' },
 ]
 
-function TypeWriter({ words }) {
-  const [idx, setIdx] = useState(0)
-  const [text, setText] = useState('')
-  const [deleting, setDeleting] = useState(false)
-  const [pause, setPause] = useState(false)
-
+function useReveal() {
   useEffect(() => {
-    if (pause) {
-      const t = setTimeout(() => { setDeleting(true); setPause(false) }, 2200)
-      return () => clearTimeout(t)
-    }
-    const word = words[idx % words.length]
-    const speed = deleting ? 35 : 75
-    const t = setTimeout(() => {
-      if (!deleting && text === word) {
-        setPause(true)
-        return
-      }
-      if (deleting && text === '') {
-        setDeleting(false)
-        setIdx(i => i + 1)
-        return
-      }
-      setText(prev => deleting ? prev.slice(0, -1) : word.slice(0, prev.length + 1))
-    }, speed)
-    return () => clearTimeout(t)
-  }, [text, deleting, pause, idx, words])
-
-  return (
-    <span>
-      <span style={{ background:'linear-gradient(135deg,#a78fff,#40caff,#ff80c0)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text', fontWeight:600 }}>
-        {text}
-      </span>
-      <span style={{ color:'rgba(167,143,255,.7)', animation:'blink 1s step-end infinite' }}>|</span>
-    </span>
-  )
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.1 }
+    )
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
 }
 
 export default function Home() {
-  const p = PROFILE || {}
+  const [roleIdx, setRoleIdx] = useState(0)
+  const [displayed, setDisplayed] = useState('')
+  const [typing, setTyping] = useState(true)
+  useReveal()
+
+  useEffect(() => {
+    const target = ROLES[roleIdx]
+    let i = displayed.length
+    if (typing) {
+      if (i < target.length) {
+        const t = setTimeout(() => setDisplayed(target.slice(0, i + 1)), 68)
+        return () => clearTimeout(t)
+      } else {
+        const t = setTimeout(() => setTyping(false), 1600)
+        return () => clearTimeout(t)
+      }
+    } else {
+      if (i > 0) {
+        const t = setTimeout(() => setDisplayed(target.slice(0, i - 1)), 34)
+        return () => clearTimeout(t)
+      } else {
+        setRoleIdx(r => (r + 1) % ROLES.length)
+        setTyping(true)
+      }
+    }
+  }, [displayed, typing, roleIdx])
+
   return (
-    <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 52px 0 36px', maxWidth:'1000px', margin:'0 auto', position:'relative', color:'#fff' }} className="page-pad">
+    <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'60px 52px', maxWidth:'1100px', margin:'0 auto' }} className="page-pad">
 
-      <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', border:'1px solid rgba(124,122,207,.38)', background:'rgba(124,122,207,.1)', borderRadius:'9999px', padding:'6px 16px', fontSize:'11.5px', fontWeight:600, color:'rgba(167,143,255,.92)', letterSpacing:'.07em', marginBottom:'26px', width:'fit-content' }}>
-        <span style={{ width:'7px', height:'7px', borderRadius:'50%', background:'#a78fff', display:'inline-block', boxShadow:'0 0 8px #a78fff' }}/>
-        ACTIVELY OPEN — SWE · AI PM · DATA ENGINEERING
+      <div style={{ display:'grid', gridTemplateColumns:'1fr auto', gap:'48px', alignItems:'center', marginBottom:'52px' }}>
+
+        {/* LEFT — text */}
+        <div>
+          <div className="reveal" style={{ fontSize:'11px', letterSpacing:'.35em', textTransform:'uppercase', color:'rgba(167,143,255,.7)', marginBottom:'18px', fontWeight:600 }}>
+            ACTIVELY OPEN — SWE · AI PM · DATA ENGINEERING
+          </div>
+
+          <h1 className="reveal reveal-delay-1" style={{ fontSize:'clamp(52px,7vw,88px)', fontWeight:900, letterSpacing:'-.04em', lineHeight:.95, marginBottom:'20px' }}>
+            <span style={{ display:'block' }}>Keshvi</span>
+            <span style={{ display:'block', background:'linear-gradient(135deg,#a78fff 0%,#40caff 60%,#ff80c0 100%)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>Pipwala</span>
+          </h1>
+
+          <div className="reveal reveal-delay-2" style={{ fontSize:'clamp(18px,2.5vw,26px)', fontWeight:700, color:'rgba(124,122,207,.95)', marginBottom:'22px', minHeight:'36px', letterSpacing:'-.01em' }}>
+            {displayed}<span style={{ animation:'blink 1s step-end infinite', color:'rgba(124,122,207,.9)' }}>|</span>
+          </div>
+
+          <p className="reveal reveal-delay-3" style={{ fontSize:'15px', color:'rgba(255,255,255,.58)', lineHeight:1.85, marginBottom:'32px', maxWidth:'520px' }}>
+            I build AI systems that run in production and own the metrics that prove they work. Currently at <strong style={{ color:'#fff' }}>NASA</strong> engineering data infrastructure and at <strong style={{ color:'#fff' }}>ASU</strong> leading an AI platform serving <strong style={{ color:'#fff' }}>5,000+ students</strong>.
+          </p>
+          <div style={{ fontSize:'12px', color:'rgba(255,255,255,.32)', marginBottom:'30px', letterSpacing:'.02em' }}>
+            MS @ ASU · GPA 4.0 · Tempe, AZ · She/Her · AWS Certified
+          </div>
+
+          <div className="reveal reveal-delay-4" style={{ display:'flex', gap:'12px', flexWrap:'wrap' }}>
+            {[
+              { label:'💼 LinkedIn', href: PROFILE.linkedin },
+              { label:'⚡ GitHub', href: PROFILE.github },
+              { label:'✉️ ' + PROFILE.email, href:'mailto:' + PROFILE.email },
+            ].map(btn => (
+              <a key={btn.label} href={btn.href} target="_blank" rel="noreferrer"
+                style={{ padding:'11px 22px', borderRadius:'13px', background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.12)', color:'rgba(255,255,255,.88)', textDecoration:'none', fontSize:'13px', fontWeight:600, transition:'all .22s cubic-bezier(.34,1.56,.64,1)', display:'inline-block' }}
+                onMouseEnter={e => { e.currentTarget.style.background='rgba(124,122,207,.2)'; e.currentTarget.style.borderColor='rgba(124,122,207,.5)'; e.currentTarget.style.transform='translateY(-3px)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background='rgba(255,255,255,.06)'; e.currentTarget.style.borderColor='rgba(255,255,255,.12)'; e.currentTarget.style.transform='translateY(0)'; }}
+              >{btn.label}</a>
+            ))}
+          </div>
+        </div>
+
+        {/* RIGHT — photo */}
+        <div className="reveal reveal-right reveal-delay-2" style={{ position:'relative' }}>
+          <div style={{ width:'clamp(180px,18vw,260px)', height:'clamp(180px,18vw,260px)', borderRadius:'50%', overflow:'hidden', border:'3px solid rgba(124,122,207,.5)', boxShadow:'0 0 60px rgba(124,122,207,.25), 0 30px 80px rgba(0,0,0,.7)' }} className="glow-pulse">
+            <img src="/keshvi.jpeg" alt="Keshvi Pipwala" style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'top' }} />
+          </div>
+          <div style={{ position:'absolute', bottom:'-10px', right:'-10px', background:'linear-gradient(135deg,rgba(124,122,207,.9),rgba(64,202,255,.7))', border:'1px solid rgba(124,122,207,.8)', borderRadius:'12px', padding:'8px 14px', fontSize:'11px', fontWeight:700, color:'#fff', backdropFilter:'blur(10px)' }}>
+            🟢 Open to work
+          </div>
+        </div>
       </div>
 
-      <h1 style={{ fontSize:'clamp(54px,8.5vw,94px)', fontWeight:900, lineHeight:.86, letterSpacing:'-.045em', marginBottom:'18px' }}>
-        Keshvi
-        <span style={{ display:'block', WebkitTextStroke:'1.5px rgba(255,255,255,.15)', color:'transparent', backgroundImage:'linear-gradient(135deg,rgba(255,255,255,.65),rgba(124,122,207,.55))', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-          Pipwala
-        </span>
-      </h1>
-
-      <div style={{ fontSize:'clamp(18px,2.5vw,26px)', fontWeight:500, minHeight:'42px', marginBottom:'24px' }}>
-        <TypeWriter words={WORDS} />
-      </div>
-
-      <p style={{ maxWidth:'560px', fontSize:'16px', lineHeight:1.78, color:'rgba(255,255,255,.58)', marginBottom:'10px' }}>
-        I build AI systems that run in production and own the metrics that prove they work. Currently at <strong style={{ color:'rgba(255,255,255,.92)' }}>NASA</strong> engineering data infrastructure and at <strong style={{ color:'rgba(255,255,255,.92)' }}>ASU</strong> leading an AI platform serving <strong style={{ color:'rgba(255,255,255,.92)' }}>5,000+ students</strong>.
-      </p>
-      <p style={{ fontSize:'13px', color:'rgba(255,255,255,.3)', marginBottom:'36px' }}>MS @ ASU · GPA 4.0 · Tempe, AZ · She/Her · AWS Certified</p>
-
-      <div style={{ display:'flex', gap:'12px', flexWrap:'wrap', marginBottom:'52px' }}>
-        <a href={p.linkedin || '#'} target="_blank" rel="noreferrer" style={{ display:'inline-flex', alignItems:'center', gap:'9px', padding:'13px 26px', borderRadius:'14px', background:'linear-gradient(135deg,rgba(124,122,207,.35),rgba(64,202,255,.22))', border:'1px solid rgba(124,122,207,.55)', color:'#fff', textDecoration:'none', fontSize:'14px', fontWeight:700, transition:'transform .18s', letterSpacing:'.01em' }}>💼 LinkedIn</a>
-        <a href={p.github || '#'} target="_blank" rel="noreferrer" style={{ display:'inline-flex', alignItems:'center', gap:'9px', padding:'13px 26px', borderRadius:'14px', background:'rgba(255,255,255,.07)', border:'1px solid rgba(255,255,255,.14)', color:'rgba(255,255,255,.9)', textDecoration:'none', fontSize:'14px', fontWeight:700, transition:'transform .18s' }}>⚡ GitHub</a>
-        <a href={'mailto:' + (p.email || '')} style={{ display:'inline-flex', alignItems:'center', gap:'9px', padding:'13px 26px', borderRadius:'14px', background:'rgba(255,255,255,.04)', border:'1px solid rgba(255,255,255,.09)', color:'rgba(255,255,255,.55)', textDecoration:'none', fontSize:'14px', fontWeight:600 }}>✉️ {p.email}</a>
-      </div>
-
-      <div style={{ display:'flex', gap:'12px', flexWrap:'wrap' }}>
-        {[
-          { n:'5,000+', l:'Users on platforms I built', c:'#a78fff' },
-          { n:'95%',    l:'Data accuracy at NASA',      c:'#40caff' },
-          { n:'4.0',    l:'GPA while working full-time', c:'#ffd166' },
-          { n:'+18%',   l:'Retention lift I shipped',   c:'#ff8c69' },
-        ].map(s => (
-          <div key={s.n} style={{ borderRadius:'16px', border:'1px solid rgba(255,255,255,.09)', background:'rgba(255,255,255,.04)', padding:'16px 22px', minWidth:'112px' }}>
-            <div style={{ fontSize:'clamp(22px,2.8vw,29px)', fontWeight:900, color:s.c, letterSpacing:'-.025em', lineHeight:1 }}>{s.n}</div>
-            <div style={{ fontSize:'11px', color:'rgba(255,255,255,.38)', marginTop:'6px', lineHeight:1.35 }}>{s.l}</div>
+      {/* STATS */}
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'14px' }}>
+        {STATS.map((s, i) => (
+          <div key={i} className={`reveal stat-float card-3d reveal-delay-${i+1}`}
+            style={{ borderRadius:'18px', border:'1px solid rgba(255,255,255,.08)', background:'rgba(255,255,255,.04)', padding:'20px', backdropFilter:'blur(12px)', textAlign:'center', cursor:'default' }}>
+            <div style={{ fontSize:'clamp(22px,2.8vw,32px)', fontWeight:900, color:s.color, letterSpacing:'-.03em', marginBottom:'6px', fontVariantNumeric:'tabular-nums' }}>{s.value}</div>
+            <div style={{ fontSize:'11px', color:'rgba(255,255,255,.42)', lineHeight:1.5 }}>{s.label}</div>
           </div>
         ))}
-      </div>
-
-      <div style={{ position:'absolute', right:0, top:'50%', transform:'translateY(-50%)' }} className="hide-mobile">
-        <div className="glow-pulse" style={{ width:'256px', height:'320px', borderRadius:'999px', overflow:'hidden', border:'1px solid rgba(255,255,255,.12)', background:'linear-gradient(180deg,rgba(124,122,207,.18),rgba(64,202,255,.08))', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'80px' }}>
-          {p.photo ? <img src={p.photo} alt="Keshvi Pipwala" style={{ width:'100%', height:'100%', objectFit:'cover' }}/> : '👩‍💻'}
-        </div>
       </div>
     </div>
   )
