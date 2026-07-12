@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The August 1 Problem — A T-Life Teardown · Keshvi Pipwala</title>
+<meta name="description" content="A product teardown and one-page proposal on T-Mobile's T-Life access-recovery gap, by Keshvi Pipwala.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0B0C;
+    --paper:#FAFAF9;
+    --magenta:#E20074;
+    --magenta-deep:#A80058;
+    --tint:#FBE9F2;
+    --grey:#6A6A70;
+    --line:#E6E4E0;
+    --maxw:730px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:19px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px;}
+  .mono{font-family:"Space Mono",monospace;}
+  .disp{font-family:"Space Grotesk",sans-serif;}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:76px 0 46px;border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--magenta);margin:0 0 26px;
+  }
+  .signal{display:inline-flex;align-items:flex-end;gap:4px;height:26px;margin-left:10px;vertical-align:middle;}
+  .signal span{width:5px;background:var(--magenta);border-radius:1px;opacity:.28;}
+  .signal span:nth-child(1){height:7px;}
+  .signal span:nth-child(2){height:12px;}
+  .signal span:nth-child(3){height:18px;}
+  .signal span:nth-child(4){height:24px;}
+  .signal.drop span{animation:drop 2.6s ease-in-out infinite;}
+  .signal.drop span:nth-child(1){animation-delay:0s;}
+  .signal.drop span:nth-child(2){animation-delay:.18s;}
+  .signal.drop span:nth-child(3){animation-delay:.36s;}
+  .signal.drop span:nth-child(4){animation-delay:.54s;}
+  @keyframes drop{0%,40%{opacity:1;}70%,100%{opacity:.18;}}
+  h1{
+    font-family:"Space Grotesk",sans-serif;
+    font-weight:700;
+    font-size:clamp(31px,6vw,50px);
+    line-height:1.06;
+    letter-spacing:-0.02em;
+    margin:0 0 22px;
+  }
+  h1 .hit{color:var(--magenta);}
+  .standfirst{font-size:20px;color:#333;margin:0 0 30px;max-width:60ch;}
+  .byline{font-family:"Space Mono",monospace;font-size:12.5px;color:var(--grey);letter-spacing:.02em;}
+  .byline b{color:var(--ink);font-weight:700;}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:44px 0;border-bottom:1px solid var(--line);}
+  .sec-no{
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;
+    color:var(--magenta);text-transform:uppercase;margin:0 0 10px;
+  }
+  h2{
+    font-family:"Space Grotesk",sans-serif;font-weight:600;
+    font-size:clamp(22px,3.4vw,29px);line-height:1.14;letter-spacing:-0.01em;
+    margin:0 0 18px;
+  }
+  p{margin:0 0 16px;}
+  p:last-child{margin-bottom:0;}
+  em{font-style:italic;}
+  strong{font-weight:600;}
+  a{color:var(--magenta-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;}
+
+  ul.clean{list-style:none;margin:6px 0 0;padding:0;}
+  ul.clean li{position:relative;padding-left:26px;margin-bottom:13px;}
+  ul.clean li::before{
+    content:"";position:absolute;left:2px;top:11px;width:9px;height:9px;
+    background:var(--magenta);border-radius:0;transform:rotate(45deg);
+  }
+
+  /* pull panel */
+  .panel{
+    background:var(--tint);
+    border-left:3px solid var(--magenta);
+    padding:24px 26px;margin:22px 0 4px;border-radius:0 4px 4px 0;
+  }
+  .panel .label{font-family:"Space Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta-deep);margin:0 0 8px;}
+  .panel p{margin:0;font-size:18.5px;}
+
+  /* metric row */
+  .metric{
+    font-family:"Space Grotesk",sans-serif;
+    display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;
+    padding:16px 0;border-top:1px solid var(--line);
+  }
+  .metric:first-of-type{border-top:none;}
+  .metric .k{font-weight:700;font-size:15px;color:var(--magenta-deep);min-width:150px;}
+  .metric .v{font-family:"Newsreader",serif;font-size:17.5px;color:var(--ink);flex:1;min-width:220px;}
+
+  .tradeoff{border:1px solid var(--ink);padding:24px 26px;border-radius:4px;}
+  .tradeoff h2{margin-top:0;}
+
+  .callout-q{font-family:"Space Grotesk",sans-serif;font-weight:500;font-size:19px;color:var(--ink);}
+
+  /* footer */
+  footer{padding:46px 0 70px;}
+  .foot-grid{font-family:"Space Mono",monospace;font-size:13px;color:var(--grey);line-height:1.9;}
+  .foot-grid a{color:var(--ink);}
+  .sources{font-family:"Space Mono",monospace;font-size:11.5px;color:var(--grey);line-height:1.7;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+
+  .kicker{font-family:"Space Grotesk",sans-serif;font-weight:600;color:var(--magenta-deep);}
+
+  @media (max-width:560px){
+    body{font-size:18px;}
+    header.hero{padding:54px 0 38px;}
+    .metric .k{min-width:120px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .signal.drop span{animation:none;opacity:1;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Product teardown &middot; unsolicited &middot; for the APM role
+      <span class="signal drop" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+    </p>
+    <h1>On August 1, the customers who most need a store are the ones T-Life <span class="hit">locks out</span>.</h1>
+    <p class="standfirst">T-Mobile is moving every in-store upgrade and line addition onto the customer's own phone, inside the T-Life app. The people who walk into a store are, by definition, often the ones who can't get into that app. Here is the gap, the metric it's bleeding, and one feature I'd build to close it.</p>
+    <p class="byline"><b>Keshvi Pipwala</b> &nbsp;/&nbsp; AI &amp; Data Product Manager &nbsp;/&nbsp; 4-minute read</p>
+  </header>
+
+  <section>
+    <p class="sec-no">01 &mdash; What's actually changing</p>
+    <h2>The store is being turned off, one transaction type at a time.</h2>
+    <p>Per T-Mobile's own rollout, from <strong>August 1, 2026</strong> all in-store device upgrades and add-a-line transactions must be completed on the customer's device through T-Life. From <strong>October 1</strong>, new activations follow. Reps lose access to the legacy backend they used to complete these at the counter.</p>
+    <p>The strategic logic is clear and, on its own terms, sound: push routine work to self-service, lower cost-to-serve, and make the app the front door. T-Mobile reports higher satisfaction on transactions that happen inside T-Life. The strategy isn't the problem. The <em>edge case volume</em> is.</p>
+  </section>
+
+  <section>
+    <p class="sec-no">02 &mdash; The customer who's stranded</p>
+    <h2>A dead phone can't open the app that now runs the store.</h2>
+    <p>The customers who show up in person are disproportionately the ones who cannot self-serve: a shattered or dead device, an older phone that struggles with the app, a forgotten Apple ID, or a sign-in loop they can't break alone. To buy the new phone, they first need to log into T-Life. To log into T-Life, they often need the phone they came in to replace.</p>
+    <ul class="clean">
+      <li>Frontline reports describe customers abandoning a purchase mid-transaction when they can't get into the app, and walking out.</li>
+      <li>Employees describe spending 30 to 45 minutes just resetting an Apple ID or breaking a sign-in loop before the actual sale can even start.</li>
+      <li>Authentication and app stability have been the dominant complaint themes; T-Mobile's own March 2026 refresh targeted sign-in loops and load times, which confirms the pain is real, but speed fixes don't help the customer who has no working device at all.</li>
+    </ul>
+    <div class="panel">
+      <p class="label">The behavior to change</p>
+      <p>Today: a customer who can't access T-Life <strong>abandons the transaction</strong>. Target: that same customer <strong>completes the transaction in-store</strong> and leaves already onboarded into the app.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-no">03 &mdash; The metric it's bleeding</p>
+    <h2>This isn't a UX complaint. It's an abandonment line item.</h2>
+    <p>Every walkout here is a lost upgrade or a lost line, plus elevated churn risk from a customer whose last memory of T-Mobile is being turned away. I'd anchor the feature to one primary metric and guard it with three more.</p>
+    <div class="metric"><span class="k">Primary</span><span class="v">In-store completion rate for transactions that begin with an app-access failure. Move it up.</span></div>
+    <div class="metric"><span class="k">Guardrail 1</span><span class="v">Cost-to-serve per assisted transaction, so the fix doesn't quietly reopen the expensive counter T-Life was meant to close.</span></div>
+    <div class="metric"><span class="k">Guardrail 2</span><span class="v">Post-visit T-Life activation: did the customer actually leave able to self-serve next time?</span></div>
+    <div class="metric"><span class="k">Guardrail 3</span><span class="v">CSAT for access-failure visits, versus the store baseline.</span></div>
+    <p style="margin-top:18px;"><span class="kicker">Honest note:</span> I don't have T-Mobile's internal abandonment number. The first thing I'd do on day one is pull it, because the size of that number decides whether this is a priority-one fix or a backlog item. I'd rather show you how I'd frame and size the problem than invent a statistic.</p>
+  </section>
+
+  <section>
+    <p class="sec-no">04 &mdash; The proposal</p>
+    <h2>T-Life Access Recovery: a time-boxed path that saves the sale without reopening the counter.</h2>
+    <p>A rep-initiated flow, launched only when a customer is blocked at the point of sale, with three parts:</p>
+    <ul class="clean">
+      <li><strong>An AI-guided sign-in troubleshooter</strong> for the top blockers (Apple ID lockout, forgotten password, device-transfer), directed at the specific failure the rep selects, not a generic help menu. AI drafts the steps; the rep and customer execute them.</li>
+      <li><strong>A verified assisted-completion fallback</strong> when recovery still fails: after identity verification, the rep completes the upgrade or line-add and provisions the account so the customer finishes onboarding into T-Life on their new device before they leave the store.</li>
+      <li><strong>Access-failure instrumentation:</strong> every trigger is tagged with the blocker type. That's what turns an invisible walkout into a measurable, prioritizable funnel, and tells the app team which sign-in failures to fix at the root.</li>
+    </ul>
+    <p>The design principle: <em>teach, don't do</em>. The customer leaves with the sale <strong>and</strong> a working app, so the next visit doesn't need the counter at all.</p>
+  </section>
+
+  <section>
+    <div class="tradeoff">
+      <p class="sec-no">05 &mdash; The tradeoff I'm not hiding</p>
+      <h2>An assisted fallback fights the entire point of T-Life.</h2>
+      <p>T-Life exists to <em>reduce</em> assisted transactions and cost-to-serve. A rep-assisted path is in direct tension with that goal, and if I pitched this without saying so, I'd be selling you a feature that quietly undermines the strategy it's supposed to support.</p>
+      <p>So the fallback is a bridge, not a fixture. Two things keep it honest: a <strong>declining-usage target</strong> (fallback rate should drop cohort over cohort as root-cause sign-in fixes land), and the <em>teach-don't-do</em> design that sends each rescued customer back out able to self-serve. If fallback usage isn't falling over two quarters, the feature is failing on its own terms and I'd say so.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-no">06 &mdash; How I'd know it worked</p>
+    <h2>Define the metric before it ships. Read the data after. Bring a point of view.</h2>
+    <ul class="clean">
+      <li><strong>Before:</strong> pull the real access-failure and abandonment data, sit with reps and stranded customers for a week, and prototype the recovery flow against the top three blockers.</li>
+      <li><strong>Launch:</strong> staged rollout by store cluster, not a big bang. Primary metric is completion rate for access-failure transactions; matched control stores hold the baseline.</li>
+      <li><strong>After:</strong> read the numbers myself and form a view before the readout. Kill criteria set in advance: if completion doesn't move, or cost-to-serve climbs without a churn offset, the fallback gets cut and the effort moves entirely to root-cause sign-in fixes.</li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="sec-no">07 &mdash; How I built this</p>
+    <h2>The judgment is mine. The speed came from directing the tools.</h2>
+    <p>I put this together the way I work as an AI-directed PM. I directed AI tools to gather and cluster the public reporting and customer complaints, then I made the product calls myself: which problem was worth attacking, what to build, where it collides with the strategy, and how I'd measure whether it worked. AI accelerated the research and the drafting. The problem selection, the tradeoff, and the metric are the parts that matter, and those are mine.</p>
+    <p class="callout-q">That's the job as this role defines it: direct AI to move fast, then own every call before it ships.</p>
+  </section>
+
+  <footer>
+    <div class="foot-grid">
+      Keshvi Pipwala &nbsp;/&nbsp; AI &amp; Data Product Manager<br>
+      <a href="mailto:keshvipipwalan@gmail.com">keshvipipwalan@gmail.com</a> &nbsp;&middot;&nbsp; <a href="https://www.linkedin.com/in/keshvi-pipwala-5a7bb0247/">LinkedIn</a> &nbsp;&middot;&nbsp; <a href="https://keshvi-portfolio-ten.vercel.app">Portfolio</a>
+    </div>
+    <p class="sources">
+      Sources &middot; public reporting, 2026: Android Authority and PhoneArena on the T-Life retail transition timeline and in-store friction; TheStreet on support-chat and AI-assistant changes; FindArticles on the March 2026 T-Life refresh (authentication and load-time fixes). This is an independent, unsolicited analysis using publicly available information. Not affiliated with or endorsed by T-Mobile.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
