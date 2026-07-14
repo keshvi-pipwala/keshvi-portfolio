@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Home as HomeIcon, User, Briefcase, FolderGit2, GraduationCap, Mail, MessageCircle } from 'lucide-react'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -60,14 +60,12 @@ function attachTilt() {
 const pageVariants = {
   initial: { opacity: 0, y: 24 },
   enter: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -18 },
 }
 
 // Simple fades for visitors with "reduce motion" enabled
 const pageVariantsReduced = {
   initial: { opacity: 0 },
   enter: { opacity: 1 },
-  exit: { opacity: 0 },
 }
 
 // Failsafe: if any animation library hiccup leaves the page wrapper invisible,
@@ -121,26 +119,23 @@ function Inner() {
       </nav>
 
       <main style={{ marginLeft: '72px', minHeight: '100vh', position: 'relative', zIndex: 1 }}>
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={location.pathname}
-            variants={reducedMotion ? pageVariantsReduced : pageVariants}
-            initial="initial"
-            animate="enter"
-            exit="exit"
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            onAnimationComplete={definition => { if (definition === 'enter') { runReveal(); attachTilt() } }}
-          >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/education" element={<Education />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={location.pathname}
+          variants={reducedMotion ? pageVariantsReduced : pageVariants}
+          initial="initial"
+          animate="enter"
+          transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+          onAnimationComplete={definition => { if (definition === 'enter') { forcePageVisible(); runReveal(); attachTilt() } }}
+        >
+          <Routes location={location}>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/experience" element={<Experience />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </motion.div>
       </main>
 
       <button className="chat-fab" onClick={() => setChatOpen(true)} style={{ position: 'fixed', bottom: '28px', right: '28px', zIndex: 200, display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 22px', borderRadius: '9999px', background: 'linear-gradient(135deg,rgba(124,122,207,0.75),rgba(64,202,255,0.55))', border: '1px solid rgba(124,122,207,0.6)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', backdropFilter: 'blur(16px)', boxShadow: '0 8px 32px rgba(124,122,207,0.35)', transition: 'transform 0.2s,box-shadow 0.2s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.06) translateY(-2px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(124,122,207,0.5)' }} onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 32px rgba(124,122,207,0.35)' }}>
