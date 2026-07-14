@@ -3,9 +3,10 @@ import { Play } from 'lucide-react'
 import { INTRO, PROFILE } from '../data'
 
 // Cinematic first-visit intro. Voice + synced captions + audio-reactive ring.
-// Degrades gracefully: no audio file → timed captions; reduced motion → never shown (gated in App.jsx).
+// Degrades gracefully: no audio file → timed captions; reduced motion → static
+// version with no pulse/spin/morph, simple fades only.
 // On finish, the avatar morphs into the hero portrait (#hero-portrait) before the overlay dissolves.
-export default function IntroAvatar({ onFinish }) {
+export default function IntroAvatar({ onFinish, reduced = false }) {
   const [phase, setPhase] = useState('idle') // idle | playing | leaving
   const [lineIdx, setLineIdx] = useState(-1)
   const audioRef = useRef(null)
@@ -37,6 +38,7 @@ export default function IntroAvatar({ onFinish }) {
 
   // Gentle synthetic pulse when we have no audio signal to react to
   const fakePulse = () => {
+    if (reduced) return
     const loop = t => {
       if (ringRef.current) {
         const v = 1 + 0.06 * Math.abs(Math.sin(t / 320)) + 0.03 * Math.abs(Math.sin(t / 97))
@@ -73,7 +75,7 @@ export default function IntroAvatar({ onFinish }) {
           let sum = 0
           for (let i = 0; i < data.length; i++) sum += data[i]
           const amp = sum / data.length / 255
-          if (ringRef.current) ringRef.current.style.transform = `scale(${1 + amp * 0.35})`
+          if (ringRef.current && !reduced) ringRef.current.style.transform = `scale(${1 + amp * 0.35})`
           rafRef.current = requestAnimationFrame(loop)
         }
         loop()
@@ -96,7 +98,7 @@ export default function IntroAvatar({ onFinish }) {
 
     const target = document.getElementById('hero-portrait')
     const el = avatarRef.current
-    if (!skipped && target && el) {
+    if (!skipped && !reduced && target && el) {
       const from = el.getBoundingClientRect()
       const to = target.getBoundingClientRect()
       const dx = (to.left + to.width / 2) - (from.left + from.width / 2)
@@ -106,10 +108,10 @@ export default function IntroAvatar({ onFinish }) {
       el.style.transform = `translate(${dx}px, ${dy}px) scale(${s})`
     }
     if (overlayRef.current) {
-      overlayRef.current.style.transition = skipped ? 'opacity 0.3s ease' : 'opacity 0.7s ease 0.25s'
+      overlayRef.current.style.transition = (skipped || reduced) ? 'opacity 0.3s ease' : 'opacity 0.7s ease 0.25s'
       overlayRef.current.style.opacity = '0'
     }
-    setTimeout(() => onFinish(), skipped ? 320 : 980)
+    setTimeout(() => onFinish(), (skipped || reduced) ? 320 : 980)
   }
 
   const pill = {
@@ -128,9 +130,9 @@ export default function IntroAvatar({ onFinish }) {
       `}</style>
 
       {/* Avatar + reactive rings */}
-      <div style={{ position: 'relative', width: '190px', height: '190px', animation: 'introIn 0.9s cubic-bezier(0.22,1,0.36,1) both' }}>
+      <div style={{ position: 'relative', width: '190px', height: '190px', animation: reduced ? 'none' : 'introIn 0.9s cubic-bezier(0.22,1,0.36,1) both' }}>
         <div ref={ringRef} style={{ position: 'absolute', inset: '-14px', borderRadius: '50%', border: '1.5px solid rgba(124,122,207,0.55)', boxShadow: '0 0 40px rgba(124,122,207,0.35), inset 0 0 24px rgba(64,202,255,0.12)', transition: 'transform 0.08s linear', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', inset: '-32px', borderRadius: '50%', border: '1px dashed rgba(64,202,255,0.22)', animation: 'introSpin 16s linear infinite', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: '-32px', borderRadius: '50%', border: '1px dashed rgba(64,202,255,0.22)', animation: reduced ? 'none' : 'introSpin 16s linear infinite', pointerEvents: 'none' }} />
         <div ref={avatarRef} style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', border: '3px solid rgba(124,122,207,0.5)', boxShadow: '0 0 80px rgba(124,122,207,0.35)', willChange: 'transform' }}>
           <img src={PROFILE.photo} alt="Keshvi Pipwala" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
