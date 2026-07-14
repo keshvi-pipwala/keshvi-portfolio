@@ -1,4 +1,5 @@
 import React from 'react'
+import { Star, ExternalLink } from 'lucide-react'
 import { EDUCATION, CERTIFICATIONS } from '../data'
 
 export default function Education() {
@@ -19,8 +20,8 @@ export default function Education() {
             <div style={{ padding:'24px 28px' }}>
               <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:'12px', marginBottom:'8px' }}>
                 <div>
-                  <div style={{ fontWeight:800, fontSize:'17px', letterSpacing:'-.01em', marginBottom:'4px' }}>
-                    {edu.star && <span style={{ marginRight:'8px' }}>⭐</span>}{edu.school}
+                  <div style={{ fontWeight:800, fontSize:'17px', letterSpacing:'-.01em', marginBottom:'4px', display:'flex', alignItems:'center', gap:'8px' }}>
+                    {edu.star && <Star size={15} color="#ffd700" fill="#ffd700" style={{ flexShrink:0 }} />}{edu.school}
                   </div>
                   <div style={{ fontSize:'13px', color:'rgba(167,143,255,.85)', fontWeight:600 }}>{edu.degree}</div>
                 </div>
@@ -52,7 +53,7 @@ export default function Education() {
             <div style={{ fontSize:'13px', color:'rgba(255,255,255,.88)', fontWeight:700, marginBottom:'6px' }}>{c.name}</div>
             <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
               <div style={{ fontSize:'11px', color:'rgba(255,255,255,.38)' }}>Issued {c.date}</div>
-              <div style={{ fontSize:'11px', color:c.border||'rgba(255,255,255,.5)', fontWeight:700 }}>View ↗</div>
+              <div style={{ fontSize:'11px', color:c.border||'rgba(255,255,255,.5)', fontWeight:700, display:'inline-flex', alignItems:'center', gap:'4px' }}>View <ExternalLink size={11} /></div>
             </div>
           </a>
         ))}

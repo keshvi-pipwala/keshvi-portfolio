@@ -1,4 +1,5 @@
 import React from 'react'
+import { Rocket, BrainCircuit, ClipboardList, BarChart3, Briefcase } from 'lucide-react'
 import { EXPERIENCE } from '../data'
 
 function bold(text) {
@@ -6,6 +7,16 @@ function bold(text) {
   return text.split(/\*\*([^*]+)\*\*/g).map((p,i) =>
     i%2===1 ? <strong key={i} style={{color:'#fff',fontWeight:700}}>{p}</strong> : p
   )
+}
+
+// Role → icon (keyword match so reordering data.js keeps working)
+function iconFor(exp) {
+  const r = ((exp.role || '') + ' ' + (exp.company || '')).toLowerCase()
+  if (r.includes('software') || r.includes('nasa')) return Rocket
+  if (r.includes('ai') && r.includes('product')) return BrainCircuit
+  if (r.includes('project manager') || r.includes('tpm')) return ClipboardList
+  if (r.includes('analyst')) return BarChart3
+  return Briefcase
 }
 
 export default function Experience() {
@@ -19,7 +30,9 @@ export default function Experience() {
       </div>
 
       <div style={{display:'flex',flexDirection:'column',gap:'24px'}}>
-        {(EXPERIENCE||[]).map((exp,i)=>(
+        {(EXPERIENCE||[]).map((exp,i)=>{
+          const Icon = iconFor(exp)
+          return (
           <div key={i} className={`tilt-card reveal d${Math.min(i+1,5)}`}
             style={{borderRadius:'24px',border:'1px solid rgba(255,255,255,.08)',background:'rgba(255,255,255,.03)',backdropFilter:'blur(16px)',overflow:'hidden',position:'relative'}}>
 
@@ -33,8 +46,8 @@ export default function Experience() {
               {/* Header */}
               <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:'10px',flexWrap:'wrap',gap:'10px'}}>
                 <div style={{display:'flex',alignItems:'center',gap:'16px'}}>
-                  <div style={{width:'46px',height:'46px',borderRadius:'14px',background:'linear-gradient(135deg,rgba(124,122,207,.35),rgba(64,202,255,.2))',border:'1px solid rgba(124,122,207,.4)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'22px',flexShrink:0}}>
-                    {exp.icon}
+                  <div style={{width:'46px',height:'46px',borderRadius:'14px',background:'linear-gradient(135deg,rgba(124,122,207,.35),rgba(64,202,255,.2))',border:'1px solid rgba(124,122,207,.4)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
+                    <Icon size={21} color="#dcd4ff" strokeWidth={1.8} />
                   </div>
                   <div>
                     <div style={{fontWeight:800,fontSize:'17px',letterSpacing:'-.01em',lineHeight:1.2}}>{exp.role}</div>
@@ -74,7 +87,7 @@ export default function Experience() {
               </div>
             </div>
           </div>
-        ))}
+        )})}
       </div>
     </div>
   )

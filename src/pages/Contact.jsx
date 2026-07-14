@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Mail, Linkedin, Github, FileText, Lightbulb, CheckCircle2, ArrowRight } from 'lucide-react'
 import { PROFILE } from '../data'
 
 const INP = {
@@ -18,25 +19,31 @@ const INP = {
 export default function Contact() {
   const [form, setForm] = useState({ name:'', email:'', message:'' })
   const [sent, setSent] = useState(false)
+  const [hasResume, setHasResume] = useState(false)
 
-  async function submit(e) {
+  // Show the resume card only when public/resume.pdf actually exists
+  useEffect(() => {
+    fetch('/resume.pdf', { method:'HEAD' })
+      .then(r => { const t = r.headers.get('content-type') || ''; setHasResume(r.ok && t.indexOf('pdf') !== -1) })
+      .catch(() => {})
+  }, [])
+
+  // No backend mail service — compose the email in the visitor's own client,
+  // fully pre-filled. Honest and it always works.
+  function submit(e) {
     e.preventDefault()
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.name, email: form.email, message: form.message })
-      })
-      const data = await res.json()
-      if (data.ok) {
-        setSent(true)
-      } else {
-        alert('Could not send message. Please email keshvipipwalan@gmail.com directly.')
-      }
-    } catch {
-      alert('Could not send message. Please email keshvipipwalan@gmail.com directly.')
-    }
+    const subject = encodeURIComponent(`Reaching out via your portfolio — ${form.name}`)
+    const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`)
+    window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`
+    setSent(true)
   }
+
+  const links = [
+    { Icon: Mail, label:'Email', value: PROFILE.email, href:'mailto:'+PROFILE.email },
+    { Icon: Linkedin, label:'LinkedIn', value:'keshvi-pipwala', href: PROFILE.linkedin },
+    { Icon: Github, label:'GitHub', value:'keshvi-pipwala', href: PROFILE.github },
+    ...(hasResume ? [{ Icon: FileText, label:'Resume', value:'PDF · one page', href:'/resume.pdf' }] : []),
+  ]
 
   return (
     <div style={{ minHeight:'100vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'60px 40px', maxWidth:'860px', margin:'0 auto' }} className="page-pad">
@@ -58,39 +65,39 @@ export default function Contact() {
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1.4fr', gap:'52px', alignItems:'start' }}>
 
         <div style={{ display:'flex', flexDirection:'column', gap:'12px' }}>
-          {[
-            { icon:'✉️', label:'Email', value: PROFILE.email, href:'mailto:'+PROFILE.email },
-            { icon:'💼', label:'LinkedIn', value:'keshvi-pipwala', href: PROFILE.linkedin },
-            { icon:'⚡', label:'GitHub', value:'keshvi-pipwala', href: PROFILE.github },
-          ].map(c => (
+          {links.map(c => (
             <a key={c.label} href={c.href} target="_blank" rel="noreferrer"
               style={{ display:'flex', alignItems:'center', gap:'14px', padding:'14px 18px', borderRadius:'16px', border:'1px solid rgba(255,255,255,.07)', background:'rgba(255,255,255,.03)', textDecoration:'none', transition:'all .2s' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(124,122,207,.4)'; e.currentTarget.style.background='rgba(124,122,207,.08)' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(255,255,255,.07)'; e.currentTarget.style.background='rgba(255,255,255,.03)' }}
             >
-              <div style={{ width:'42px', height:'42px', borderRadius:'12px', background:'linear-gradient(135deg,rgba(124,122,207,.25),rgba(64,202,255,.15))', border:'1px solid rgba(124,122,207,.3)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'18px', flexShrink:0 }}>
-                {c.icon}
+              <div style={{ width:'42px', height:'42px', borderRadius:'12px', background:'linear-gradient(135deg,rgba(124,122,207,.25),rgba(64,202,255,.15))', border:'1px solid rgba(124,122,207,.3)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                <c.Icon size={17} color="#cfc6ff" strokeWidth={1.9} />
               </div>
               <div>
                 <div style={{ fontSize:'10px', color:'rgba(255,255,255,.32)', fontWeight:600, letterSpacing:'.08em', textTransform:'uppercase', marginBottom:'2px' }}>{c.label}</div>
                 <div style={{ fontSize:'13px', color:'rgba(255,255,255,.82)', fontWeight:500 }}>{c.value}</div>
               </div>
-              <span style={{ marginLeft:'auto', color:'rgba(255,255,255,.2)', fontSize:'16px' }}>→</span>
+              <ArrowRight size={15} style={{ marginLeft:'auto', color:'rgba(255,255,255,.25)' }} />
             </a>
           ))}
 
           <div style={{ marginTop:'8px', padding:'18px', borderRadius:'16px', background:'linear-gradient(135deg,rgba(124,122,207,.1),rgba(64,202,255,.06))', border:'1px solid rgba(124,122,207,.2)' }}>
-            <div style={{ fontSize:'12px', color:'rgba(255,255,255,.45)', lineHeight:1.8 }}>
-              💡 <strong style={{ color:'rgba(167,143,255,.9)' }}>Best way to reach me:</strong> Send a message through the form with the role details. I respond within 24 hours.
+            <div style={{ fontSize:'12px', color:'rgba(255,255,255,.45)', lineHeight:1.8, display:'flex', gap:'10px' }}>
+              <Lightbulb size={15} color="rgba(255,200,80,.85)" style={{ flexShrink:0, marginTop:'2px' }} />
+              <span><strong style={{ color:'rgba(167,143,255,.9)' }}>Best way to reach me:</strong> Send a message through the form with the role details. I respond within 24 hours.</span>
             </div>
           </div>
         </div>
 
         {sent ? (
           <div style={{ borderRadius:'22px', border:'1px solid rgba(100,220,100,.3)', background:'rgba(100,220,100,.06)', padding:'48px', textAlign:'center' }}>
-            <div style={{ fontSize:'52px', marginBottom:'18px' }}>🎉</div>
-            <div style={{ fontWeight:800, fontSize:'22px', marginBottom:'10px' }}>Message sent!</div>
-            <div style={{ color:'rgba(255,255,255,.42)', fontSize:'14px', lineHeight:1.7 }}>Your email client opened.<br/>Looking forward to connecting.</div>
+            <CheckCircle2 size={48} color="rgba(100,225,130,.9)" strokeWidth={1.5} style={{ marginBottom:'18px' }} />
+            <div style={{ fontWeight:800, fontSize:'22px', marginBottom:'10px' }}>Almost there —</div>
+            <div style={{ color:'rgba(255,255,255,.42)', fontSize:'14px', lineHeight:1.7 }}>Your email app just opened with the message pre-filled.<br/>Hit send and it's on its way to me.</div>
+            <button onClick={() => setSent(false)} style={{ marginTop:'22px', background:'transparent', border:'1px solid rgba(255,255,255,.15)', borderRadius:'9999px', padding:'8px 20px', color:'rgba(255,255,255,.6)', fontSize:'12px', fontWeight:600, cursor:'pointer', fontFamily:'inherit' }}>
+              ← Edit the message
+            </button>
           </div>
         ) : (
           <form onSubmit={submit} style={{ display:'flex', flexDirection:'column', gap:'16px' }}>
@@ -108,11 +115,11 @@ export default function Contact() {
               <label style={{ fontSize:'11px', color:'rgba(255,255,255,.4)', marginBottom:'6px', display:'block', fontWeight:600, letterSpacing:'.07em', textTransform:'uppercase' }}>What are you building?</label>
               <textarea style={{...INP, resize:'vertical'}} required rows={6} value={form.message} onChange={e => setForm(f => ({...f, message:e.target.value}))} placeholder="Tell me about the role, the team, and the problem you are solving. The more specific, the better." />
             </div>
-            <button type="submit" style={{ alignSelf:'flex-start', padding:'14px 40px', borderRadius:'14px', background:'linear-gradient(135deg,rgba(124,122,207,.55),rgba(64,202,255,.38))', border:'1px solid rgba(124,122,207,.65)', color:'#fff', fontSize:'14px', fontWeight:700, cursor:'pointer', fontFamily:'inherit', letterSpacing:'.03em', transition:'all .2s' }}
+            <button type="submit" style={{ alignSelf:'flex-start', padding:'14px 40px', borderRadius:'14px', background:'linear-gradient(135deg,rgba(124,122,207,.55),rgba(64,202,255,.38))', border:'1px solid rgba(124,122,207,.65)', color:'#fff', fontSize:'14px', fontWeight:700, cursor:'pointer', fontFamily:'inherit', letterSpacing:'.03em', transition:'all .2s', display:'inline-flex', alignItems:'center', gap:'8px' }}
               onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 32px rgba(124,122,207,.4)' }}
               onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='none' }}
             >
-              Send Message →
+              Send Message <ArrowRight size={15} />
             </button>
           </form>
         )}

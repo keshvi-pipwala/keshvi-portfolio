@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ScanSearch, BarChart3, ShieldAlert, Box, Github, ExternalLink } from 'lucide-react'
 import { PROJECTS } from '../data'
 
 function bold(text) {
@@ -14,6 +15,9 @@ const GRADIENTS = [
   'linear-gradient(135deg,rgba(255,140,105,.4),rgba(255,200,80,.3))',
 ]
 
+// Project icons by id (falls back to Box for anything new)
+const ICONS = { gitsense: ScanSearch, insightiq: BarChart3, resilienceos: ShieldAlert }
+
 export default function Projects() {
   const [q,setQ]=useState('')
   const items=(PROJECTS||[]).filter(p=>
@@ -26,7 +30,9 @@ export default function Projects() {
       <div className="reveal" style={{marginBottom:'32px'}}>
         <p style={{fontSize:'11px',letterSpacing:'.3em',textTransform:'uppercase',color:'rgba(167,143,255,.8)',marginBottom:'10px',fontWeight:600}}>WORK</p>
         <h1 style={{fontSize:'clamp(32px,4vw,48px)',fontWeight:900,letterSpacing:'-.03em'}}>Projects</h1>
-        <p style={{fontSize:'14px',color:'rgba(255,255,255,.38)',marginTop:'8px',lineHeight:1.6}}>Shipped to production. Not demos.</p>
+        <p style={{fontSize:'14px',color:'rgba(255,255,255,.38)',marginTop:'8px',lineHeight:1.6,maxWidth:'640px'}}>
+          Three AI products taken from spec to ship. The product direction, tradeoffs, and QA are mine; the implementation is AI-assisted — and I'm upfront about that split.
+        </p>
         <div className="section-line" style={{marginTop:'24px'}}/>
       </div>
 
@@ -41,23 +47,27 @@ export default function Projects() {
       </div>
 
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))',gap:'24px'}}>
-        {items.map((proj,i)=>(
+        {items.map((proj,i)=>{
+          const Icon = ICONS[proj.id] || Box
+          return (
           <div key={proj.id||i} className={`tilt-card reveal d${Math.min(i+1,5)}`}
             style={{borderRadius:'24px',border:'1px solid rgba(255,255,255,.09)',background:'rgba(255,255,255,.03)',overflow:'hidden',display:'flex',flexDirection:'column',backdropFilter:'blur(16px)',position:'relative'}}>
 
             {/* Mouse-following glow */}
             <div className="card-inner-glow" style={{position:'absolute',inset:0,borderRadius:'24px',pointerEvents:'none',transition:'background .15s',zIndex:0}}/>
 
-            {/* Header with emoji + buttons */}
+            {/* Header with icon + buttons */}
             <div style={{height:'115px',background:GRADIENTS[i%GRADIENTS.length],display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 24px',position:'relative',zIndex:1,flexShrink:0}}>
-              <span style={{fontSize:'54px',lineHeight:1,filter:'none'}}>{proj.emoji}</span>
+              <div style={{width:'58px',height:'58px',borderRadius:'16px',background:'rgba(0,0,0,.35)',border:'1px solid rgba(255,255,255,.2)',display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(8px)'}}>
+                <Icon size={28} color="#fff" strokeWidth={1.7} />
+              </div>
               <div style={{display:'flex',gap:'8px',alignItems:'center'}}>
                 {proj.live&&(
                   <a href={proj.live} target="_blank" rel="noreferrer"
                     style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'rgba(0,0,0,.5)',border:'1px solid rgba(255,255,255,.25)',borderRadius:'9999px',padding:'7px 15px',fontSize:'12px',fontWeight:700,color:'#fff',textDecoration:'none',backdropFilter:'blur(8px)',transition:'all .18s'}}
                     onMouseEnter={e=>{e.currentTarget.style.background='rgba(0,0,0,.75)';e.currentTarget.style.transform='translateY(-2px)'}}
                     onMouseLeave={e=>{e.currentTarget.style.background='rgba(0,0,0,.5)';e.currentTarget.style.transform=''}}>
-                    ↗ Live
+                    <ExternalLink size={13} /> Live
                   </a>
                 )}
                 {proj.github&&(
@@ -65,12 +75,12 @@ export default function Projects() {
                     style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'rgba(0,0,0,.5)',border:'1px solid rgba(255,255,255,.2)',borderRadius:'9999px',padding:'7px 15px',fontSize:'12px',fontWeight:700,color:'rgba(255,255,255,.9)',textDecoration:'none',backdropFilter:'blur(8px)',transition:'all .18s'}}
                     onMouseEnter={e=>{e.currentTarget.style.background='rgba(0,0,0,.75)';e.currentTarget.style.transform='translateY(-2px)'}}
                     onMouseLeave={e=>{e.currentTarget.style.background='rgba(0,0,0,.5)';e.currentTarget.style.transform=''}}>
-                    ⚡ GitHub
+                    <Github size={13} /> GitHub
                   </a>
                 )}
               </div>
               {proj.live&&(
-                <span style={{position:'absolute',top:'10px',left:'90px',background:'rgba(0,200,100,.2)',border:'1px solid rgba(0,200,100,.45)',borderRadius:'9999px',padding:'2px 9px',fontSize:'10px',color:'rgba(0,230,110,.95)',fontWeight:700,letterSpacing:'.05em'}}>LIVE</span>
+                <span style={{position:'absolute',top:'12px',left:'24px',background:'rgba(0,200,100,.25)',border:'1px solid rgba(0,200,100,.5)',borderRadius:'9999px',padding:'2px 9px',fontSize:'10px',color:'rgba(0,235,120,1)',fontWeight:700,letterSpacing:'.05em'}}>LIVE</span>
               )}
             </div>
 
@@ -97,7 +107,7 @@ export default function Projects() {
               </div>
             </div>
           </div>
-        ))}
+        )})}
       </div>
     </div>
   )
