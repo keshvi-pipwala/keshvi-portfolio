@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Play } from 'lucide-react'
-import { INTRO, PROFILE } from '../data'
+import { INTRO } from '../data'
+import AnimatedAvatar from './AnimatedAvatar'
 
 // Cinematic first-visit intro. Voice + synced captions + audio-reactive ring.
 // Degrades gracefully: no audio file → timed captions; reduced motion → static
@@ -36,13 +37,15 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
     timersRef.current.push(setTimeout(() => finish(false), INTRO.duration * 1000))
   }
 
-  // Gentle synthetic pulse when we have no audio signal to react to
+  // Gentle synthetic pulse + speech-like mouth rhythm when there is no audio signal
   const fakePulse = () => {
     if (reduced) return
     const loop = t => {
-      if (ringRef.current) {
-        const v = 1 + 0.06 * Math.abs(Math.sin(t / 320)) + 0.03 * Math.abs(Math.sin(t / 97))
-        ringRef.current.style.transform = `scale(${v})`
+      const v = 1 + 0.06 * Math.abs(Math.sin(t / 320)) + 0.03 * Math.abs(Math.sin(t / 97))
+      if (ringRef.current) ringRef.current.style.transform = `scale(${v})`
+      if (avatarRef.current) {
+        const amp = Math.max(0, (Math.sin(t / 130) + 0.6 * Math.sin(t / 71) + 0.4 * Math.sin(t / 233)) / 2)
+        avatarRef.current.style.setProperty('--amp', amp.toFixed(3))
       }
       rafRef.current = requestAnimationFrame(loop)
     }
@@ -90,6 +93,7 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
           for (let i = 0; i < data.length; i++) sum += data[i]
           const amp = sum / data.length / 255
           if (ringRef.current && !reduced) ringRef.current.style.transform = `scale(${1 + amp * 0.35})`
+          if (avatarRef.current) avatarRef.current.style.setProperty('--amp', Math.min(1, amp * 2.2).toFixed(3))
           rafRef.current = requestAnimationFrame(loop)
         }
         loop()
@@ -156,8 +160,8 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
       <div style={{ position: 'relative', width: '190px', height: '190px', animation: reduced ? 'none' : 'introIn 0.9s cubic-bezier(0.22,1,0.36,1) both' }}>
         <div ref={ringRef} style={{ position: 'absolute', inset: '-14px', borderRadius: '50%', border: '1.5px solid rgba(124,122,207,0.55)', boxShadow: '0 0 40px rgba(124,122,207,0.35), inset 0 0 24px rgba(64,202,255,0.12)', transition: 'transform 0.08s linear', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', inset: '-32px', borderRadius: '50%', border: '1px dashed rgba(64,202,255,0.22)', animation: reduced ? 'none' : 'introSpin 16s linear infinite', pointerEvents: 'none' }} />
-        <div ref={avatarRef} style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', border: '3px solid rgba(124,122,207,0.5)', boxShadow: '0 0 80px rgba(124,122,207,0.35)', willChange: 'transform' }}>
-          <img src={PROFILE.photo} alt="Keshvi Pipwala" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div ref={avatarRef} style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', border: '3px solid rgba(124,122,207,0.5)', boxShadow: '0 0 80px rgba(124,122,207,0.35)', willChange: 'transform', background: '#0d0c22' }}>
+          <AnimatedAvatar talking={phase === 'playing'} reduced={reduced} />
         </div>
       </div>
 
