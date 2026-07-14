@@ -104,38 +104,79 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
 
   // Voice via the browser's built-in speech engine — no audio file needed.
   // If public/intro.mp3 exists it takes priority (beginAudioMode).
+  //
+  // Browsers ship a mix of modern neural voices and ancient robotic/novelty
+  // ones. We score every available voice and only speak if a genuinely
+  // natural one exists — otherwise the intro stays silent with captions,
+  // because a creepy voice is worse than no voice.
+  const NOVELTY = ['albert','bad news','bahh','bells','boing','bubbles','cellos','deranged','fred','good news','jester','organ','superstar','trinoids','whisper','wobble','zarvox','junior','ralph','kathy','grandma','grandpa','rocko','shelley','flo','eddy','reed','sandy']
+
+  const scoreVoice = (v) => {
+    if (!v.lang || v.lang.toLowerCase().indexOf('en') !== 0) return -1
+    const n = (v.name || '').toLowerCase()
+    if (NOVELTY.some(b => n.indexOf(b) !== -1)) return -1
+    let s = 0
+    if (n.indexOf('natural') !== -1 || n.indexOf('neural') !== -1) s += 100
+    if (n.indexOf('google us english') !== -1) s += 90
+    else if (n.indexOf('google') !== -1 && v.lang === 'en-US') s += 60
+    if (n.indexOf('enhanced') !== -1 || n.indexOf('premium') !== -1) s += 50
+    if (n.indexOf('online') !== -1) s += 40
+    if (n.indexOf('samantha') !== -1) s += 45
+    if (['aria','jenny','ava','zoe','allison','joanna'].some(x => n.indexOf(x) !== -1)) s += 45
+    if (['karen','moira','tessa','victoria','susan','serena'].some(x => n.indexOf(x) !== -1)) s += 25
+    if (v.lang === 'en-US') s += 10
+    if (!v.localService) s += 8 // network voices are generally the modern ones
+    return s
+  }
+
   const pickVoice = () => {
     const voices = window.speechSynthesis.getVoices()
-    const preferred = ['Samantha', 'Google US English', 'Microsoft Aria', 'Karen', 'Victoria', 'Moira']
-    for (const name of preferred) {
-      const v = voices.find(v => v.name && v.name.indexOf(name) === 0)
-      if (v) return v
+    let best = null
+    let bestScore = 0
+    for (const v of voices) {
+      const s = scoreVoice(v)
+      if (s > bestScore) { best = v; bestScore = s }
     }
-    return voices.find(v => v.lang && v.lang.indexOf('en') === 0) || null
+    return bestScore >= 20 ? best : null // nothing decent → prefer silence
   }
 
   const beginSpeechMode = () => {
     const synth = window.speechSynthesis
     if (!synth || typeof SpeechSynthesisUtterance === 'undefined') { beginTimerMode(); return }
-    const watchdog = setTimeout(beginTimerMode, 3000)
+    const watchdog = setTimeout(beginTimerMode, 3500)
     synth.cancel()
-    const speakLine = (i) => {
+
+    const speakLine = (i, voice) => {
       if (doneRef.current) return
       if (i >= INTRO.lines.length) { finish(false); return }
       const u = new SpeechSynthesisUtterance(INTRO.lines[i].text.replace(/—/g, ','))
-      const v = pickVoice()
-      if (v) u.voice = v
-      u.rate = 1.0
-      u.pitch = 1.05
+      u.voice = voice
+      u.rate = 0.97
+      u.pitch = 1.0
       u.onstart = () => {
         if (!startedRef.current) { startedRef.current = true; clearTimeout(watchdog); fakePulse() }
         setLineIdx(i)
       }
-      u.onend = () => speakLine(i + 1)
-      u.onerror = () => { clearTimeout(watchdog); if (!startedRef.current) beginTimerMode(); else speakLine(i + 1) }
+      // small breath between lines
+      u.onend = () => { timersRef.current.push(setTimeout(() => speakLine(i + 1, voice), 240)) }
+      u.onerror = () => { clearTimeout(watchdog); if (!startedRef.current) beginTimerMode(); else timersRef.current.push(setTimeout(() => speakLine(i + 1, voice), 240)) }
       synth.speak(u)
     }
-    speakLine(0)
+
+    const go = () => {
+      const voice = pickVoice()
+      if (!voice) { clearTimeout(watchdog); beginTimerMode(); return }
+      speakLine(0, voice)
+    }
+
+    // getVoices() is often empty until voiceschanged fires
+    if (synth.getVoices().length > 0) go()
+    else {
+      let fired = false
+      const once = () => { if (!fired) { fired = true; go() } }
+      synth.addEventListener('voiceschanged', once, { once: true })
+      timersRef.current.push(setTimeout(once, 800)) // some browsers never fire the event
+    }
   }
 
   const start = () => {
