@@ -26,6 +26,7 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
       cancelAnimationFrame(rafRef.current)
       timersRef.current.forEach(clearTimeout)
       if (audioRef.current) { audioRef.current.pause(); audioRef.current.src = '' }
+      if (window.speechSynthesis) window.speechSynthesis.cancel()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -101,6 +102,42 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
     }).catch(() => { clearTimeout(watchdog); beginTimerMode() })
   }
 
+  // Voice via the browser's built-in speech engine — no audio file needed.
+  // If public/intro.mp3 exists it takes priority (beginAudioMode).
+  const pickVoice = () => {
+    const voices = window.speechSynthesis.getVoices()
+    const preferred = ['Samantha', 'Google US English', 'Microsoft Aria', 'Karen', 'Victoria', 'Moira']
+    for (const name of preferred) {
+      const v = voices.find(v => v.name && v.name.indexOf(name) === 0)
+      if (v) return v
+    }
+    return voices.find(v => v.lang && v.lang.indexOf('en') === 0) || null
+  }
+
+  const beginSpeechMode = () => {
+    const synth = window.speechSynthesis
+    if (!synth || typeof SpeechSynthesisUtterance === 'undefined') { beginTimerMode(); return }
+    const watchdog = setTimeout(beginTimerMode, 3000)
+    synth.cancel()
+    const speakLine = (i) => {
+      if (doneRef.current) return
+      if (i >= INTRO.lines.length) { finish(false); return }
+      const u = new SpeechSynthesisUtterance(INTRO.lines[i].text.replace(/—/g, ','))
+      const v = pickVoice()
+      if (v) u.voice = v
+      u.rate = 1.0
+      u.pitch = 1.05
+      u.onstart = () => {
+        if (!startedRef.current) { startedRef.current = true; clearTimeout(watchdog); fakePulse() }
+        setLineIdx(i)
+      }
+      u.onend = () => speakLine(i + 1)
+      u.onerror = () => { clearTimeout(watchdog); if (!startedRef.current) beginTimerMode(); else speakLine(i + 1) }
+      synth.speak(u)
+    }
+    speakLine(0)
+  }
+
   const start = () => {
     setPhase('playing')
     // The SPA rewrite serves index.html for missing files, so verify the
@@ -109,9 +146,9 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
       .then(r => {
         const type = r.headers.get('content-type') || ''
         if (r.ok && type.indexOf('audio') === 0) beginAudioMode()
-        else beginTimerMode()
+        else beginSpeechMode()
       })
-      .catch(beginTimerMode)
+      .catch(beginSpeechMode)
   }
 
   const finish = (skipped) => {
@@ -121,6 +158,7 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
     cancelAnimationFrame(rafRef.current)
     timersRef.current.forEach(clearTimeout)
     if (audioRef.current) audioRef.current.pause()
+    if (window.speechSynthesis) window.speechSynthesis.cancel()
     setPhase('leaving')
 
     const target = document.getElementById('hero-portrait')
