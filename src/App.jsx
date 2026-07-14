@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion'
 import { Home as HomeIcon, User, Briefcase, FolderGit2, GraduationCap, Mail, MessageCircle } from 'lucide-react'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -66,11 +66,10 @@ const pageVariants = {
 function Inner() {
   const location = useLocation()
   const [chatOpen, setChatOpen] = useState(false)
+  const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const [showIntro, setShowIntro] = useState(() => {
     if (typeof window === 'undefined') return false
-    const seen = sessionStorage.getItem('introSeen')
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    return !seen && !reduced && window.location.pathname === '/'
+    return !sessionStorage.getItem('introSeen') && window.location.pathname === '/'
   })
 
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
@@ -104,6 +103,7 @@ function Inner() {
       </nav>
 
       <main style={{ marginLeft: '72px', minHeight: '100vh', position: 'relative', zIndex: 1 }}>
+        <MotionConfig reducedMotion="user">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={location.pathname}
@@ -123,6 +123,7 @@ function Inner() {
             </Routes>
           </motion.div>
         </AnimatePresence>
+        </MotionConfig>
       </main>
 
       <button className="chat-fab" onClick={() => setChatOpen(true)} style={{ position: 'fixed', bottom: '28px', right: '28px', zIndex: 200, display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 22px', borderRadius: '9999px', background: 'linear-gradient(135deg,rgba(124,122,207,0.75),rgba(64,202,255,0.55))', border: '1px solid rgba(124,122,207,0.6)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', backdropFilter: 'blur(16px)', boxShadow: '0 8px 32px rgba(124,122,207,0.35)', transition: 'transform 0.2s,box-shadow 0.2s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.06) translateY(-2px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(124,122,207,0.5)' }} onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 32px rgba(124,122,207,0.35)' }}>
@@ -130,7 +131,7 @@ function Inner() {
       </button>
       <RecruiterChat isOpen={chatOpen} onClose={() => setChatOpen(false)} />
 
-      {showIntro && <IntroAvatar onFinish={() => setShowIntro(false)} />}
+      {showIntro && <IntroAvatar reduced={reducedMotion} onFinish={() => setShowIntro(false)} />}
     </div>
   )
 }
