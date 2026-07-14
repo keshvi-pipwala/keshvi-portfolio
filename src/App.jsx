@@ -74,13 +74,14 @@ function Inner() {
 
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
 
-  // Reveal + tilt after each route transition settles (exit takes ~320ms)
+  // Reveal + tilt after each route transition settles. The exact trigger is
+  // onAnimationComplete on the page wrapper below; these timers are backup
+  // (first load, interrupted transitions, anything framer doesn't report).
   useEffect(() => {
-    const t1 = setTimeout(() => { runReveal(); attachTilt() }, 380)
-    const t2 = setTimeout(() => { runReveal(); attachTilt() }, 650)
+    const timers = [380, 900, 2000].map(ms => setTimeout(() => { runReveal(); attachTilt() }, ms))
     const onScroll = () => runReveal()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => { clearTimeout(t1); clearTimeout(t2); window.removeEventListener('scroll', onScroll) }
+    return () => { timers.forEach(clearTimeout); window.removeEventListener('scroll', onScroll) }
   }, [location.pathname])
 
   return (
@@ -112,6 +113,7 @@ function Inner() {
             animate="enter"
             exit="exit"
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            onAnimationComplete={definition => { if (definition === 'enter') { runReveal(); attachTilt() } }}
           >
             <Routes location={location}>
               <Route path="/" element={<Home />} />
