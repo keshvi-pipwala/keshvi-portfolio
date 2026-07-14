@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
-import { AnimatePresence, MotionConfig, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Home as HomeIcon, User, Briefcase, FolderGit2, GraduationCap, Mail, MessageCircle } from 'lucide-react'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -58,9 +58,26 @@ function attachTilt() {
 }
 
 const pageVariants = {
-  initial: { opacity: 0, y: 24, filter: 'blur(6px)' },
-  enter: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  exit: { opacity: 0, y: -18, filter: 'blur(6px)' },
+  initial: { opacity: 0, y: 24 },
+  enter: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -18 },
+}
+
+// Simple fades for visitors with "reduce motion" enabled
+const pageVariantsReduced = {
+  initial: { opacity: 0 },
+  enter: { opacity: 1 },
+  exit: { opacity: 0 },
+}
+
+// Failsafe: if any animation library hiccup leaves the page wrapper invisible,
+// force it visible — content must never be lost to a transition.
+function forcePageVisible() {
+  const w = document.querySelector('main > div')
+  if (w && parseFloat(getComputedStyle(w).opacity) < 0.9) {
+    w.style.opacity = '1'
+    w.style.transform = 'none'
+  }
 }
 
 function Inner() {
@@ -78,7 +95,7 @@ function Inner() {
   // onAnimationComplete on the page wrapper below; these timers are backup
   // (first load, interrupted transitions, anything framer doesn't report).
   useEffect(() => {
-    const timers = [380, 900, 2000].map(ms => setTimeout(() => { runReveal(); attachTilt() }, ms))
+    const timers = [380, 900, 2000].map(ms => setTimeout(() => { forcePageVisible(); runReveal(); attachTilt() }, ms))
     const onScroll = () => runReveal()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => { timers.forEach(clearTimeout); window.removeEventListener('scroll', onScroll) }
@@ -104,11 +121,10 @@ function Inner() {
       </nav>
 
       <main style={{ marginLeft: '72px', minHeight: '100vh', position: 'relative', zIndex: 1 }}>
-        <MotionConfig reducedMotion="user">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={location.pathname}
-            variants={pageVariants}
+            variants={reducedMotion ? pageVariantsReduced : pageVariants}
             initial="initial"
             animate="enter"
             exit="exit"
@@ -125,7 +141,6 @@ function Inner() {
             </Routes>
           </motion.div>
         </AnimatePresence>
-        </MotionConfig>
       </main>
 
       <button className="chat-fab" onClick={() => setChatOpen(true)} style={{ position: 'fixed', bottom: '28px', right: '28px', zIndex: 200, display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 22px', borderRadius: '9999px', background: 'linear-gradient(135deg,rgba(124,122,207,0.75),rgba(64,202,255,0.55))', border: '1px solid rgba(124,122,207,0.6)', color: '#fff', fontSize: '14px', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', backdropFilter: 'blur(16px)', boxShadow: '0 8px 32px rgba(124,122,207,0.35)', transition: 'transform 0.2s,box-shadow 0.2s' }} onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.06) translateY(-2px)'; e.currentTarget.style.boxShadow = '0 16px 48px rgba(124,122,207,0.5)' }} onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 32px rgba(124,122,207,0.35)' }}>
