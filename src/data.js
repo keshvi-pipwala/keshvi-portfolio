@@ -6,6 +6,25 @@ export const PROFILE = {
   github: 'https://github.com/keshvi-pipwala',
   photo: '/keshvi.jpeg',
 }
+
+// ── Intro avatar ─────────────────────────────────────────────────────────────
+// Audio file: upload your generated voice as  public/intro.mp3
+// If the file is missing, the intro still runs with timed captions only.
+// `at` = seconds into the audio when each caption line should appear.
+// If your generated voice runs faster/slower, just nudge these numbers.
+export const INTRO = {
+  audio: '/intro.mp3',
+  duration: 24,
+  lines: [
+    { text: "Hi, I'm Keshvi.", at: 0 },
+    { text: 'I build AI systems that survive production.', at: 1.8 },
+    { text: "At NASA's L'SPACE Program, I engineer data pipelines where integrity is non-negotiable.", at: 5.0 },
+    { text: 'At ASU, I took an AI analytics platform from zero to five thousand students.', at: 10.8 },
+    { text: "And I've taken three AI products from spec to ship.", at: 15.8 },
+    { text: 'Look around — or ask my AI assistant for the fast version.', at: 19.4 },
+  ],
+}
+
 export const EXPERIENCE = [
   {
     icon: '🚀',
@@ -75,7 +94,7 @@ export const EXPERIENCE = [
 ]
 export const PROJECTS = [
   { id:'gitsense', emoji:'🔬', title:'GitSense', subtitle:'AI-Directed Build · PR-review agent · Product spec, evals & direction by me; implementation AI-assisted', tagline:'Your codebase has a 24/7 reviewer that never misses a breaking change.', live:null, github:'https://github.com/keshvi-pipwala/gitsense', impact:'A working test of a question I care about as a PM: can one person directing AI tooling ship a production-shaped agent — and where does that break?', bullets:['**Defined the product**: what a PR-review agent must catch, how risk should be scored, and what a useful Slack alert looks like — then directed an AI-assisted implementation against that spec.','**Made the platform call** to move from the Claude API to Gemini when rate limits threatened reliability — a cost/latency/quality tradeoff I owned and can defend.','**Wrote the acceptance criteria** and tested alert quality against real PRs; the spec and evals are mine, the code was AI-generated under my direction.'], stack:['Product Spec','Agent Evals','Claude/Gemini APIs','Python','FastAPI'] },
-  { id:'insightiq', emoji:'💡', title:'InsightIQ', subtitle:'AI-Directed Build · Analytics tool · Product spec, evals & direction by me; implementation AI-assisted', tagline:'Upload a CSV. Ask in plain English. Get an answer and a chart.', live:'https://insightiq-frontend-jn6h.onrender.com', github:'https://github.com/keshvi-pipwala/insightiq', impact:'Built to understand the real constraints of shipping LLM analytics — grounding, latency, and infra limits — from the product seat.', bullets:['**Scoped the product** around one promise: every answer grounded in the uploaded data, no generic LLM responses — and defined the checks that enforce it.','**Owned the key constraint decision**: Render\u2019s memory limits ruled out sentence-transformer embeddings, so I redirected the build to SQLite FTS5 retrieval — cheaper, faster, and good enough for the use case.','**Directed an AI-assisted implementation** end to end and deployed it live; my contribution is the spec, the tradeoffs, and the QA — not hand-written code.'], stack:['Product Spec','RAG','Gemini API','SQLite FTS5','React','Render'] },
+  { id:'insightiq', emoji:'💡', title:'InsightIQ', subtitle:'AI-Directed Build · Analytics tool · Product spec, evals & direction by me; implementation AI-assisted', tagline:'Upload a CSV. Ask in plain English. Get an answer and a chart.', live:'https://insightiq-frontend-jn6h.onrender.com', github:'https://github.com/keshvi-pipwala/insightiq', impact:'Built to understand the real constraints of shipping LLM analytics — grounding, latency, and infra limits — from the product seat.', bullets:['**Scoped the product** around one promise: every answer grounded in the uploaded data, no generic LLM responses — and defined the checks that enforce it.','**Owned the key constraint decision**: Render’s memory limits ruled out sentence-transformer embeddings, so I redirected the build to SQLite FTS5 retrieval — cheaper, faster, and good enough for the use case.','**Directed an AI-assisted implementation** end to end and deployed it live; my contribution is the spec, the tradeoffs, and the QA — not hand-written code.'], stack:['Product Spec','RAG','Gemini API','SQLite FTS5','React','Render'] },
   { id:'resilienceos', emoji:'🛡️', title:'ResilienceOS', subtitle:'AI-Directed Build · Chaos engineering sandbox · Product spec, evals & direction by me; implementation AI-assisted', tagline:'Find out how a distributed system breaks before users do.', live:null, github:'https://github.com/keshvi-pipwala/resilienceos', impact:'A learning build: I wanted to understand failure modes in distributed systems well enough to write credible post-mortems and incident specs.', bullets:['**Scoped the experiment surface** — which failure modes (latency injection, node crashes, network partitions) matter and what an operator needs to see when they happen.','**Specified the post-mortem output**: what an automated SRE write-up must explain (what broke, why, blast radius) for it to be useful rather than noise.','**Directed the AI-assisted build** of 5 microservices plus orchestrator against that spec; the architecture decisions and acceptance tests are mine.'], stack:['Product Spec','Incident Analysis','FastAPI','Prometheus','Claude API'] },
 ]
 export const EDUCATION = [
