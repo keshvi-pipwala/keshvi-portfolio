@@ -49,11 +49,25 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
     rafRef.current = requestAnimationFrame(loop)
   }
 
-  const start = () => {
-    setPhase('playing')
+  const startedRef = useRef(false)
+
+  // Captions on a timer — used when there is no playable audio
+  const beginTimerMode = () => {
+    if (startedRef.current) return
+    startedRef.current = true
+    scheduleCaptions()
+    fakePulse()
+  }
+
+  const beginAudioMode = () => {
     const audio = new Audio(INTRO.audio)
     audioRef.current = audio
+    const watchdog = setTimeout(beginTimerMode, 2500)
+    audio.addEventListener('error', () => { clearTimeout(watchdog); beginTimerMode() })
     audio.play().then(() => {
+      if (startedRef.current) return
+      startedRef.current = true
+      clearTimeout(watchdog)
       audio.addEventListener('timeupdate', () => {
         const t = audio.currentTime
         let idx = -1
@@ -80,11 +94,20 @@ export default function IntroAvatar({ onFinish, reduced = false }) {
         }
         loop()
       } catch { fakePulse() }
-    }).catch(() => {
-      // No audio file (or blocked) → captions on a timer instead
-      scheduleCaptions()
-      fakePulse()
-    })
+    }).catch(() => { clearTimeout(watchdog); beginTimerMode() })
+  }
+
+  const start = () => {
+    setPhase('playing')
+    // The SPA rewrite serves index.html for missing files, so verify the
+    // audio actually exists (and is audio) before trying to play it.
+    fetch(INTRO.audio, { method: 'HEAD' })
+      .then(r => {
+        const type = r.headers.get('content-type') || ''
+        if (r.ok && type.indexOf('audio') === 0) beginAudioMode()
+        else beginTimerMode()
+      })
+      .catch(beginTimerMode)
   }
 
   const finish = (skipped) => {
