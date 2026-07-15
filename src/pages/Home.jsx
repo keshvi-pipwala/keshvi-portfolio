@@ -30,12 +30,10 @@ export default function Home() {
             <span style={{ display: 'block', background: 'linear-gradient(135deg,#a78fff 0%,#40caff 50%,#ff80c0 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pipwala</span>
           </h1>
 
-          <div className="reveal d2" style={{ fontSize: 'clamp(14px,1.8vw,19px)', marginBottom: '24px', fontWeight: 700 }}>
+          <div className="reveal d2" style={{ fontSize: 'clamp(15px,2vw,21px)', marginBottom: '24px', fontWeight: 700 }}>
             <span style={{ color: '#a78fff' }}>AI Product Manager</span>
             <span style={{ color: 'rgba(255,255,255,.3)', fontWeight: 500 }}> · </span>
             <span style={{ color: '#40caff' }}>Software Engineer</span>
-            <span style={{ color: 'rgba(255,255,255,.3)', fontWeight: 500 }}> · </span>
-            <span style={{ color: '#ff80c0' }}>Data Engineer</span>
           </div>
 
           <p className="reveal d3" style={{ fontSize: '15px', color: 'rgba(255,255,255,.52)', lineHeight: 1.85, maxWidth: '500px', marginBottom: '10px' }}>
