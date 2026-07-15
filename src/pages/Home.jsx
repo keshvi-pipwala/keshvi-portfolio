@@ -6,7 +6,7 @@ import { PROFILE } from '../data'
 const STATS = [
   { val: '5,000+', label: 'Users on platforms I built', color: '#a78fff' },
   { val: '95%',    label: 'Data accuracy at NASA',       color: '#40caff' },
-  { val: '4.0',    label: 'GPA while working full-time', color: '#ffd166' },
+  { val: '2×',     label: 'Promoted in 9 months at ASU', color: '#ffd166' },
   { val: '+18%',   label: 'Retention lift I shipped',    color: '#ff80c0' },
 ]
 
@@ -30,16 +30,18 @@ export default function Home() {
             <span style={{ display: 'block', background: 'linear-gradient(135deg,#a78fff 0%,#40caff 50%,#ff80c0 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Pipwala</span>
           </h1>
 
-          <div className="reveal d2" style={{ fontSize: 'clamp(15px,2vw,21px)', marginBottom: '24px', fontWeight: 700 }}>
+          <div className="reveal d2" style={{ fontSize: 'clamp(14px,1.8vw,19px)', marginBottom: '24px', fontWeight: 700 }}>
             <span style={{ color: '#a78fff' }}>AI Product Manager</span>
             <span style={{ color: 'rgba(255,255,255,.3)', fontWeight: 500 }}> · </span>
-            <span style={{ color: '#40caff' }}>Data Engineer</span>
+            <span style={{ color: '#40caff' }}>Software Engineer</span>
+            <span style={{ color: 'rgba(255,255,255,.3)', fontWeight: 500 }}> · </span>
+            <span style={{ color: '#ff80c0' }}>Data Engineer</span>
           </div>
 
           <p className="reveal d3" style={{ fontSize: '15px', color: 'rgba(255,255,255,.52)', lineHeight: 1.85, maxWidth: '500px', marginBottom: '10px' }}>
             I build AI systems that run in production and own the metrics that prove they work. Currently at <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> engineering data infrastructure and at <strong style={{ color: '#fff' }}>ASU</strong> leading an AI platform serving <strong style={{ color: '#fff' }}>5,000+ students</strong>.
           </p>
-          <p className="reveal d3" style={{ fontSize: '12px', color: 'rgba(255,255,255,.28)', marginBottom: '32px' }}>MS @ ASU · GPA 4.0 · Tempe, AZ · She/Her · AWS Certified</p>
+          <p className="reveal d3" style={{ fontSize: '12px', color: 'rgba(255,255,255,.28)', marginBottom: '32px' }}>MS @ ASU · Tempe, AZ · She/Her · AWS & Anthropic Certified</p>
 
           <div className="reveal d4" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
             {[
