@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, NavLink, useLocation } from 'react-router-dom'
+import { Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Home as HomeIcon, User, Briefcase, FolderGit2, GraduationCap, Mail, MessageCircle } from 'lucide-react'
 import Home from './pages/Home'
@@ -9,7 +9,6 @@ import Projects from './pages/Projects'
 import Education from './pages/Education'
 import Contact from './pages/Contact'
 import RecruiterChat from './components/RecruiterChat'
-import IntroAvatar from './components/IntroAvatar'
 import './index.css'
 
 const NAV = [
@@ -82,12 +81,21 @@ function Inner() {
   const location = useLocation()
   const [chatOpen, setChatOpen] = useState(false)
   const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const [showIntro, setShowIntro] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return !sessionStorage.getItem('introSeen') && window.location.pathname === '/'
-  })
 
   useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
+
+  // Per-route document titles
+  useEffect(() => {
+    const TITLES = {
+      '/': "Keshvi Pipwala — AI Product Manager & Data Engineer",
+      '/about': "About — Keshvi Pipwala",
+      '/experience': "Experience — Keshvi Pipwala",
+      '/projects': "Projects — Keshvi Pipwala",
+      '/education': "Education — Keshvi Pipwala",
+      '/contact': "Contact — Keshvi Pipwala",
+    }
+    document.title = TITLES[location.pathname] || TITLES['/']
+  }, [location.pathname])
 
   // Reveal + tilt after each route transition settles. The exact trigger is
   // onAnimationComplete on the page wrapper below; these timers are backup
@@ -134,6 +142,7 @@ function Inner() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </motion.div>
       </main>
@@ -142,8 +151,6 @@ function Inner() {
         <MessageCircle size={17} /> Ask about Keshvi
       </button>
       <RecruiterChat isOpen={chatOpen} onClose={() => setChatOpen(false)} />
-
-      {showIntro && <IntroAvatar reduced={reducedMotion} onFinish={() => setShowIntro(false)} />}
     </div>
   )
 }
