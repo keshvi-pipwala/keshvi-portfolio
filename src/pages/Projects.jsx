@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Github, ExternalLink } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Github, ExternalLink, ArrowRight } from 'lucide-react'
 import { PROJECTS } from '../data'
 import ProjectPreview from '../components/ProjectPreview'
 
@@ -79,6 +80,14 @@ export default function Projects() {
               <div style={{fontWeight:800,fontSize:'18px',marginBottom:'3px',letterSpacing:'-.01em'}}>{proj.title}</div>
               <div style={{fontSize:'11px',color:'rgba(255,255,255,.35)',marginBottom:'12px',letterSpacing:'.01em'}}>{proj.subtitle}</div>
               <p style={{fontSize:'13px',color:'rgba(100,200,255,.9)',fontWeight:600,marginBottom:'16px',lineHeight:1.55,fontStyle:'italic'}}>{proj.tagline}</p>
+
+              {proj.id==='insightiq'&&(
+                <Link to="/case-study" style={{display:'inline-flex',alignItems:'center',gap:'6px',alignSelf:'flex-start',marginBottom:'16px',padding:'6px 13px',borderRadius:'9999px',background:'rgba(124,122,207,.14)',border:'1px solid rgba(124,122,207,.4)',color:'#cfc6ff',textDecoration:'none',fontSize:'12px',fontWeight:700}}
+                  onMouseEnter={e=>{e.currentTarget.style.background='rgba(124,122,207,.24)'}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='rgba(124,122,207,.14)'}}>
+                  Read the full case study <ArrowRight size={13} />
+                </Link>
+              )}
 
               <ul style={{listStyle:'none',padding:0,display:'flex',flexDirection:'column',gap:'9px',flex:1,marginBottom:'18px'}}>
                 {(proj.bullets||[]).map((b,j)=>(
