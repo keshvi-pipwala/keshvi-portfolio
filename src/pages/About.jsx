@@ -1,6 +1,6 @@
 import React from 'react'
-import { Wrench, BarChart3, Bot } from 'lucide-react'
-import { SKILLS } from '../data'
+import { Wrench, BarChart3, Bot, Quote } from 'lucide-react'
+import { SKILLS, TESTIMONIALS } from '../data'
 
 const CAT_COLORS = {
   'Languages & Core':     { bg:'rgba(124,122,207,.1)',  bd:'rgba(124,122,207,.35)', lb:'rgba(167,143,255,.9)'  },
@@ -56,6 +56,22 @@ export default function About() {
           ))}
         </div>
       </div>
+
+      {(TESTIMONIALS || []).length > 0 && (
+        <div style={{ marginBottom:'40px' }}>
+          <h2 style={{ fontSize:'20px', fontWeight:800, marginBottom:'20px', letterSpacing:'-.01em' }}>What people I've worked with say</h2>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))', gap:'16px' }}>
+            {TESTIMONIALS.map((t, i) => (
+              <div key={i} style={{ borderRadius:'18px', border:'1px solid rgba(124,122,207,.2)', background:'rgba(124,122,207,.05)', padding:'22px 24px' }}>
+                <Quote size={18} color="rgba(167,143,255,.7)" style={{ marginBottom:'10px' }} />
+                <p style={{ fontSize:'14px', color:'rgba(255,255,255,.82)', lineHeight:1.75, marginBottom:'14px', fontStyle:'italic' }}>{t.quote}</p>
+                <div style={{ fontSize:'13px', fontWeight:700, color:'#fff' }}>{t.name}</div>
+                <div style={{ fontSize:'11.5px', color:'rgba(167,143,255,.85)', marginTop:'2px' }}>{t.title}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <h2 style={{ fontSize:'20px', fontWeight:800, marginBottom:'20px', letterSpacing:'-.01em' }}>Technical Skills</h2>
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(290px,1fr))', gap:'14px' }}>
