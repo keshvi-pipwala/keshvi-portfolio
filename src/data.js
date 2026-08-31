@@ -117,6 +117,16 @@ export const SKILLS = {
   'Cloud & Backend':['AWS','GCP','FastAPI','PostgreSQL','Terraform','Docker Compose'],
   'Product & Management':['Product Roadmapping','OKRs','A/B Testing','Agile','Jira','Smartsheet','Stakeholder Management','Risk Mitigation'],
 }
+// ── Testimonials ─────────────────────────────────────────────────────────────
+// Add REAL quotes from your NASA L'SPACE lead, ASU manager, or teammates.
+// A one-line vouch from someone senior offsets a short track record more than
+// anything you can say about yourself. The section only appears once this has
+// at least one entry — so nothing shows until you paste a genuine quote.
+// Format: { quote, name, title }
+export const TESTIMONIALS = [
+  // { quote: "Keshvi consistently operated a level above her title...", name: "Full Name", title: "Role, NASA L'SPACE Program" },
+]
+
 export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI/Data Product Manager: she directs AI tooling, owns product decisions, and ships AI-assisted builds against her own specs and evals. Recent MS graduate, Information Technology & Project Management, Arizona State University (3.5 GPA, earned while working two concurrent roles). Experience (all recently completed — she is now actively seeking her next role): Software Engineer at NASA's L'SPACE Program (Apr 2025 – Apr 2026), AI/Data Product Manager at ASU (Jun 2025 – May 2026), Technical Project Manager → Lead TPM at ASU (promoted twice in 9 months), and a Technical Business Analyst internship at Grey Enterprise. Certifications: Anthropic AI Fluency and Claude 101, AWS Academy Data Engineering and ML Foundations. AnitaB.org premium student member. Her portfolio projects (GitSense, InsightIQ, ResilienceOS) are AI-directed builds — product spec, tradeoff decisions, and QA by her; implementation AI-assisted. She is transparent about this. On F-1 OPT with roughly three years of work authorization. Email: keshvipipwalan@gmail.com`
 export const CHAT_SUGGESTIONS = [
   "How does she work with AI tooling?",
