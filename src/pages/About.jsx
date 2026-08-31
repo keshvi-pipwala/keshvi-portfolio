@@ -1,5 +1,6 @@
 import React from 'react'
-import { Wrench, BarChart3, Bot, Quote } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Wrench, BarChart3, Bot, Quote, Rocket, ExternalLink, Github, FileText, Linkedin } from 'lucide-react'
 import { SKILLS, TESTIMONIALS } from '../data'
 
 const CAT_COLORS = {
@@ -15,6 +16,23 @@ const HOW_I_WORK = [
   { Icon: Wrench,    title:'Engineering with full context', body:"At NASA's L'SPACE Program I wrote the pipelines, the tests, and the dashboards. Owning the full stack means catching issues earlier and building more reliable systems." },
   { Icon: BarChart3, title:'Product grounded in data',      body:'At ASU I combined product thinking with hands-on ML work — running A/B tests, iterating on the model, and tracking retention through each change.' },
   { Icon: Bot,       title:'AI systems end-to-end',         body:'GitSense is a PR-review agent I took from spec to ship — a 7-step webhook-to-alert pipeline. I set the direction and evals; the implementation was AI-assisted.' },
+]
+
+// Every number here is tied to something on this site a recruiter can open and verify.
+const PROOF_STATS = [
+  { value:'0→5,000+', label:'Active users on the ASU AI analytics platform I took from zero to one.', bg:'rgba(124,122,207,.08)', bd:'rgba(124,122,207,.35)' },
+  { value:'+18%',     label:'Student-retention lift from ML early-warning signals I drove into the product.', bg:'rgba(80,200,120,.07)', bd:'rgba(80,200,120,.3)' },
+  { value:'+22%',     label:'Engagement lift from structured A/B tests across 4 core features.', bg:'rgba(64,202,255,.08)', bd:'rgba(64,202,255,.3)' },
+  { value:'95%',      label:'Anomaly-detection accuracy on NASA data pipelines — zero integrity failures since launch.', bg:'rgba(255,200,80,.07)', bd:'rgba(255,200,80,.3)' },
+  { value:'80%+',     label:'Test coverage I raised from near-zero at NASA with pytest + CI/CD.', bg:'rgba(255,140,105,.08)', bd:'rgba(255,140,105,.3)' },
+  { value:'3',        label:'AI products taken from spec to ship — one live, all on GitHub.', bg:'rgba(200,100,220,.08)', bd:'rgba(200,100,220,.3)' },
+]
+
+const PROOF_LINKS = [
+  { label:'Live product — InsightIQ', href:'https://insightiq-frontend-jn6h.onrender.com', Icon:ExternalLink, ext:true },
+  { label:'Read the full case study', href:'/case-study', Icon:FileText, ext:false },
+  { label:'GitHub — every repo', href:'https://github.com/keshvi-pipwala', Icon:Github, ext:true },
+  { label:'LinkedIn', href:'https://www.linkedin.com/in/keshvi-pipwala-5a7bb0247/', Icon:Linkedin, ext:true },
 ]
 
 export default function About() {
@@ -54,6 +72,45 @@ export default function About() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* ── PROOF ──────────────────────────────────────────────────────── */}
+      <div style={{ marginBottom:'40px' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:'10px', marginBottom:'6px' }}>
+          <Rocket size={18} color="#a78fff" strokeWidth={2} />
+          <h2 style={{ fontSize:'20px', fontWeight:800, letterSpacing:'-.01em' }}>Proof, not promises</h2>
+        </div>
+        <p style={{ fontSize:'13px', color:'rgba(255,255,255,.45)', lineHeight:1.7, maxWidth:'620px', marginBottom:'20px' }}>
+          A shorter track record only matters if the work isn't real. Mine is. Every number below is tied to something on this site you can open and check for yourself.
+        </p>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(158px,1fr))', gap:'12px', marginBottom:'22px' }}>
+          {PROOF_STATS.map(s => (
+            <div key={s.value} style={{ borderRadius:'16px', border:'1px solid '+s.bd, background:s.bg, padding:'18px 18px' }}>
+              <div style={{ fontSize:'26px', fontWeight:900, letterSpacing:'-.02em', color:'#fff', lineHeight:1 }}>{s.value}</div>
+              <div style={{ fontSize:'11.5px', color:'rgba(255,255,255,.6)', marginTop:'9px', lineHeight:1.55 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ borderRadius:'18px', border:'1px solid rgba(64,202,255,.18)', background:'rgba(64,202,255,.04)', padding:'20px 22px' }}>
+          <div style={{ fontSize:'11px', fontWeight:700, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(64,202,255,.85)', marginBottom:'14px' }}>Verify it yourself</div>
+          <div style={{ display:'flex', flexWrap:'wrap', gap:'10px' }}>
+            {PROOF_LINKS.map(l => {
+              const inner = (<><l.Icon size={13} /> {l.label}</>)
+              const style = { display:'inline-flex', alignItems:'center', gap:'7px', padding:'8px 14px', borderRadius:'9999px', background:'rgba(255,255,255,.05)', border:'1px solid rgba(255,255,255,.14)', color:'rgba(255,255,255,.9)', textDecoration:'none', fontSize:'12.5px', fontWeight:700 }
+              return l.ext ? (
+                <a key={l.label} href={l.href} target="_blank" rel="noreferrer" style={style}
+                  onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.1)'}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.05)'}}>{inner}</a>
+              ) : (
+                <Link key={l.label} to={l.href} style={style}
+                  onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.1)'}}
+                  onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.05)'}}>{inner}</Link>
+              )
+            })}
+          </div>
         </div>
       </div>
 
