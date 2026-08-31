@@ -18,7 +18,7 @@ export default function Home() {
       <div className="reveal" style={{ marginBottom: '32px' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(0,200,100,.1)', border: '1px solid rgba(0,200,100,.3)', borderRadius: '9999px', padding: '6px 16px', fontSize: '11px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(0,230,110,.95)' }}>
           <span className="pulse-dot" style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'rgba(0,230,110,.9)', display: 'inline-block' }} />
-          Actively Open — SWE · AI PM · Data Engineering
+Actively Open to Work — AI PM &amp; Software Engineering Roles
         </span>
       </div>
 
@@ -37,7 +37,7 @@ export default function Home() {
           </div>
 
           <p className="reveal d3" style={{ fontSize: '15px', color: 'rgba(255,255,255,.52)', lineHeight: 1.85, maxWidth: '500px', marginBottom: '10px' }}>
-            I build AI systems that run in production and own the metrics that prove they work. Currently at <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> engineering data infrastructure and at <strong style={{ color: '#fff' }}>ASU</strong> leading an AI platform serving <strong style={{ color: '#fff' }}>5,000+ students</strong>.
+            I build AI systems that run in production and own the metrics that prove they work. At <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> I engineered data infrastructure, and at <strong style={{ color: '#fff' }}>ASU</strong> I led an AI platform to <strong style={{ color: '#fff' }}>5,000+ students</strong>. Recently completed both — now looking for my next team.
           </p>
           <p className="reveal d3" style={{ fontSize: '12px', color: 'rgba(255,255,255,.28)', marginBottom: '32px' }}>MS @ ASU · Tempe, AZ · She/Her · AWS & Anthropic Certified</p>
 
