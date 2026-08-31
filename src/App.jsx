@@ -8,6 +8,7 @@ import Experience from './pages/Experience'
 import Projects from './pages/Projects'
 import Education from './pages/Education'
 import Contact from './pages/Contact'
+import CaseStudy from './pages/CaseStudy'
 import RecruiterChat from './components/RecruiterChat'
 import './index.css'
 
@@ -93,6 +94,7 @@ function Inner() {
       '/projects': "Projects — Keshvi Pipwala",
       '/education': "Education — Keshvi Pipwala",
       '/contact': "Contact — Keshvi Pipwala",
+      '/case-study': "InsightIQ Case Study — Keshvi Pipwala",
     }
     document.title = TITLES[location.pathname] || TITLES['/']
   }, [location.pathname])
@@ -142,6 +144,7 @@ function Inner() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/education" element={<Education />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/case-study" element={<CaseStudy />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </motion.div>
