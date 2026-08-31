@@ -12,7 +12,7 @@ const CAT_COLORS = {
 }
 
 const HOW_I_WORK = [
-  { Icon: Wrench,    title:'Engineering with full context', body:"At NASA's L'SPACE Program I write the pipelines, the tests, and the dashboards. Owning the full stack means catching issues earlier and building more reliable systems." },
+  { Icon: Wrench,    title:'Engineering with full context', body:"At NASA's L'SPACE Program I wrote the pipelines, the tests, and the dashboards. Owning the full stack means catching issues earlier and building more reliable systems." },
   { Icon: BarChart3, title:'Product grounded in data',      body:'At ASU I combined product thinking with hands-on ML work — running A/B tests, iterating on the model, and tracking retention through each change.' },
   { Icon: Bot,       title:'AI systems end-to-end',         body:'GitSense is a PR-review agent I took from spec to ship — a 7-step webhook-to-alert pipeline. I set the direction and evals; the implementation was AI-assisted.' },
 ]
@@ -25,7 +25,7 @@ export default function About() {
         <p style={{ fontSize:'11px', letterSpacing:'.3em', textTransform:'uppercase', color:'rgba(167,143,255,.8)', marginBottom:'8px', fontWeight:600 }}>ABOUT</p>
         <h1 style={{ fontSize:'clamp(28px,4vw,44px)', fontWeight:800, marginBottom:'12px', letterSpacing:'-.02em' }}>Building things that work in production.</h1>
         <p style={{ fontSize:'15px', color:'rgba(255,255,255,.48)', maxWidth:'580px', lineHeight:1.75 }}>
-          I work across data engineering and product — currently as a Software Engineer in NASA's L'SPACE Program and an AI Product Manager at ASU. I focus on shipping measurable outcomes, not just shipping features.
+          I work across data engineering and product. Most recently a Software Engineer in NASA's L'SPACE Program and an AI Product Manager at ASU — both wrapped up in 2026. I focus on shipping measurable outcomes, not just shipping features, and I'm now looking for my next team.
         </p>
       </div>
 
