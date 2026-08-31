@@ -32,7 +32,7 @@ export const EXPERIENCE = [
     company: "NASA L'SPACE Program",
     location: 'Tempe, AZ',
     time: 'Apr 2025 – Apr 2026',
-    type: 'Full-time',
+    type: '',
     summary: 'Engineered production-grade data infrastructure for NASA mission research — where data integrity is non-negotiable.',
     bullets: [
       'Architected and deployed **ETL validation pipelines** processing multi-source scientific research datasets, achieving **95% anomaly detection accuracy** with zero data integrity failures across all pipeline runs since launch.',
@@ -47,7 +47,7 @@ export const EXPERIENCE = [
     company: 'ASU — School of Social & Behavioral Sciences',
     location: 'Tempe, AZ',
     time: 'Jun 2025 – May 2026',
-    type: 'Full-time',
+    type: '',
     summary: 'Led 0-to-1 product development of an AI-powered student analytics platform — defining strategy, roadmap, and success metrics for a platform that grew to thousands of users.',
     bullets: [
       'Owned full product lifecycle from discovery to launch, scaling platform from **0 to 5,000+ active users** — defined OKRs, authored PRDs, led sprint planning, and partnered with engineering through every milestone.',
@@ -62,7 +62,7 @@ export const EXPERIENCE = [
     company: 'Arizona State University',
     location: 'Tempe, AZ · Hybrid',
     time: 'Sep 2024 – Jun 2025',
-    type: 'Part-time · Promoted twice',
+    type: 'Promoted twice',
     summary: 'Joined as Assistant Project Coordinator and earned two promotions in 9 months — to Technical Project Manager, then Lead TPM — by consistently owning delivery outcomes and expanding scope across campus-wide programs.',
     bullets: [
       'Progressed from **Assistant Coordinator → TPM → Lead TPM** in 9 months by taking increasing ownership of program delivery, budget accountability, and cross-functional stakeholder alignment across ASU initiatives.',
