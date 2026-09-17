@@ -103,7 +103,93 @@ function ResilienceOSPreview() {
   )
 }
 
-const MAP = { insightiq: InsightIQPreview, gitsense: GitSensePreview, resilienceos: ResilienceOSPreview }
+function CloseCopilotPreview() {
+  const rows = [
+    { d: 'AWS · us-east-1',        amt: '$1,284.10', cat: 'Cloud Infra',  c: 0.97, auto: true },
+    { d: 'Stripe payout',          amt: '$8,420.00', cat: 'Revenue',      c: 0.99, auto: true },
+    { d: 'WeWork 3F deposit',      amt: '$2,500.00', cat: 'Rent?',        c: 0.61, auto: false },
+    { d: 'Figma annual',           amt: '$540.00',   cat: 'Software',     c: 0.94, auto: true },
+  ]
+  return (
+    <div style={{ ...shell, display: 'flex', flexDirection: 'column', padding: '12px 14px', gap: '6px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+        <span style={{ fontSize: '9px', fontWeight: 700, color: '#cfc6ff' }}>Close Copilot</span>
+        <span style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.35)' }}>· threshold 0.85</span>
+        <span style={{ marginLeft: 'auto', fontSize: '7px', color: 'rgba(0,235,120,0.95)', fontWeight: 700, border: '1px solid rgba(0,235,120,0.4)', borderRadius: '20px', padding: '1px 7px' }}>100% precision on auto-posts</span>
+      </div>
+      {rows.map(r => (
+        <div key={r.d} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: '8px', alignItems: 'center', fontSize: '7.5px', background: 'rgba(255,255,255,0.03)', border: '1px solid ' + (r.auto ? 'rgba(255,255,255,0.06)' : 'rgba(255,200,80,0.35)'), borderRadius: '6px', padding: '4px 8px' }}>
+          <span style={{ color: 'rgba(255,255,255,0.8)' }}>{r.d}</span>
+          <span style={{ color: 'rgba(255,255,255,0.5)' }}>{r.amt}</span>
+          <span style={{ color: r.auto ? '#40caff' : '#ffd166' }}>{r.cat}</span>
+          <span style={{ width: '58px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            <span style={{ flex: 1, height: '3px', background: 'rgba(255,255,255,0.08)', borderRadius: '2px', overflow: 'hidden' }}>
+              <span style={{ display: 'block', width: `${r.c * 100}%`, height: '100%', background: r.auto ? 'rgba(0,235,120,0.9)' : '#ffd166' }} />
+            </span>
+            <span style={{ color: r.auto ? 'rgba(0,235,120,0.9)' : '#ffd166', fontWeight: 700 }}>{r.auto ? 'POST' : 'REVIEW'}</span>
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function SubmissionClearPreview() {
+  const steps = ['classify', 'extract', 'validate', 'enrich', 'triage']
+  return (
+    <div style={{ ...shell, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '12px 14px', gap: '9px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+        <span style={{ fontSize: '9px', fontWeight: 700, color: '#cfc6ff' }}>SubmissionClear</span>
+        <span style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.35)' }}>· broker email → cleared submission</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        {steps.map((s, i) => (
+          <React.Fragment key={s}>
+            <span style={{ fontSize: '7.5px', fontWeight: 700, color: i < 4 ? '#fff' : '#ffd166', background: i < 4 ? 'rgba(124,122,207,0.35)' : 'rgba(255,209,102,0.15)', border: '1px solid ' + (i < 4 ? 'rgba(124,122,207,0.6)' : 'rgba(255,209,102,0.5)'), borderRadius: '6px', padding: '4px 7px' }}>{s}</span>
+            {i < steps.length - 1 && <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '8px' }}>→</span>}
+          </React.Fragment>
+        ))}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', fontSize: '7.5px' }}>
+        {[['Insured name', 'Harbor Freight Logistics LLC', 0.98], ['USDOT #', '3140921 · FMCSA ✓', 0.99], ['Flood zone', 'FEMA X (minimal)', 0.96], ['Prior carrier', '— not found', 0.42]].map(([k, v, c]) => (
+          <div key={k} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid ' + (c > 0.9 ? 'rgba(255,255,255,0.06)' : 'rgba(255,200,80,0.4)'), borderRadius: '6px', padding: '4px 7px', display: 'flex', justifyContent: 'space-between', gap: '6px' }}>
+            <span style={{ color: 'rgba(255,255,255,0.45)' }}>{k}</span>
+            <span style={{ color: c > 0.9 ? 'rgba(255,255,255,0.85)' : '#ffd166', fontWeight: 600, textAlign: 'right' }}>{v}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: '7px', color: '#ffd166' }}>⚠ 1 field under 90% confidence → routed to underwriter review</div>
+    </div>
+  )
+}
+
+function GatewayPreview() {
+  const providers = [
+    { n: 'Gemini 2.5 Flash', st: 'healthy', ms: '412 ms', c: 'rgba(0,235,120,0.9)' },
+    { n: 'Claude Sonnet',    st: '429 · cooldown 45s', ms: '—', c: '#ff8a7a' },
+    { n: 'GPT-4o mini',      st: 'standby', ms: '—', c: 'rgba(255,255,255,0.4)' },
+  ]
+  return (
+    <div style={{ ...shell, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '12px 14px', gap: '7px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+        <span style={{ fontSize: '9px', fontWeight: 700, color: '#cfc6ff' }}>LLM Gateway</span>
+        <span style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.35)' }}>· one interface, ordered fallbacks</span>
+        <span style={{ marginLeft: 'auto', fontSize: '7px', color: '#ff9a5c', fontWeight: 700, border: '1px solid rgba(255,140,90,0.4)', borderRadius: '20px', padding: '1px 7px' }}>FAILOVER ACTIVE</span>
+      </div>
+      {providers.map((p, i) => (
+        <div key={p.n} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '8px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '6px', padding: '5px 9px' }}>
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: p.c, boxShadow: `0 0 6px ${p.c}` }} />
+          <span style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 600 }}>{i + 1}. {p.n}</span>
+          <span style={{ color: p.c }}>{p.st}</span>
+          <span style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.45)' }}>{p.ms}</span>
+        </div>
+      ))}
+      <div style={{ fontSize: '7px', color: 'rgba(255,255,255,0.4)' }}>app → <code style={{ color: '#40caff' }}>default-chat</code> → routed to Gemini · caller unaware</div>
+    </div>
+  )
+}
+
+const MAP = { insightiq: InsightIQPreview, gitsense: GitSensePreview, resilienceos: ResilienceOSPreview, 'close-copilot': CloseCopilotPreview, submissionclear: SubmissionClearPreview, 'litellm-gateway': GatewayPreview }
 
 export default function ProjectPreview({ id }) {
   const Comp = MAP[id]
