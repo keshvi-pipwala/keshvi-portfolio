@@ -88,7 +88,7 @@ function Inner() {
   // Per-route document titles
   useEffect(() => {
     const TITLES = {
-      '/': "Keshvi Pipwala — AI Product Manager & Software Engineer",
+      '/': "Keshvi Pipwala — AI Product Manager · Forward-Deployed AI Builder",
       '/about': "About — Keshvi Pipwala",
       '/experience': "Experience — Keshvi Pipwala",
       '/projects': "Projects — Keshvi Pipwala",
