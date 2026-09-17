@@ -19,7 +19,7 @@ export const INTRO = {
     { text: 'I ship AI systems that survive production.', at: 1.8 },
     { text: "At NASA's L'SPACE Program, I built data pipelines where integrity is non-negotiable.", at: 5.0 },
     { text: 'At ASU, I took an AI analytics platform from zero to five thousand students.', at: 10.8 },
-    { text: "Since then I've shipped five AI products from spec to live URL.", at: 15.8 },
+    { text: "Since then I've shipped six AI products — every one has a live URL.", at: 15.8 },
     { text: 'Look around — or ask my AI assistant for the fast version.', at: 19.4 },
   ],
 }
@@ -108,10 +108,10 @@ export const PROJECTS = [
     impact: '100% precision on auto-posted rows and 96.2% overall accuracy on a 104-transaction labeled set — the number a controller actually cares about is the first one.',
     bullets: [
       '**Designed the trust model, not just the classifier**: the agent scores its own confidence on every transaction; rows ≥ 0.85 post automatically, the rest land in a human review queue with the agent\'s reasoning attached.',
-      '**Built the labeled eval set (104 transactions)** and chose the threshold by walking the precision/recall curve — accepting a lower auto-post rate to hit 100% precision, because a wrong auto-post costs more than a review click.',
-      '**Shipped it live** with CSV upload, anomaly flagging, and a real-time reconciliation summary; optional bring-your-own Claude API key.',
+      '**Built the 104-transaction labeled eval set** (`npm run eval` reproduces every number) and set the 0.85 auto-post threshold conservatively: 82.7% of rows auto-post at 100% precision, because a wrong auto-post costs more than a review click.',
+      '**Shipped it live** (Next.js · TypeScript) with CSV upload, a live-adjustable confidence slider, anomaly flagging and real-time reconciliation; the on-device agent runs with zero keys, with an optional Claude route that falls back safely.',
     ],
-    stack: ['Product Spec', 'Confidence Routing', 'Human-in-the-Loop', 'Eval Design', 'TypeScript', 'Claude API', 'Vercel'],
+    stack: ['Product Spec', 'Confidence Routing', 'Human-in-the-Loop', 'Eval Design', 'Next.js', 'TypeScript', 'Claude API', 'Vercel'],
   },
   {
     id: 'submissionclear', group: 'company', emoji: '📨',
@@ -133,7 +133,7 @@ export const PROJECTS = [
     title: 'Resilient LLM Gateway',
     subtitle: 'Multi-provider LLM routing with automatic failover · the reusable answer to the rate-limit problem that hit GitSense · I owned the failure-mode spec — implementation AI-assisted',
     tagline: 'One interface across providers. When one degrades, traffic moves before users notice.',
-    live: null,
+    live: 'https://keshvi-pipwala.github.io/litellm-resilient-gateway/',
     github: 'https://github.com/keshvi-pipwala/litellm-resilient-gateway',
     impact: 'GitSense taught me that a single-provider LLM dependency is a production incident waiting to happen. This is the generalized fix — built once, reusable in every later project.',
     bullets: [
@@ -148,7 +148,7 @@ export const PROJECTS = [
     title: 'GitSense',
     subtitle: 'PR-review agent · I owned the spec, risk model & evals — implementation AI-assisted',
     tagline: 'Your codebase has a 24/7 reviewer that never misses a breaking change.',
-    live: null,
+    live: 'https://keshvi-pipwala.github.io/gitsense/',
     github: 'https://github.com/keshvi-pipwala/gitsense',
     impact: 'A working test of a question I care about as a PM: can one person directing AI tooling ship a production-shaped agent — and where does that break? (Answer: at the LLM provider. See the gateway above.)',
     bullets: [
@@ -178,7 +178,7 @@ export const PROJECTS = [
     title: 'ResilienceOS',
     subtitle: 'Chaos-engineering sandbox · I owned the architecture & incident spec — implementation AI-assisted',
     tagline: 'Find out how a distributed system breaks before users do.',
-    live: null,
+    live: 'https://keshvi-pipwala.github.io/resilienceos/',
     github: 'https://github.com/keshvi-pipwala/resilienceos',
     impact: 'A learning build: I wanted to understand failure modes in distributed systems well enough to write credible post-mortems and incident specs. 53 integration tests say the failures are real.',
     bullets: [
@@ -224,7 +224,7 @@ export const TESTIMONIALS = [
   // { quote: "...", name: "Full Name", title: "Role, Organization" },
 ]
 
-export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI/Data Product Manager who directs AI tooling, owns product decisions, and ships AI-assisted builds against her own specs and evals — she is transparent that implementation is AI-assisted and that the spec, tradeoffs, eval design, and QA are hers. She holds an M.S. in Information Technology & Management from Arizona State University (May 2026, 3.5 GPA, earned while working two concurrent roles). Recently completed roles (she is actively seeking her next full-time role now): AI/Data Product Manager at ASU (Jun 2025 – May 2026; 0→5,000+ users, +18% retention, +22% engagement via A/B tests), Software Engineer in NASA's L'SPACE Program (Apr 2025 – Apr 2026; NASA-funded academy via ASU; ETL validation pipelines at 95% anomaly-detection accuracy, 80%+ test coverage, CI/CD), Technical Project Manager → Lead TPM at ASU (Sep 2024 – Jun 2025; promoted twice in 9 months; 5+ concurrent programs, zero missed milestones), and a Technical Business Analyst internship at Grey Enterprise. Shipped builds: Close Copilot (live; confidence-routed transaction categorization; 100% precision on auto-posts, 96.2% accuracy on a 104-row labeled set), SubmissionClear (insurance intake agent pipeline built for FurtherAI), a resilient multi-provider LLM gateway on LiteLLM, GitSense (PR-review agent), InsightIQ (live; grounded CSV analytics), ResilienceOS (chaos engineering with AI post-mortems, 53 integration tests). Certifications: Anthropic AI Fluency and Claude 101; AWS Academy Graduate in Data Engineering and Machine Learning Foundations; Kaggle Python Coder. AnitaB.org premium student member. Founded Kaleidoscope, a student tech community, during her B.E. Target roles: AI Product Manager, Technical Program/Project Manager, Forward-Deployed / Applied AI. Based in Tempe, AZ; open to relocation (SF, NYC, Seattle, Austin). Work authorization: F-1 OPT with roughly three years of authorization. Email: keshvipipwalan@gmail.com`
+export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI/Data Product Manager who directs AI tooling, owns product decisions, and ships AI-assisted builds against her own specs and evals — she is transparent that implementation is AI-assisted and that the spec, tradeoffs, eval design, and QA are hers. She holds an M.S. in Information Technology & Management from Arizona State University (May 2026, 3.5 GPA, earned while working two concurrent roles). Recently completed roles (she is actively seeking her next full-time role now): AI/Data Product Manager at ASU (Jun 2025 – May 2026; 0→5,000+ users, +18% retention, +22% engagement via A/B tests), Software Engineer in NASA's L'SPACE Program (Apr 2025 – Apr 2026; NASA-funded academy via ASU; ETL validation pipelines at 95% anomaly-detection accuracy, 80%+ test coverage, CI/CD), Technical Project Manager → Lead TPM at ASU (Sep 2024 – Jun 2025; promoted twice in 9 months; 5+ concurrent programs, zero missed milestones), and a Technical Business Analyst internship at Grey Enterprise. Shipped builds (all six have live demos): Close Copilot (live; confidence-routed transaction categorization; 100% precision on auto-posts, 96.2% accuracy on a 104-row labeled set), SubmissionClear (insurance intake agent pipeline built for FurtherAI), a resilient multi-provider LLM gateway on LiteLLM, GitSense (PR-review agent), InsightIQ (live; grounded CSV analytics), ResilienceOS (chaos engineering with AI post-mortems, 53 integration tests). Certifications: Anthropic AI Fluency and Claude 101; AWS Academy Graduate in Data Engineering and Machine Learning Foundations; Kaggle Python Coder. AnitaB.org premium student member. Founded Kaleidoscope, a student tech community, during her B.E. Target roles: AI Product Manager, Technical Program/Project Manager, Forward-Deployed / Applied AI. Based in Tempe, AZ; open to relocation (SF, NYC, Seattle, Austin). Work authorization: F-1 OPT with roughly three years of authorization. Email: keshvipipwalan@gmail.com`
 
 export const CHAT_SUGGESTIONS = [
   "What has she actually shipped?",
