@@ -15,7 +15,7 @@ const CAT_COLORS = {
 const HOW_I_WORK = [
   { Icon: Wrench,    title:'Engineering with full context', body:"At NASA's L'SPACE Program I wrote the pipelines, the tests, and the dashboards. Owning the full stack means catching issues earlier and building more reliable systems." },
   { Icon: BarChart3, title:'Product grounded in data',      body:'At ASU I combined product thinking with hands-on ML work — running A/B tests, iterating on the model, and tracking retention through each change.' },
-  { Icon: Bot,       title:'AI systems end-to-end',         body:'Six shipped builds: a confidence-routed transaction categorizer with 100% precision on auto-posts (live), an insurance-intake agent pipeline built for a real forward-deployed application (live), a multi-provider LLM gateway, a PR-review agent, grounded CSV analytics (live), and a chaos-engineering platform. I own the spec, tradeoffs, eval set, and QA; implementation is AI-assisted and I say so.' },
+  { Icon: Bot,       title:'AI systems end-to-end',         body:'Six shipped builds, all with live demos: a confidence-routed transaction categorizer with 100% precision on auto-posts (live), an insurance-intake agent pipeline built for a real forward-deployed application (live), a multi-provider LLM gateway, a PR-review agent, grounded CSV analytics (live), and a chaos-engineering platform. I own the spec, tradeoffs, eval set, and QA; implementation is AI-assisted and I say so.' },
 ]
 
 // Every number here is tied to something on this site a recruiter can open and verify.
@@ -26,13 +26,16 @@ const PROOF_STATS = [
   { value:'95%',      label:'Anomaly-detection accuracy on NASA data pipelines — zero integrity failures since launch.', bg:'rgba(255,200,80,.07)', bd:'rgba(255,200,80,.3)' },
   { value:'80%+',     label:'Test coverage I raised from near-zero at NASA with pytest + CI/CD.', bg:'rgba(255,140,105,.08)', bd:'rgba(255,140,105,.3)' },
   { value:'100%',     label:'Precision on auto-posted rows in Close Copilot (96.2% overall, 104-row labeled set) — live.', bg:'rgba(200,100,220,.08)', bd:'rgba(200,100,220,.3)' },
-  { value:'6 / 3',    label:'AI builds shipped from spec to URL — three live, all on GitHub.', bg:'rgba(124,122,207,.08)', bd:'rgba(124,122,207,.35)' },
+  { value:'6',        label:'AI builds shipped from spec to URL — every one has a live demo, all on GitHub.', bg:'rgba(124,122,207,.08)', bd:'rgba(124,122,207,.35)' },
 ]
 
 const PROOF_LINKS = [
   { label:'Live — Close Copilot', href:'https://close-copilot.vercel.app', Icon:ExternalLink, ext:true },
   { label:'Live — SubmissionClear', href:'https://keshvi-pipwala.github.io/submissionclear/', Icon:ExternalLink, ext:true },
   { label:'Live — InsightIQ', href:'https://insightiq-frontend-jn6h.onrender.com', Icon:ExternalLink, ext:true },
+  { label:'Demo — GitSense', href:'https://keshvi-pipwala.github.io/gitsense/', Icon:ExternalLink, ext:true },
+  { label:'Demo — ResilienceOS', href:'https://keshvi-pipwala.github.io/resilienceos/', Icon:ExternalLink, ext:true },
+  { label:'Demo — LLM Gateway', href:'https://keshvi-pipwala.github.io/litellm-resilient-gateway/', Icon:ExternalLink, ext:true },
   { label:'Read the full case study', href:'/case-study', Icon:FileText, ext:false },
   { label:'GitHub — every repo', href:'https://github.com/keshvi-pipwala', Icon:Github, ext:true },
   { label:'LinkedIn', href:'https://www.linkedin.com/in/keshvi-pipwala-5a7bb0247/', Icon:Linkedin, ext:true },

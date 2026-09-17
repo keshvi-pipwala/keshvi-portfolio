@@ -29,7 +29,7 @@ export default function Projects() {
         <p style={{fontSize:'11px',letterSpacing:'.3em',textTransform:'uppercase',color:'rgba(167,143,255,.8)',marginBottom:'10px',fontWeight:600}}>WORK</p>
         <h1 style={{fontSize:'clamp(32px,4vw,48px)',fontWeight:900,letterSpacing:'-.03em'}}>Projects</h1>
         <p style={{fontSize:'14px',color:'rgba(255,255,255,.38)',marginTop:'8px',lineHeight:1.6,maxWidth:'640px'}}>
-          Six AI builds I took from spec to ship — three live. I set the direction, owned the hard tradeoffs, built the evals, and ran the QA; the implementation is AI-assisted. Directing AI to ship real software is the point.
+          Six AI builds I took from spec to ship — every one has a live demo. I set the direction, owned the hard tradeoffs, built the evals, and ran the QA; the implementation is AI-assisted. Directing AI to ship real software is the point.
         </p>
         <div className="section-line" style={{marginTop:'24px'}}/>
       </div>

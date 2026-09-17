@@ -7,7 +7,7 @@ const STATS = [
   { val: '5,000+', label: 'Users on a platform I owned 0→1', color: '#a78fff' },
   { val: '95%',    label: "Anomaly-detection accuracy, NASA L'SPACE", color: '#40caff' },
   { val: '2×',     label: 'Promoted in 9 months at ASU', color: '#ffd166' },
-  { val: '6 / 3',  label: 'AI builds shipped / live right now', color: '#ff80c0' },
+  { val: '6',      label: 'AI builds shipped — all with live demos', color: '#ff80c0' },
 ]
 
 export default function Home() {
@@ -37,7 +37,7 @@ Open Now — AI PM · Technical PM · Forward-Deployed AI
           </div>
 
           <p className="reveal d3" style={{ fontSize: '15px', color: 'rgba(255,255,255,.52)', lineHeight: 1.85, maxWidth: '500px', marginBottom: '10px' }}>
-            I build AI systems that run in production and own the metrics that prove they work. At <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> I engineered data infrastructure, and at <strong style={{ color: '#fff' }}>ASU</strong> I led an AI platform to <strong style={{ color: '#fff' }}>5,000+ students</strong>. Since then I've shipped <strong style={{ color: '#fff' }}>six AI-directed builds, three live</strong> — including one with 100% precision on every automated decision. Available now.
+            I build AI systems that run in production and own the metrics that prove they work. At <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> I engineered data infrastructure, and at <strong style={{ color: '#fff' }}>ASU</strong> I led an AI platform to <strong style={{ color: '#fff' }}>5,000+ students</strong>. Since then I've shipped <strong style={{ color: '#fff' }}>six AI-directed builds, every one with a live demo</strong> — including one with 100% precision on every automated decision. Available now.
           </p>
           <p className="reveal d3" style={{ fontSize: '12px', color: 'rgba(255,255,255,.28)', marginBottom: '32px' }}>M.S. ASU, May 2026 · Tempe, AZ · She/Her · Anthropic Certified · AWS Academy Graduate ×2</p>
 
