@@ -11,6 +11,11 @@ function bold(text) {
   )
 }
 
+const GROUPS=[
+  ['company','Built for a specific company','Working artifacts I sent instead of cover letters — each mapped to a real team\'s workflow.'],
+  ['platform','AI-directed platform builds','Spec, tradeoffs, evals and QA by me; implementation AI-assisted.'],
+]
+
 export default function Projects() {
   const [q,setQ]=useState('')
   const items=(PROJECTS||[]).filter(p=>
@@ -24,7 +29,7 @@ export default function Projects() {
         <p style={{fontSize:'11px',letterSpacing:'.3em',textTransform:'uppercase',color:'rgba(167,143,255,.8)',marginBottom:'10px',fontWeight:600}}>WORK</p>
         <h1 style={{fontSize:'clamp(32px,4vw,48px)',fontWeight:900,letterSpacing:'-.03em'}}>Projects</h1>
         <p style={{fontSize:'14px',color:'rgba(255,255,255,.38)',marginTop:'8px',lineHeight:1.6,maxWidth:'640px'}}>
-          Three AI products I took from spec to ship — I set the direction, owned the hard tradeoffs, and ran the QA; the implementation is AI-assisted. Directing AI to ship real software is the point.
+          Six AI builds I took from spec to ship — three live. I set the direction, owned the hard tradeoffs, built the evals, and ran the QA; the implementation is AI-assisted. Directing AI to ship real software is the point.
         </p>
         <div className="section-line" style={{marginTop:'24px'}}/>
       </div>
@@ -39,8 +44,17 @@ export default function Projects() {
         />
       </div>
 
+      {GROUPS.map(([g,heading,sub])=>{
+        const list=items.filter(p=>(p.group||'platform')===g)
+        if(!list.length) return null
+        return (
+      <div key={g} style={{marginBottom:'44px'}}>
+        <div className="reveal" style={{marginBottom:'18px'}}>
+          <h2 style={{fontSize:'20px',fontWeight:800,letterSpacing:'-.01em'}}>{heading}</h2>
+          <p style={{fontSize:'12.5px',color:'rgba(255,255,255,.38)',marginTop:'4px'}}>{sub}</p>
+        </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))',gap:'24px'}}>
-        {items.map((proj,i)=>{
+        {list.map((proj,i)=>{
           return (
           <div key={proj.id||i} className={`tilt-card reveal d${Math.min(i+1,5)}`}
             style={{borderRadius:'24px',border:'1px solid rgba(255,255,255,.09)',background:'rgba(255,255,255,.03)',overflow:'hidden',display:'flex',flexDirection:'column',backdropFilter:'blur(16px)',position:'relative'}}>
@@ -109,6 +123,8 @@ export default function Projects() {
           </div>
         )})}
       </div>
+      </div>
+        )})}
     </div>
   )
 }

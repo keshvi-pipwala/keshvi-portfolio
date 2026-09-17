@@ -4,10 +4,10 @@ import { Linkedin, Github, Mail, ArrowRight } from 'lucide-react'
 import { PROFILE } from '../data'
 
 const STATS = [
-  { val: '5,000+', label: 'Users on platforms I built', color: '#a78fff' },
-  { val: '95%',    label: 'Data accuracy at NASA',       color: '#40caff' },
+  { val: '5,000+', label: 'Users on a platform I owned 0→1', color: '#a78fff' },
+  { val: '95%',    label: "Anomaly-detection accuracy, NASA L'SPACE", color: '#40caff' },
   { val: '2×',     label: 'Promoted in 9 months at ASU', color: '#ffd166' },
-  { val: '+18%',   label: 'Retention lift I shipped',    color: '#ff80c0' },
+  { val: '6 / 3',  label: 'AI builds shipped / live right now', color: '#ff80c0' },
 ]
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
       <div className="reveal" style={{ marginBottom: '32px' }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(0,200,100,.1)', border: '1px solid rgba(0,200,100,.3)', borderRadius: '9999px', padding: '6px 16px', fontSize: '11px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: 'rgba(0,230,110,.95)' }}>
           <span className="pulse-dot" style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'rgba(0,230,110,.9)', display: 'inline-block' }} />
-Actively Open to Work — AI PM &amp; Software Engineering Roles
+Open Now — AI PM · Technical PM · Forward-Deployed AI
         </span>
       </div>
 
@@ -33,13 +33,13 @@ Actively Open to Work — AI PM &amp; Software Engineering Roles
           <div className="reveal d2" style={{ fontSize: 'clamp(15px,2vw,21px)', marginBottom: '24px', fontWeight: 700 }}>
             <span style={{ color: '#a78fff' }}>AI Product Manager</span>
             <span style={{ color: 'rgba(255,255,255,.3)', fontWeight: 500 }}> · </span>
-            <span style={{ color: '#40caff' }}>Software Engineer</span>
+            <span style={{ color: '#40caff' }}>Forward-Deployed AI Builder</span>
           </div>
 
           <p className="reveal d3" style={{ fontSize: '15px', color: 'rgba(255,255,255,.52)', lineHeight: 1.85, maxWidth: '500px', marginBottom: '10px' }}>
-            I build AI systems that run in production and own the metrics that prove they work. At <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> I engineered data infrastructure, and at <strong style={{ color: '#fff' }}>ASU</strong> I led an AI platform to <strong style={{ color: '#fff' }}>5,000+ students</strong>. Recently completed both — now looking for my next team.
+            I build AI systems that run in production and own the metrics that prove they work. At <strong style={{ color: '#fff' }}>NASA's L'SPACE Program</strong> I engineered data infrastructure, and at <strong style={{ color: '#fff' }}>ASU</strong> I led an AI platform to <strong style={{ color: '#fff' }}>5,000+ students</strong>. Since then I've shipped <strong style={{ color: '#fff' }}>six AI-directed builds, three live</strong> — including one with 100% precision on every automated decision. Available now.
           </p>
-          <p className="reveal d3" style={{ fontSize: '12px', color: 'rgba(255,255,255,.28)', marginBottom: '32px' }}>MS @ ASU · Tempe, AZ · She/Her · AWS & Anthropic Certified</p>
+          <p className="reveal d3" style={{ fontSize: '12px', color: 'rgba(255,255,255,.28)', marginBottom: '32px' }}>M.S. ASU, May 2026 · Tempe, AZ · She/Her · Anthropic Certified · AWS Academy Graduate ×2</p>
 
           <div className="reveal d4" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
             {[
