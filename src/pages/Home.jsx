@@ -6,7 +6,7 @@ import { PROFILE } from '../data'
 const STATS = [
   { val: '5,000+', label: 'Users on a platform I owned 0→1', color: '#a78fff' },
   { val: '95%',    label: "Anomaly-detection accuracy, NASA L'SPACE", color: '#40caff' },
-  { val: '2×',     label: 'Promoted in 9 months at ASU', color: '#ffd166' },
+  { val: '2×',     label: 'Promoted in 7 months at ASU', color: '#ffd166' },
   { val: '6',      label: 'AI builds shipped — all with live demos', color: '#ff80c0' },
 ]
 
