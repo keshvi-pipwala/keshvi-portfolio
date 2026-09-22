@@ -27,7 +27,7 @@ export const INTRO = {
 export const EXPERIENCE = [
   {
     icon: '🧠',
-    role: 'AI / Data Product Manager',
+    role: 'AI Product Manager',
     company: 'ASU — School of Social & Behavioral Sciences',
     location: 'Tempe, AZ',
     time: 'Jun 2025 – May 2026',
@@ -43,28 +43,29 @@ export const EXPERIENCE = [
   {
     icon: '🚀',
     role: 'Software Engineer',
-    company: "NASA L'SPACE Program",
+    company: "NASA L'SPACE Program · Arizona State University",
     location: 'Tempe, AZ',
-    time: 'Apr 2025 – Apr 2026',
-    type: 'NASA-funded academy · via ASU',
-    summary: "Engineered the data infrastructure behind a NASA mission-concept research effort — where a silent data error is a mission error.",
+    time: 'Mar 2025 – Apr 2026',
+    type: 'Contract · NASA-funded program run through ASU',
+    summary: "Built the data infrastructure for NASA's L'SPACE program at ASU, from the admissions data warehouse to the validation pipelines behind research reporting.",
     bullets: [
-      'Architected and deployed **ETL validation pipelines** over multi-source scientific datasets, reaching **95% anomaly-detection accuracy** with zero data-integrity failures across every pipeline run since launch.',
+      "Built the program's **MySQL data warehouse** for admissions and program management, with automated pipelines that pull and normalize data from **Google Forms and Google Sheets**, plus Budibase admin tools for the L'SPACE team.",
+      'Designed **ETL validation pipelines** over multi-source research datasets, reaching **95% anomaly-detection accuracy** with zero data-integrity failures across every pipeline run.',
       'Replaced weekly manual reporting for **3 active research teams** with automated SQL dashboards — reporting latency went from a week to real time.',
       'Took test coverage from near-zero to **80%+** with pytest and stood up GitHub Actions CI/CD, so every deployment was auditable and reversible.',
     ],
-    stack: ['Python', 'SQL', 'ETL', 'PostgreSQL', 'pytest', 'GitHub Actions'],
+    stack: ['Python', 'SQL', 'MySQL', 'ETL', 'Google Sheets', 'Budibase', 'pytest', 'GitHub Actions'],
   },
   {
     icon: '📋',
-    role: 'Technical Project Manager → Lead TPM',
+    role: 'Assistant Project Coordinator → TPM → Lead TPM',
     company: 'Arizona State University',
     location: 'Tempe, AZ · Hybrid',
-    time: 'Sep 2024 – Jun 2025',
-    type: 'Promoted twice in 9 months',
-    summary: 'Joined as Assistant Project Coordinator and was promoted twice in nine months — to TPM, then Lead TPM — by owning delivery outcomes across campus-wide programs.',
+    time: 'Aug 2024 – Jun 2025',
+    type: 'Promoted twice in 7 months',
+    summary: 'Joined as Assistant Project Coordinator and was promoted twice in seven months — to TPM, then Lead TPM — by owning delivery outcomes across campus-wide programs.',
     bullets: [
-      'Progressed **Assistant Coordinator → TPM → Lead TPM** in 9 months by taking on program delivery, budget accountability, and cross-functional stakeholder alignment.',
+      'Progressed **Assistant Project Coordinator → TPM → Lead TPM** in 7 months by taking on program delivery, budget accountability, and cross-functional stakeholder alignment.',
       'As Lead TPM, directed end-to-end delivery of **campus-wide technical programs** across student leaders, faculty, IT, and external vendors — **5+ concurrent initiatives, zero missed milestones**.',
       'Rolled out structured PM workflows in Smartsheet, Asana, and Jira, lifting visibility, accountability, and on-time delivery across every active project.',
       'Managed vendor contracts, financial resources, and budget deliverables with full financial accountability through the program lifecycle.',
@@ -79,16 +80,14 @@ export const EXPERIENCE = [
     role: 'Technical Business Analyst',
     company: 'Grey Enterprise',
     location: 'Ahmedabad, India',
-    time: 'Jan 2024 – May 2024',
+    time: 'Jan 2024 – Jul 2024',
     type: 'Internship',
-    summary: 'Turned two product launches into instrumented, self-serve analytics — and the adoption insights that followed moved the product roadmap.',
+    summary: 'Reworked the data and workflow processes behind client service, then measured what changed.',
     bullets: [
-      'Engineered automated data-collection pipelines in **Python and SQL** across 2 sequential product launches, surfacing adoption insights that drove a **+15% lift in user uptake** within 60 days.',
-      'Built **Tableau and Power BI dashboards** that retired manual Excel reporting — **3+ hours/week** back to the analytics team and self-serve access for business stakeholders.',
-      'Ran cohort-level exploratory analysis in **Python (Pandas, NumPy)** to segment user behavior and inform product strategy.',
-      'Translated business requirements into technical specs with product and engineering across both launches.',
+      'Raised operational efficiency **32%** by reworking data-integration and workflow processes in **ServiceNow**.',
+      'Cut service response times **30%** and lifted client satisfaction **20%** by optimizing request-handling software with **Python and SQL**.',
     ],
-    stack: ['Python', 'SQL', 'Tableau', 'Power BI', 'Excel', 'Product Analytics', 'Business Requirements'],
+    stack: ['ServiceNow', 'Python', 'SQL', 'Workflow Design', 'Data Integration', 'Business Analysis'],
   },
 ]
 
@@ -192,7 +191,7 @@ export const PROJECTS = [
 
 export const EDUCATION = [
   { school:'Arizona State University', degree:'M.S. Information Technology & Management', meta:'Aug 2024 – May 2026 · Tempe, AZ', gpa:'3.5 / 4.0', star:false, note:'Completed while working two concurrent roles — data engineering at NASA L\'SPACE and AI product management at ASU.' },
-  { school:'Gujarat Technological University', degree:'B.E. Computer Engineering', meta:'Aug 2021 – Jun 2024 · Surat, India', gpa:'3.8 / 4.0', star:false, note:'Founded Kaleidoscope — a student tech community I built from zero into a running program of workshops, events, and hackathons.' },
+  { school:'Sarvajanik College of Engineering & Technology (Gujarat Technological University)', degree:'B.E. Computer Engineering', meta:'Jun 2021 – Jun 2024 · Surat, India', gpa:'3.8 / 4.0', star:false, note:'Founded Kaleidoscope — a student tech community I built from zero into a running program of workshops, events, and hackathons.' },
 ]
 
 export const CERTIFICATIONS = [
@@ -224,7 +223,7 @@ export const TESTIMONIALS = [
   // { quote: "...", name: "Full Name", title: "Role, Organization" },
 ]
 
-export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI/Data Product Manager who directs AI tooling, owns product decisions, and ships AI-assisted builds against her own specs and evals — she is transparent that implementation is AI-assisted and that the spec, tradeoffs, eval design, and QA are hers. She holds an M.S. in Information Technology & Management from Arizona State University (May 2026, 3.5 GPA, earned while working two concurrent roles). Recently completed roles (she is actively seeking her next full-time role now): AI/Data Product Manager at ASU (Jun 2025 – May 2026; 0→5,000+ users, +18% retention, +22% engagement via A/B tests), Software Engineer in NASA's L'SPACE Program (Apr 2025 – Apr 2026; NASA-funded academy via ASU; ETL validation pipelines at 95% anomaly-detection accuracy, 80%+ test coverage, CI/CD), Technical Project Manager → Lead TPM at ASU (Sep 2024 – Jun 2025; promoted twice in 9 months; 5+ concurrent programs, zero missed milestones), and a Technical Business Analyst internship at Grey Enterprise. Shipped builds (all six have live demos): Close Copilot (live; confidence-routed transaction categorization; 100% precision on auto-posts, 96.2% accuracy on a 104-row labeled set), SubmissionClear (insurance intake agent pipeline built for FurtherAI), a resilient multi-provider LLM gateway on LiteLLM, GitSense (PR-review agent), InsightIQ (live; grounded CSV analytics), ResilienceOS (chaos engineering with AI post-mortems, 53 integration tests). Certifications: Anthropic AI Fluency and Claude 101; AWS Academy Graduate in Data Engineering and Machine Learning Foundations; Kaggle Python Coder. AnitaB.org premium student member. Founded Kaleidoscope, a student tech community, during her B.E. Target roles: AI Product Manager, Technical Program/Project Manager, Forward-Deployed / Applied AI. Based in Tempe, AZ; open to relocation (SF, NYC, Seattle, Austin). Work authorization: F-1 OPT with roughly three years of authorization. Email: keshvipipwalan@gmail.com`
+export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI Product Manager who directs AI tooling, owns product decisions, and ships AI-assisted builds against her own specs and evals — she is transparent that implementation is AI-assisted and that the spec, tradeoffs, eval design, and QA are hers. She holds an M.S. in Information Technology & Management from Arizona State University (May 2026, 3.5 GPA, earned while working two concurrent roles). Recently completed roles (she is actively seeking her next full-time role now): AI Product Manager at ASU (Jun 2025 – May 2026; 0→5,000+ users, +18% retention, +22% engagement via A/B tests), Software Engineer (contract) in NASA's L'SPACE Program at ASU (Mar 2025 – Apr 2026; built the program's MySQL data warehouse fed from Google Forms and Sheets; ETL validation pipelines at 95% anomaly-detection accuracy, 80%+ test coverage, CI/CD), Assistant Project Coordinator → Technical Project Manager → Lead TPM at ASU (Aug 2024 – Jun 2025; promoted twice in 7 months; 5+ concurrent programs, zero missed milestones), and a Technical Business Analyst internship at Grey Enterprise (Jan – Jul 2024; +32% operational efficiency with ServiceNow, 30% faster response times). Earlier internships in India: Tech Innovators and CreArt Solutions. Shipped builds (all six have live demos): Close Copilot (live; confidence-routed transaction categorization; 100% precision on auto-posts, 96.2% accuracy on a 104-row labeled set), SubmissionClear (insurance intake agent pipeline built for FurtherAI), a resilient multi-provider LLM gateway on LiteLLM, GitSense (PR-review agent), InsightIQ (live; grounded CSV analytics), ResilienceOS (chaos engineering with AI post-mortems, 53 integration tests). Certifications: Anthropic AI Fluency and Claude 101; AWS Academy Graduate in Data Engineering and Machine Learning Foundations; Kaggle Python Coder. AnitaB.org premium student member. Founded Kaleidoscope, a student tech community, during her B.E. in Computer Engineering at Sarvajanik College of Engineering & Technology (Gujarat Technological University), Jun 2021 – Jun 2024. Target roles: Associate Product Manager, AI Product Manager, Technical Program/Project Manager, Forward-Deployed / Applied AI. Based in Tempe, AZ; open to relocation (SF, NYC, Seattle, Austin). Work authorization: F-1 OPT with roughly three years of authorization. Email: keshvipipwalan@gmail.com`
 
 export const CHAT_SUGGESTIONS = [
   "What has she actually shipped?",
