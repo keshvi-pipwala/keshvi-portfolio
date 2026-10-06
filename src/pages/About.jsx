@@ -26,10 +26,11 @@ const PROOF_STATS = [
   { value:'95%',      label:'Anomaly-detection accuracy on NASA data pipelines — zero integrity failures since launch.', bg:'rgba(255,200,80,.07)', bd:'rgba(255,200,80,.3)' },
   { value:'80%+',     label:'Test coverage I raised from near-zero at NASA with pytest + CI/CD.', bg:'rgba(255,140,105,.08)', bd:'rgba(255,140,105,.3)' },
   { value:'100%',     label:'Precision on auto-posted rows in Close Copilot (96.2% overall, 104-row labeled set) — live.', bg:'rgba(200,100,220,.08)', bd:'rgba(200,100,220,.3)' },
-  { value:'6',        label:'AI builds shipped from spec to URL — every one has a live demo, all on GitHub.', bg:'rgba(124,122,207,.08)', bd:'rgba(124,122,207,.35)' },
+  { value:'7',        label:'Builds shipped from spec to URL — every one has a live demo, all on GitHub.', bg:'rgba(124,122,207,.08)', bd:'rgba(124,122,207,.35)' },
 ]
 
 const PROOF_LINKS = [
+  { label:'Live — MatchPoint', href:'https://keshvi-pipwala.github.io/matchpoint/', Icon:ExternalLink, ext:true },
   { label:'Live — Close Copilot', href:'https://close-copilot.vercel.app', Icon:ExternalLink, ext:true },
   { label:'Live — SubmissionClear', href:'https://keshvi-pipwala.github.io/submissionclear/', Icon:ExternalLink, ext:true },
   { label:'Live — InsightIQ', href:'https://insightiq-frontend-jn6h.onrender.com', Icon:ExternalLink, ext:true },

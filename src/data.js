@@ -199,7 +199,7 @@ export const PROJECTS = [
     bullets: [
       '**Scoped the experiment surface** — five fault types (latency, errors, partitions, resource exhaustion, service kills) and three named scenarios (Cascade Failure, Slow Death, Split Brain) — and what an operator needs to see when they fire.',
       '**Specified the post-mortem output**: what an automated SRE write-up must explain (what broke, why, blast radius, timeline) for it to be useful rather than noise.',
-      '**Directed the build** of 5 microservices + control plane + chaos agent with Prometheus/Grafana observability and circuit breakers; the architecture decisions and the 53-test acceptance suite are mine.',
+      '**Designed and shipped** 5 microservices + control plane + chaos agent with Prometheus/Grafana observability and circuit breakers, gated by a 53-test acceptance suite.',
     ],
     stack: ['Product Spec', 'Incident Analysis', 'FastAPI', 'Prometheus', 'Grafana', 'Docker', 'Claude API'],
   },
