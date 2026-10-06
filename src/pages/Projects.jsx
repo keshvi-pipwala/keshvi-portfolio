@@ -12,8 +12,8 @@ function bold(text) {
 }
 
 const GROUPS=[
-  ['company','Built for a specific company','Working artifacts I sent instead of cover letters — each mapped to a real team\'s workflow.'],
-  ['platform','AI-directed platform builds','Spec, tradeoffs, evals and QA by me; implementation AI-assisted.'],
+  ['company','Built for real workflows','Each one starts from a real team\'s workflow and ends with numbers anyone can reproduce.'],
+  ['platform','Platform builds','Agents, infrastructure and analytics: designed, tested and shipped live.'],
 ]
 
 export default function Projects() {
@@ -29,7 +29,7 @@ export default function Projects() {
         <p style={{fontSize:'11px',letterSpacing:'.3em',textTransform:'uppercase',color:'rgba(167,143,255,.8)',marginBottom:'10px',fontWeight:600}}>WORK</p>
         <h1 style={{fontSize:'clamp(32px,4vw,48px)',fontWeight:900,letterSpacing:'-.03em'}}>Projects</h1>
         <p style={{fontSize:'14px',color:'rgba(255,255,255,.38)',marginTop:'8px',lineHeight:1.6,maxWidth:'640px'}}>
-          Six AI builds I took from spec to ship — every one has a live demo. I set the direction, owned the hard tradeoffs, built the evals, and ran the QA; the implementation is AI-assisted. Directing AI to ship real software is the point.
+          Seven builds I took from spec to ship, every one with a live demo. For each I set the direction, made the hard tradeoffs, built the evals, and ran the QA. Every number below can be reproduced from the repo.
         </p>
         <div className="section-line" style={{marginTop:'24px'}}/>
       </div>

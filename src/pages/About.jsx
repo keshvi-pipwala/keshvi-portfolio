@@ -15,7 +15,7 @@ const CAT_COLORS = {
 const HOW_I_WORK = [
   { Icon: Wrench,    title:'Engineering with full context', body:"At NASA's L'SPACE Program I wrote the pipelines, the tests, and the dashboards. Owning the full stack means catching issues earlier and building more reliable systems." },
   { Icon: BarChart3, title:'Product grounded in data',      body:'At ASU I combined product thinking with hands-on ML work — running A/B tests, iterating on the model, and tracking retention through each change.' },
-  { Icon: Bot,       title:'AI systems end-to-end',         body:'Six shipped builds, all with live demos: a confidence-routed transaction categorizer with 100% precision on auto-posts (live), an insurance-intake agent pipeline built for a real forward-deployed application (live), a multi-provider LLM gateway, a PR-review agent, grounded CSV analytics (live), and a chaos-engineering platform. I own the spec, tradeoffs, eval set, and QA; implementation is AI-assisted and I say so.' },
+  { Icon: Bot,       title:'AI systems end-to-end',         body:'Seven shipped builds, all with live demos: a construction AP invoice-matching engine with 100% precision on auto-approvals (live), a confidence-routed transaction categorizer with 100% precision on auto-posts (live), an insurance-intake agent pipeline built for a real forward-deployed application (live), a multi-provider LLM gateway, a PR-review agent, grounded CSV analytics (live), and a chaos-engineering platform. I own the spec, tradeoffs, eval set, QA and deployment on every one.' },
 ]
 
 // Every number here is tied to something on this site a recruiter can open and verify.
@@ -49,7 +49,7 @@ export default function About() {
         <p style={{ fontSize:'11px', letterSpacing:'.3em', textTransform:'uppercase', color:'rgba(167,143,255,.8)', marginBottom:'8px', fontWeight:600 }}>ABOUT</p>
         <h1 style={{ fontSize:'clamp(28px,4vw,44px)', fontWeight:800, marginBottom:'12px', letterSpacing:'-.02em' }}>I ship things that survive production — then I write down why.</h1>
         <p style={{ fontSize:'15px', color:'rgba(255,255,255,.48)', maxWidth:'580px', lineHeight:1.75 }}>
-          I've worked the data-engineering seat (NASA's L'SPACE Program) and the product seat (ASU, 0→5,000 users) — both wrapped up in 2026 — and I now ship AI-directed builds against my own specs and evals. I care about measurable outcomes, not shipped features. Available now for AI PM, technical PM, and forward-deployed roles.
+          I've worked the data-engineering seat (NASA's L'SPACE Program) and the product seat (ASU, 0→5,000 users) — both wrapped up in 2026 — and I now ship working products against my own specs and evals. I care about measurable outcomes, not shipped features. Available now for AI PM, technical PM, and forward-deployed roles.
         </p>
       </div>
 

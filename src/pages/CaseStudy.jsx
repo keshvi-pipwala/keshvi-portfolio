@@ -57,7 +57,7 @@ export default function CaseStudy() {
       {/* My role banner */}
       <div className="reveal" style={{ ...card, borderColor: 'rgba(124,122,207,.28)', background: 'rgba(124,122,207,.06)' }}>
         <div style={body}>
-          <span style={strong}>My role:</span> I owned the product — the spec, the scope, the tradeoff decisions, and the QA. The implementation was AI-assisted and I directed it end to end. Everything below is a decision I made and can defend.
+          <span style={strong}>My role:</span> I owned the product end to end: the spec, the scope, the tradeoff decisions, the QA and the deployment. Everything below is a decision I made and can defend.
         </div>
       </div>
 
@@ -135,7 +135,7 @@ export default function CaseStudy() {
       <div className="reveal" style={{ ...card, textAlign: 'center', borderColor: 'rgba(124,122,207,.28)', background: 'rgba(124,122,207,.06)' }}>
         <div style={{ fontSize: '15px', color: '#fff', fontWeight: 700, marginBottom: '6px' }}>The takeaway</div>
         <div style={{ fontSize: '13.5px', color: 'rgba(255,255,255,.65)', lineHeight: 1.8, maxWidth: '620px', margin: '0 auto' }}>
-          I scoped a product around one testable promise, made an infrastructure tradeoff I can defend, protected the core promise when it cost me a flashier demo, and can tell you exactly how I'd measure whether it worked. That's the job — and I did it directing AI, which is how I move at the speed of a team.
+          I scoped a product around one testable promise, made an infrastructure tradeoff I can defend, protected the core promise when it cost me a flashier demo, and can tell you exactly how I'd measure whether it worked. That's the job, and it's how I'd work on your team.
         </div>
       </div>
 

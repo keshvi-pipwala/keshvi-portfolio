@@ -184,7 +184,31 @@ function GatewayPreview() {
   )
 }
 
-const MAP = { insightiq: InsightIQPreview, gitsense: GitSensePreview, resilienceos: ResilienceOSPreview, 'close-copilot': CloseCopilotPreview, submissionclear: SubmissionClearPreview, 'litellm-gateway': GatewayPreview }
+function MatchPointPreview() {
+  const rows = [
+    { d: 'Desert Ridge Concrete · SC-2401', amt: '42,649.41', why: 'All checks passed', ok: true },
+    { d: 'Saguaro Steel · pay app 09',       amt: '116,433.51', why: 'Over contract $14,200', ok: false },
+    { d: 'Valley Rebar · PO-2404',           amt: '1,252.12', why: 'All checks passed', ok: true },
+    { d: 'Copper Canyon Electric',           amt: '36,977.92', why: 'Pending change order', ok: false },
+  ]
+  return (
+    <div style={{ ...shell, background: '#f6f7f9', display: 'flex', flexDirection: 'column', padding: '38px 14px 10px', gap: '5px', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+        <span style={{ fontSize: '7.5px', color: '#5b6472' }}>AP queue · threshold 0.90</span>
+        <span style={{ marginLeft: 'auto', fontSize: '7px', fontWeight: 700, color: '#1b7a43', background: '#e6f4ec', borderRadius: '4px', padding: '2px 6px' }}>100% precision on auto-approvals</span>
+      </div>
+      {rows.map(r => (
+        <div key={r.d} style={{ display: 'grid', gridTemplateColumns: '1.6fr .8fr 1.2fr', gap: '8px', alignItems: 'center', fontSize: '7.5px', background: '#fff', border: '1px solid ' + (r.ok ? '#e3e6eb' : '#f0c36d'), borderRadius: '4px', padding: '4px 6px', color: '#14181f' }}>
+          <span>{r.d}</span>
+          <span style={{ textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>${r.amt}</span>
+          <span style={{ fontWeight: 700, fontSize: '6.5px', color: r.ok ? '#1b7a43' : '#a15c00' }}>{r.ok ? 'APPROVED' : 'REVIEW'} · <span style={{ fontWeight: 400 }}>{r.why}</span></span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const MAP = { matchpoint: MatchPointPreview, insightiq: InsightIQPreview, gitsense: GitSensePreview, resilienceos: ResilienceOSPreview, 'close-copilot': CloseCopilotPreview, submissionclear: SubmissionClearPreview, 'litellm-gateway': GatewayPreview }
 
 export default function ProjectPreview({ id }) {
   const Comp = MAP[id]

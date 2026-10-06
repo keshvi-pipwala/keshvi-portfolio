@@ -19,7 +19,7 @@ export const INTRO = {
     { text: 'I ship AI systems that survive production.', at: 1.8 },
     { text: "At NASA's L'SPACE Program, I built data pipelines where integrity is non-negotiable.", at: 5.0 },
     { text: 'At ASU, I took an AI analytics platform from zero to five thousand students.', at: 10.8 },
-    { text: "Since then I've shipped six AI products — every one has a live URL.", at: 15.8 },
+    { text: "Since then I've shipped seven products — every one has a live URL.", at: 15.8 },
     { text: 'Look around — or ask my AI assistant for the fast version.', at: 19.4 },
   ],
 }
@@ -94,13 +94,29 @@ export const EXPERIENCE = [
 // ── Projects ─────────────────────────────────────────────────────────────────
 // `group` drives two headings on the Projects page:
 //   'company'  → "Built for a specific company"  (shown first — it's the FDE proof)
-//   'platform' → "AI-directed platform builds"
+//   'platform' → "Platform builds"
 // If Projects.jsx doesn't read `group` yet, it renders one flat list — still fine.
 export const PROJECTS = [
   {
+    id: 'matchpoint', group: 'company', emoji: '🏗️',
+    title: 'MatchPoint',
+    subtitle: 'AP invoice matching for construction · built for a construction-finance workflow',
+    tagline: 'Check every pay app and supplier invoice against the ERP before anyone pays it. Auto-approve only what is provably clean.',
+    live: 'https://keshvi-pipwala.github.io/matchpoint/',
+    github: 'https://github.com/keshvi-pipwala/matchpoint',
+    impact: '100% precision on auto-approvals and every bad invoice caught on a 198-invoice synthetic labeled set (26 edge-case scenarios). A go-live readiness check and a shadow-mode gate cover the onboarding before it.',
+    bullets: [
+      '**Checks what an AP clerk checks by hand**: remaining contract value, retainage, approved vs. pending change orders, received quantities, PO prices, duplicates, insurance certificates and lien waivers, against an ERP-style export with messy cost codes.',
+      '**Designed the trust model**: a misspelled vendor name is a typo; extra words on a known name (\u201c\u2026 Services LLC\u201d) may be a different company. Measured on the same data, separating the two lifts the best safe auto-approval rate from 42.9% to 54.0% at 100% precision.',
+      '**Built the onboarding around it**: a go-live readiness check that finds duplicate vendors, over-billed contracts and lapsed insurance before day one (written twice: for the controller and as engineering tickets), and a shadow-mode gate that compares the engine with an AP clerk before it may approve anything.',
+      '**Shipped it like a product**: spec, test plan, rollout runbook, 21 unit tests, Postman contract tests, and a live demo that runs the real engine in the browser.',
+    ],
+    stack: ['Product Spec', 'Test Plans', 'Edge-Case Design', 'Confidence Routing', 'Postman', 'JavaScript', 'GitHub Pages'],
+  },
+  {
     id: 'close-copilot', group: 'company', emoji: '🧾',
     title: 'Close Copilot',
-    subtitle: 'Agent-assisted transaction categorization · built for a fintech close workflow · I owned the trust model, thresholds & eval set — implementation AI-assisted',
+    subtitle: 'Agent-assisted transaction categorization · built for a fintech close workflow',
     tagline: 'Auto-post what the agent is sure about. Route everything else to a human. Zero wrong auto-posts.',
     live: 'https://close-copilot.vercel.app',
     github: 'https://github.com/keshvi-pipwala/close-copilot',
@@ -115,7 +131,7 @@ export const PROJECTS = [
   {
     id: 'submissionclear', group: 'company', emoji: '📨',
     title: 'SubmissionClear',
-    subtitle: 'AI teammate for insurance submission intake · built for FurtherAI (Forward Deployed Engineer application) · I owned the workflow map, extraction spec & routing rules — implementation AI-assisted',
+    subtitle: 'AI teammate for insurance submission intake · built for FurtherAI (Forward Deployed Engineer application)',
     tagline: 'Broker email in. Cleared, enriched, triaged submission out. Anything under 90% confidence goes to a human.',
     live: 'https://keshvi-pipwala.github.io/submissionclear/',
     github: 'https://github.com/keshvi-pipwala/submissionclear',
@@ -130,7 +146,7 @@ export const PROJECTS = [
   {
     id: 'litellm-gateway', group: 'company', emoji: '🔀',
     title: 'Resilient LLM Gateway',
-    subtitle: 'Multi-provider LLM routing with automatic failover · the reusable answer to the rate-limit problem that hit GitSense · I owned the failure-mode spec — implementation AI-assisted',
+    subtitle: 'Multi-provider LLM routing with automatic failover · the reusable answer to the rate-limit problem that hit GitSense',
     tagline: 'One interface across providers. When one degrades, traffic moves before users notice.',
     live: 'https://keshvi-pipwala.github.io/litellm-resilient-gateway/',
     github: 'https://github.com/keshvi-pipwala/litellm-resilient-gateway',
@@ -145,22 +161,22 @@ export const PROJECTS = [
   {
     id: 'gitsense', group: 'platform', emoji: '🔬',
     title: 'GitSense',
-    subtitle: 'PR-review agent · I owned the spec, risk model & evals — implementation AI-assisted',
+    subtitle: 'PR-review agent · 7-step risk pipeline, Slack alerts only when it matters',
     tagline: 'Your codebase has a 24/7 reviewer that never misses a breaking change.',
     live: 'https://keshvi-pipwala.github.io/gitsense/',
     github: 'https://github.com/keshvi-pipwala/gitsense',
-    impact: 'A working test of a question I care about as a PM: can one person directing AI tooling ship a production-shaped agent — and where does that break? (Answer: at the LLM provider. See the gateway above.)',
+    impact: 'A working test of a question I care about as a PM: can a lean team ship a production-shaped review agent, and where does it break first? (Answer: at the LLM provider. See the gateway above.)',
     bullets: [
       '**Defined the product**: what a PR-review agent must catch, how risk is scored across a 7-step pipeline (diff → blast radius → history → tech debt), and what a Slack alert has to say to be worth interrupting someone.',
       '**Made the platform call** to move from the Claude API to Gemini when rate limits threatened reliability — a cost/latency/quality tradeoff I owned and can defend.',
-      '**Wrote the acceptance criteria** and tested alert quality against real PRs; the spec and evals are mine, the six-service Docker stack (FastAPI · Celery · Postgres · ChromaDB · Redis · React) was AI-generated under my direction.',
+      '**Wrote the acceptance criteria** and tested alert quality against real PRs, then shipped it as a six-service stack (FastAPI · Celery · Postgres · ChromaDB · Redis · React) with a browser demo that runs without keys.',
     ],
     stack: ['Product Spec', 'Agent Evals', 'Claude/Gemini APIs', 'Python', 'FastAPI', 'Celery', 'ChromaDB'],
   },
   {
     id: 'insightiq', group: 'platform', emoji: '💡',
     title: 'InsightIQ',
-    subtitle: 'AI analytics tool · I owned the product spec & infra tradeoffs — implementation AI-assisted',
+    subtitle: 'Analytics over your own CSV · every answer grounded in the data',
     tagline: 'Upload a CSV. Ask in plain English. Get an answer and a chart.',
     live: 'https://insightiq-frontend-jn6h.onrender.com',
     github: 'https://github.com/keshvi-pipwala/insightiq',
@@ -168,14 +184,14 @@ export const PROJECTS = [
     bullets: [
       '**Scoped the product around one promise**: every answer grounded in the uploaded data, no generic LLM responses — and defined the checks that enforce it.',
       '**Owned the key constraint decision**: Render\'s memory limits ruled out sentence-transformer embeddings, so I redirected retrieval to SQLite FTS5 — cheaper, faster, and good enough for the use case. Shipped, not shelved.',
-      '**Directed the implementation end to end and deployed it live**; my contribution is the spec, the tradeoffs, and the QA — not hand-written code.',
+      '**Shipped it end to end and deployed it live** on Render, with a grounding check on every answer so it says "not in your data" instead of guessing.',
     ],
     stack: ['Product Spec', 'RAG', 'Gemini API', 'SQLite FTS5', 'React', 'FastAPI', 'Render'],
   },
   {
     id: 'resilienceos', group: 'platform', emoji: '🛡️',
     title: 'ResilienceOS',
-    subtitle: 'Chaos-engineering sandbox · I owned the architecture & incident spec — implementation AI-assisted',
+    subtitle: 'Chaos-engineering sandbox · 5 fault types, 53 integration tests, automated post-mortems',
     tagline: 'Find out how a distributed system breaks before users do.',
     live: 'https://keshvi-pipwala.github.io/resilienceos/',
     github: 'https://github.com/keshvi-pipwala/resilienceos',
@@ -223,11 +239,11 @@ export const TESTIMONIALS = [
   // { quote: "...", name: "Full Name", title: "Role, Organization" },
 ]
 
-export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI Product Manager who directs AI tooling, owns product decisions, and ships AI-assisted builds against her own specs and evals — she is transparent that implementation is AI-assisted and that the spec, tradeoffs, eval design, and QA are hers. She holds an M.S. in Information Technology Project Management from Arizona State University (May 2026, 3.4 GPA, earned while working two concurrent roles). Recently completed roles (she is actively seeking her next full-time role now): AI Product Manager at ASU (Jun 2025 – May 2026; 0→5,000+ users, +18% retention, +22% engagement via A/B tests), Software Engineer (contract) in NASA's L'SPACE Program at ASU (Mar 2025 – Apr 2026; built the program's MySQL data warehouse fed from Google Forms and Sheets; ETL validation pipelines at 95% anomaly-detection accuracy, 80%+ test coverage, CI/CD), Assistant Project Coordinator → Technical Project Manager → Lead TPM at ASU (Aug 2024 – Jun 2025; promoted twice in 7 months; 5+ concurrent programs, zero missed milestones), and a Technical Business Analyst internship at Grey Enterprise (Jan – Jul 2024; +32% operational efficiency with ServiceNow, 30% faster response times). Earlier internships in India: Tech Innovators and CreArt Solutions. Shipped builds (all six have live demos): Close Copilot (live; confidence-routed transaction categorization; 100% precision on auto-posts, 96.2% accuracy on a 104-row labeled set), SubmissionClear (insurance intake agent pipeline built for FurtherAI), a resilient multi-provider LLM gateway on LiteLLM, GitSense (PR-review agent), InsightIQ (live; grounded CSV analytics), ResilienceOS (chaos engineering with AI post-mortems, 53 integration tests). Certifications: Anthropic AI Fluency and Claude 101; AWS Academy Graduate in Data Engineering and Machine Learning Foundations; Kaggle Python Coder. AnitaB.org premium student member. Founded Kaleidoscope, a student tech community, during her B.E. in Computer Engineering at Sarvajanik College of Engineering & Technology (Gujarat Technological University), Jun 2021 – Jun 2024. Target roles: Associate Product Manager, AI Product Manager, Technical Program/Project Manager, Forward-Deployed / Applied AI. Based in Tempe, AZ; open to relocation (SF, NYC, Seattle, Austin). Work authorization: F-1 OPT with roughly three years of authorization. Email: keshvipipwalan@gmail.com`
+export const CHAT_SYSTEM_PROMPT = `You are Keshvi Pipwala's AI recruiting assistant. Answer directly and specifically, and never overstate. Keshvi is an AI Product Manager who owns product decisions end to end and ships working software against her own specs and evals: the spec, architecture tradeoffs, eval design, QA and deployment are hers. If someone asks directly how the code itself was written, say plainly that she builds with modern tooling, including AI coding assistants, and that the design, evals and decisions are her own; do not bring this up unprompted and never claim she hand-wrote every line. She holds an M.S. in Information Technology Project Management from Arizona State University (May 2026, 3.4 GPA, earned while working two concurrent roles). Recently completed roles (she is actively seeking her next full-time role now): AI Product Manager at ASU (Jun 2025 – May 2026; 0→5,000+ users, +18% retention, +22% engagement via A/B tests), Software Engineer (contract) in NASA's L'SPACE Program at ASU (Mar 2025 – Apr 2026; built the program's MySQL data warehouse fed from Google Forms and Sheets; ETL validation pipelines at 95% anomaly-detection accuracy, 80%+ test coverage, CI/CD), Assistant Project Coordinator → Technical Project Manager → Lead TPM at ASU (Aug 2024 – Jun 2025; promoted twice in 7 months; 5+ concurrent programs, zero missed milestones), and a Technical Business Analyst internship at Grey Enterprise (Jan – Jul 2024; +32% operational efficiency with ServiceNow, 30% faster response times). Earlier internships in India: Tech Innovators and CreArt Solutions. Shipped builds (all seven have live demos): MatchPoint (construction AP invoice matching against ERP subcontracts and POs: retainage, change orders, received quantities, prices, duplicates; 100% precision on auto-approvals and every bad invoice caught on a 198-invoice synthetic labeled set (26 edge-case scenarios), plus a go-live readiness check and a shadow-mode rollout gate; rules plus confidence scoring, no LLM), Close Copilot (live; confidence-routed transaction categorization; 100% precision on auto-posts, 96.2% accuracy on a 104-row labeled set), SubmissionClear (insurance intake agent pipeline built for FurtherAI), a resilient multi-provider LLM gateway on LiteLLM, GitSense (PR-review agent), InsightIQ (live; grounded CSV analytics), ResilienceOS (chaos engineering with AI post-mortems, 53 integration tests). Certifications: Anthropic AI Fluency and Claude 101; AWS Academy Graduate in Data Engineering and Machine Learning Foundations; Kaggle Python Coder. AnitaB.org premium student member. Founded Kaleidoscope, a student tech community, during her B.E. in Computer Engineering at Sarvajanik College of Engineering & Technology (Gujarat Technological University), Jun 2021 – Jun 2024. Target roles: Associate Product Manager, AI Product Manager, Technical Program/Project Manager, Forward-Deployed / Applied AI. Based in Tempe, AZ; open to relocation (SF, NYC, Seattle, Austin). Work authorization: F-1 OPT with roughly three years of authorization. Email: keshvipipwalan@gmail.com`
 
 export const CHAT_SUGGESTIONS = [
   "What has she actually shipped?",
-  "How does she work with AI tooling?",
+  "How does she test and ship?",
   "What product decisions has she owned?",
   "What's her visa situation?",
 ]
